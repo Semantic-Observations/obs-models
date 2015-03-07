@@ -4,29 +4,30 @@
 #
 # Matt Jones and Adam Shepherd
 
-def getDataList():
-    d1query = "https://cn.dataone.org/cn/v1/query/solr/?fl=identifier,title,author,authorLastName,origin,submitter,rightsHolder,relatedOrganizations,contactOrganization,documents,resourceMap&q=formatType:METADATA&rows=100&start=20000"
-    res = urllib2.urlopen(d1query)
-    content = res.read()
-    xmldoc = ET.fromstring(content)
-    return(xmldoc)
-
-def readcsv(filename):
+def add_statements_from_csv(filename, model, ns):
     
     cfile  = open(filename, "rb")
     reader = csv.reader(cfile)
 
     triple_section = False
+    ns_section = False
     rownum = 0
     for row in reader:
         # Save header row.
         if row[1] == 'Subject':
             header = row
             triple_section = True
+        elif row[1] == 'Namespaces':
+            ns_section = True
+        elif ns_section:
+            prefix = row[1]
+            nsuri = row[2]
+            # TODO: add any new namespaces from the CSV file to the ns dict
         elif triple_section:
             subject = row[1]
             predicate = row[2]
             object = row[3]
+            
             # TODO: do something with the row
     cfile.close()
     
@@ -80,20 +81,6 @@ def addDataset(model, doc, ns, personhash):
         model.add_statement(s4)
         model.sync()
 
-# TODO:
-# <http://lod.bco-dmo.org/id/person/50377> rdf:type olperson:Person ;
-#                                          olperson:hasPersonalInfoItem <http://lod.bco-dmo.org/id/person/50377#info> .
-#
-# <http://lod.bco-dmo.org/id/person/50377#info> rdf:type olpersoninfo:PersonalInfoItem ;
-#                                               olpersoninfo:isPersonalInfoItemOf <http://lod.bco-dmo.org/id/person/50377> ;
-#                                               olpersoninfo:hasPersonalInfoType <http://schema.geolink.org/person-name#person_name> ;
-#                                              olpersoninfo:hasPersonalInfoValue <http://lod.bco-dmo.org/id/person/50377#name> .
-#
-# <http://lod.bco-dmo.org/id/person/50377#name> rdf:type olpersonname:PersonName ;
-#                                               olpersonname:fullNameAsString "Dr Dian  J. Gifford"@en-US ;
-#                                               olpersonname:firstOrGivenName "Dian"@en-US ;
-#                                               olpersonname:familyOrSurname "Gifford"@en-US .
-
 def createModel():
     storage=RDF.Storage(storage_name="hashes", name="geolink", options_string="new='yes',hash-type='memory',dir='.'")
     #storage=RDF.MemoryStorage()
@@ -124,10 +111,6 @@ def serialize(model, ns, filename, format):
 
 def main():
     model = createModel()
-    mbj_uuid = uuid.uuid4()
-    mbj_orcid = "http://orcid.org/0000-0003-0077-4738"
-    mbj_data = [mbj_uuid.urn, mbj_orcid]
-    personhash = {'Jones, Matthew': mbj_data}
     ns = {
         "foaf": "http://xmlns.com/foaf/0.1/",
         "dcterms": "http://purl.org/dc/terms/",
@@ -138,13 +121,9 @@ def main():
         "datacite": "http://purl.org/spar/datacite/"
     }
     
-    readcsv("sargasso-lipids-obs-model.csv")
-    #xmldoc = getDataList()
-    #doclist = xmldoc.findall(".//doc")
-    #print(len(doclist))
-    #for d in doclist:
-    #    addDataset(model, d, ns, personhash)
-        
+    add_statements_from_csv("sargasso-lipids-obs-model.csv", model)
+    
+    
     print("Model size before serialize: " + str(model.size()))
     serialize(model, ns, "dataone-example-lod.ttl", "turtle")
     serialize(model, ns, "dataone-example-lod.rdf", "rdfxml")
