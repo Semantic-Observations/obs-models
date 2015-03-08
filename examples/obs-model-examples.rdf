@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:domain="http://example.com/domain/" xmlns:envo="http://purl.obolibrary.org/obo/" xmlns:nerc-p01="http://vocab.nerc.ac.uk/collection/P01/current/" xmlns:oboe-standard="http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#" xmlns:oboe="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#" xmlns:oml="http://def.seegrid.csiro.au/ontology/om/om-lite" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:owlTime="http://www.w3.org/2006/time#" xmlns:qudt-unit="http://data.nasa.gov/qudt/owl/unit#" xmlns:qudt="http://data.nasa.gov/qudt/owl/qudt#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <rdf:Description rdf:nodeID="meas3">
+    <oboe:hasValue>1^^xsd:string</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#Celsius">
+    <owl:equivalentClass rdf:resource="http://data.nasa.gov/qudt/owl/unit#DegreeCelsius"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas4characteristic">
+    <rdf:type>??</rdf:type>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas3characteristic">
+    <rdf:type rdf:resource="http://example.com/domain/CastIdentifier"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs1">
+    <oboe:hasMeasurement rdf:nodeID="meas1"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas1">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas6">
+    <oboe:ofCharacteristic rdf:nodeID="meas6characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas6">
+    <oboe:standard rdf:resource="http://example.com/domain/DecimalDegrees"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas1characteristic">
+    <rdf:type rdf:resource="http://purl.obolibrary.org/obo/PATO_0000146"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs1">
+    <oboe:ofEntity rdf:nodeID="ent1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/PATO_0000146">
+    <rdf:subClassOf rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas5">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas5characteristic">
+    <rdf:type>??</rdf:type>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2">
+    <oboe:hasValue>4.0^^xsd:decimal</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas3">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs2">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2">
+    <oboe:ofCharacteristic rdf:nodeID="meas2characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas5">
+    <oboe:hasValue>1639^^xsd:string</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs2">
+    <oboe:hasMeasurement rdf:nodeID="meas2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas1">
+    <oboe:hasValue>18.740^^xsd:decimal</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs1">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs2">
+    <oboe:ofEntity rdf:nodeID="ent2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2">
+    <oboe:standard rdf:resource="http://example.com/domain/SargassoProjectCastIdentifiers"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2">
+    <oboe:standard rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#Length"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas1">
+    <oboe:ofCharacteristic rdf:nodeID="meas1characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas3">
+    <oboe:ofCharacteristic rdf:nodeID="meas3characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs2">
+    <oboe:hasContext rdf:nodeID="obs3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ent1">
+    <rdf:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_0002149"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.com/domain/Depth">
+    <rdf:subClassOf rdf:resource="http://purl.obolibrary.org/obo/PATO_0001595"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas4">
+    <oboe:standard>??</oboe:standard>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <oboe:hasMeasurement rdf:nodeID="meas7"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <oboe:hasMeasurement rdf:nodeID="meas6"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <oboe:hasMeasurement rdf:nodeID="meas3characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas6">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs4">
+    <oboe:hasMeasurement rdf:nodeID="meas5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs4">
+    <oboe:hasMeasurement rdf:nodeID="meas4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.com/domain/CastIdentifier">
+    <rdf:subClassOf rdf:resource="http://example.com/domain/Name"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas5">
+    <oboe:standard>??</oboe:standard>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas4">
+    <oboe:hasValue>20110315^^xsd:string</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ent2">
+    <rdf:type rdf:resource="http://example.com/domain/3DRelativeSite"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2characteristic">
+    <rdf:type rdf:resource="http://example.com/domain/Depth"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas4">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas6">
+    <oboe:hasValue>33.002^^xsd:float</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <oboe:ofEntity rdf:nodeID="ent3"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas6characteristic">
+    <rdf:type rdf:resource="http://example.com/domain/Latitude"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas7">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas5">
+    <oboe:ofCharacteristic rdf:nodeID="meas5characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs4">
+    <oboe:ofEntity rdf:nodeID="ent4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs3">
+    <oboe:hasContext rdf:nodeID="obs4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas4">
+    <oboe:ofCharacteristic rdf:nodeID="meas4characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/ENVO_0002149">
+    <rdf:subClassOf rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas7characteristic">
+    <rdf:type rdf:resource="http://example.com/domain/Longitude"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas7">
+    <oboe:standard rdf:resource="http://example.com/domain/DecimalDegrees"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="obs1">
+    <oboe:hasContext rdf:nodeID="obs2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ent3">
+    <rdf:type rdf:resource="http://example.com/domain/3DRelativeSite"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas2">
+    <rdf:type rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#Measurement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas7">
+    <oboe:ofCharacteristic rdf:nodeID="meas7characteristic"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas1">
+    <oboe:standard rdf:resource="http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#Celsius"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#Length">
+    <owl:equivalentClass rdf:resource="http://data.nasa.gov/qudt/owl/unit#Meter"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="meas7">
+    <oboe:hasValue>-64.005^^xsd:float</oboe:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ent4">
+    <rdf:type rdf:resource="http://www.w3.org/2006/time#TemporalInstant"/>
+  </rdf:Description>
+</rdf:RDF>

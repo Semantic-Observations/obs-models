@@ -1,0 +1,109 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix domain: <http://example.com/domain/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qudt-unit: <http://data.nasa.gov/qudt/owl/unit#> .
+@prefix owlTime: <http://www.w3.org/2006/time#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite> .
+@prefix qudt: <http://data.nasa.gov/qudt/owl/qudt#> .
+@prefix envo: <http://purl.obolibrary.org/obo/> .
+@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
+
+oboe-standard:Celsius
+    owl:equivalentClass qudt-unit:DegreeCelsius .
+
+oboe-standard:Length
+    owl:equivalentClass qudt-unit:Meter .
+
+domain:CastIdentifier
+    rdf:subClassOf domain:Name .
+
+domain:Depth
+    rdf:subClassOf envo:PATO_0001595 .
+
+envo:ENVO_0002149
+    rdf:subClassOf oboe:Entity .
+
+envo:PATO_0000146
+    rdf:subClassOf oboe:Characteristic .
+
+[]
+    oboe:hasValue "1^^xsd:string" ;
+    oboe:ofCharacteristic _:meas3characteristic ;
+    a oboe:Measurement .
+
+_:meas3characteristic
+    a domain:CastIdentifier .
+
+[]
+    oboe:hasContext [
+        oboe:hasContext [
+            oboe:hasContext [
+                oboe:hasMeasurement [
+                    oboe:hasValue "20110315^^xsd:string" ;
+                    oboe:ofCharacteristic [
+                        a "??"
+                    ] ;
+                    oboe:standard "??" ;
+                    a oboe:Measurement
+                ], [
+                    oboe:hasValue "1639^^xsd:string" ;
+                    oboe:ofCharacteristic [
+                        a "??"
+                    ] ;
+                    oboe:standard "??" ;
+                    a oboe:Measurement
+                ] ;
+                oboe:ofEntity [
+                    a owlTime:TemporalInstant
+                ]
+            ] ;
+            oboe:hasMeasurement _:meas3characteristic, [
+                oboe:hasValue "33.002^^xsd:float" ;
+                oboe:ofCharacteristic [
+                    a domain:Latitude
+                ] ;
+                oboe:standard domain:DecimalDegrees ;
+                a oboe:Measurement
+            ], [
+                oboe:hasValue "-64.005^^xsd:float" ;
+                oboe:ofCharacteristic [
+                    a domain:Longitude
+                ] ;
+                oboe:standard domain:DecimalDegrees ;
+                a oboe:Measurement
+            ] ;
+            oboe:ofEntity [
+                a <http://example.com/domain/3DRelativeSite>
+            ] ;
+            a oboe:Observation
+        ] ;
+        oboe:hasMeasurement [
+            oboe:hasValue "4.0^^xsd:decimal" ;
+            oboe:ofCharacteristic [
+                a domain:Depth
+            ] ;
+            oboe:standard oboe-standard:Length, domain:SargassoProjectCastIdentifiers ;
+            a oboe:Measurement
+        ] ;
+        oboe:ofEntity [
+            a <http://example.com/domain/3DRelativeSite>
+        ] ;
+        a oboe:Observation
+    ] ;
+    oboe:hasMeasurement [
+        oboe:hasValue "18.740^^xsd:decimal" ;
+        oboe:ofCharacteristic [
+            a envo:PATO_0000146
+        ] ;
+        oboe:standard oboe-standard:Celsius ;
+        a oboe:Measurement
+    ] ;
+    oboe:ofEntity [
+        a envo:ENVO_0002149
+    ] ;
+    a oboe:Observation .
+
