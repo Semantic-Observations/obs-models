@@ -14,6 +14,7 @@ def add_statements_from_csv(filename, model, ns):
     rownum = 0
     for row in reader:
         rownum = rownum+1
+        print("Processing row: " + str(rownum))
         if row[0].strip() == '':
             continue        # Skip blank rows
         elif row[0] == 'Subject':
@@ -42,11 +43,11 @@ def add_statements_from_csv(filename, model, ns):
             print("Object B/R/L: " + str(o_node.is_blank()) + "/" + str(o_node.is_resource()) + "/" + str(o_node.is_literal()))
             
             # TODO: add a Statement to the model with the s, p, o
-            #addStatement(model, s_node, p_node, o_node)
+            addStatement(model, s_node, p_node, o_node)
             #model.sync()
             
             # Temporarily halt after the first triple for testing
-            break
+            #break
             
     cfile.close()
 
@@ -76,23 +77,24 @@ def cell_to_node(cell, ns):
 
 def addStatement(model, s, p, o):
     # Assume subject is a URI string if it is not an RDF.Node
-    if (type(s)!="RDF.Node"):
+    if (type(s) is not RDF.Node):
         s_node = RDF.Uri(s)
     else:
         s_node = s
     # Assume predicate is a URI string if it is not an RDF.Node
-    if (type(p)!="RDF.Node"):
+    if (type(p) is not RDF.Node):
         p_node = RDF.Uri(p)
     else:
         p_node = p
     # Assume object is a literal if it is not an RDF.Node
-    if (type(o)!="RDF.Node"):
+    if (type(o) is not RDF.Node):
         o_node = RDF.Node(o)
     else:
         o_node = o
     statement=RDF.Statement(s_node, p_node, o_node)
     if statement is None:
         raise Exception("new RDF.Statement failed")
+    print(statement)
     model.add_statement(statement)
     
 def addDataset(model, doc, ns, personhash):
@@ -170,7 +172,8 @@ def main():
     ns = {
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "xsd": "http://www.w3.org/2001/XMLSchema#"
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "owl": "http://www.w3.org/2002/07/owl#"
     }
     
     add_statements_from_csv("sargasso-lipids-obs-model.csv", model, ns)
