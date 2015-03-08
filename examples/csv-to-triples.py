@@ -31,20 +31,66 @@ def add_statements_from_csv(filename, model, ns):
             subject = row[0]
             predicate = row[1]
             object = row[2]
+            print("Constructing: " + subject + " " + predicate + " " + object)
             
-            # TODO: parse the cell value to determine if it is a blank node or a prefix:class, then turn them into proper nodes
+            # Parse the value to determine if it is a blank node or a prefix:class, then turn them into proper nodes
+            s_node = cell_to_node(subject, ns)
+            print("Subject B/R/L: " + str(s_node.is_blank()) + "/" + str(s_node.is_resource()) + "/" + str(s_node.is_literal()))
+            p_node = cell_to_node(predicate, ns)
+            print("Predicate B/R/L: " + str(p_node.is_blank()) + "/" + str(p_node.is_resource()) + "/" + str(p_node.is_literal()))
+            o_node = cell_to_node(object, ns)
+            print("Object B/R/L: " + str(o_node.is_blank()) + "/" + str(o_node.is_resource()) + "/" + str(o_node.is_literal()))
             
             # TODO: add a Statement to the model with the s, p, o
-        model.sync()
+            #addStatement(model, s_node, p_node, o_node)
+            #model.sync()
+            
+            # Temporarily halt after the first triple for testing
+            break
             
     cfile.close()
+
+def cell_to_node(cell, ns):
     
+    newnode = None
+    
+    # split out the prefix
+    tokens = str.split(cell, ":")
+    if (len(tokens) > 1):
+        prefix = tokens[0]
+        concept = tokens[1]
+        
+        # If prefix == "_" then make a blank node
+        if (prefix=="_"):
+            newnode = RDF.Node(blank=concept)
+        # else if prefix is in our ns dict then create a URI node
+        elif (prefix in ns):
+            newnode = RDF.Node(RDF.Uri(ns[prefix]+concept))
+
+    # if we don't have a node yet, then we need a literal node
+    if (newnode is None):
+        # TODO: If literal contains ^^ split it out as the type
+        newnode = RDF.Node(literal=cell)
+            
+    return(newnode)
+
 def addStatement(model, s, p, o):
-    if (type(o)!="RDF.Node"):
-        obj = RDF.Node(o)
+    # Assume subject is a URI string if it is not an RDF.Node
+    if (type(s)!="RDF.Node"):
+        s_node = RDF.Uri(s)
     else:
-        obj = o
-    statement=RDF.Statement(RDF.Uri(s), RDF.Uri(p), obj)
+        s_node = s
+    # Assume predicate is a URI string if it is not an RDF.Node
+    if (type(p)!="RDF.Node"):
+        p_node = RDF.Uri(p)
+    else:
+        p_node = p
+    # Assume object is a literal if it is not an RDF.Node
+    if (type(o)!="RDF.Node"):
+        o_node = RDF.Node(o)
+    else:
+        o_node = o
+    statement=RDF.Statement(s_node, p_node, o_node)
     if statement is None:
         raise Exception("new RDF.Statement failed")
     model.add_statement(statement)
@@ -122,13 +168,9 @@ def main():
     rdf_file_prefix = "obs-model-examples"
     model = createModel()
     ns = {
-        "foaf": "http://xmlns.com/foaf/0.1/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "gldata": "http://schema.geolink.org/repository-object#",
-        "glperson": "http://schema.geolink.org/person#",
-        "glpersonii": "http://schema.geolink.org/personal-info-item#",
-        "glpersonname": "http://schema.geolink.org/person-name#",
-        "datacite": "http://purl.org/spar/datacite/"
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
     }
     
     add_statements_from_csv("sargasso-lipids-obs-model.csv", model, ns)
