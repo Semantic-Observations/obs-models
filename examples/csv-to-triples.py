@@ -1,6 +1,11 @@
 #!/opt/local/bin/python
 #
-# A script to read RDF subject/triple/object properties form a csv file and turn them into RDF models
+# A script to read RDF subject/triple/object properties form a csv file and turn them into RDF models.
+# The CSV file expects an initial section with Namespaces and then a second section with triples
+# with a column each for Subject, Predicate, and Object values.  Any value which contains a colon ":"
+# will be interpreted as either a prefix:concept pair used to construct a URI, or as a blank node if the
+# prefix is an underscore ("_") character.  Any other values will be treated as literals, including any strings
+# for which the prefix does not match a prefix in the namespace dictionary.
 #
 # Matt Jones and Adam Shepherd
 
@@ -42,12 +47,9 @@ def add_statements_from_csv(filename, model, ns):
             o_node = cell_to_node(object, ns)
             print("Object B/R/L: " + str(o_node.is_blank()) + "/" + str(o_node.is_resource()) + "/" + str(o_node.is_literal()))
             
-            # TODO: add a Statement to the model with the s, p, o
+            # add a Statement to the model with the s, p, o
             addStatement(model, s_node, p_node, o_node)
-            #model.sync()
-            
-            # Temporarily halt after the first triple for testing
-            #break
+            model.sync()
             
     cfile.close()
 
@@ -96,46 +98,6 @@ def addStatement(model, s, p, o):
         raise Exception("new RDF.Statement failed")
     print(statement)
     model.add_statement(statement)
-    
-def addDataset(model, doc, ns, personhash):
-    d1base = "https://cn.dataone.org/cn/v1/resolve/"
-    element = doc.find("./str[@name='identifier']")
-    identifier = element.text
-    addStatement(model, d1base+identifier, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDF.Uri(ns["gldata"]+"DigitalObjectRecord"))
-    addStatement(model, d1base+identifier, ns["dcterms"]+"identifier", identifier)
-    title_element = doc.find("./str[@name='title']")
-    addStatement(model, d1base+identifier, ns["dcterms"]+"title", title_element.text)
-    
-    originlist = doc.findall("./arr[@name='origin']/str")
-    for creatornode in originlist:
-        creator = creatornode.text
-        if (creator not in personhash):
-            # Add it
-            newid = uuid.uuid4()
-            p_uuid = newid.urn
-            p_orcid = "http://fakeorcid.org/" + newid.hex
-            p_data = [p_uuid, p_orcid]
-            personhash[creator] = p_data
-        else:
-            # Look it up
-            p_data = personhash[creator]
-            p_uuid = p_data[0]
-            p_orcid = p_data[1]
-            
-        addStatement(model, p_uuid, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDF.Uri(ns["glperson"]+"Person"))
-        addStatement(model, p_uuid, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDF.Uri(ns["foaf"]+"Person"))
-        addStatement(model, p_uuid, ns["foaf"]+"name", creator)
-        
-        pi_node = RDF.Node(RDF.Uri(p_orcid))
-        s1=RDF.Statement(pi_node, RDF.Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDF.Uri(ns["datacite"]+"PersonalIdentifier"))       
-        model.add_statement(s1)
-        s2=RDF.Statement(pi_node, RDF.Uri(ns["datacite"]+"usesIdentifierScheme"), RDF.Uri(ns["datacite"]+"orcid"))       
-        model.add_statement(s2)
-        s3=RDF.Statement(RDF.Uri(p_uuid), RDF.Uri(ns["datacite"]+"hasIdentifier"), pi_node)
-        model.add_statement(s3)
-        s4=RDF.Statement(RDF.Uri(d1base+identifier), RDF.Uri(ns["dcterms"]+"creator"), RDF.Uri(p_uuid))
-        model.add_statement(s4)
-        model.sync()
 
 def createModel():
     storage=RDF.Storage(storage_name="hashes", name="geolink", options_string="new='yes',hash-type='memory',dir='.'")
@@ -162,7 +124,6 @@ def serialize(model, ns, filename, format):
         format="turtle"
     serializer=RDF.Serializer(name=format)
     for prefix in ns:
-        print("Adding NS prefix: " + prefix)
         serializer.set_namespace(prefix, RDF.Uri(ns[prefix]))
     serializer.serialize_model_to_file(filename, model)
 
