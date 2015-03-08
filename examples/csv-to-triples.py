@@ -5,7 +5,7 @@
 # Matt Jones and Adam Shepherd
 
 def add_statements_from_csv(filename, model, ns):
-    
+
     cfile  = open(filename, "rb")
     reader = csv.reader(cfile)
 
@@ -13,22 +13,30 @@ def add_statements_from_csv(filename, model, ns):
     ns_section = False
     rownum = 0
     for row in reader:
-        # Save header row.
-        if row[1] == 'Subject':
+        rownum = rownum+1
+        if row[0].strip() == '':
+            continue        # Skip blank rows
+        elif row[0] == 'Subject':
             header = row
             triple_section = True
-        elif row[1] == 'Namespaces':
+            ns_section = False
+        elif row[0] == 'Namespaces':
             ns_section = True
         elif ns_section:
-            prefix = row[1]
-            nsuri = row[2]
-            # TODO: add any new namespaces from the CSV file to the ns dict
+            prefix = row[0]
+            nsuri = row[1]
+            if (prefix not in ns):
+                ns[prefix] = nsuri
         elif triple_section:
-            subject = row[1]
-            predicate = row[2]
-            object = row[3]
+            subject = row[0]
+            predicate = row[1]
+            object = row[2]
             
-            # TODO: do something with the row
+            # TODO: parse the cell value to determine if it is a blank node or a prefix:class, then turn them into proper nodes
+            
+            # TODO: add a Statement to the model with the s, p, o
+        model.sync()
+            
     cfile.close()
     
 def addStatement(model, s, p, o):
@@ -106,10 +114,12 @@ def serialize(model, ns, filename, format):
         format="turtle"
     serializer=RDF.Serializer(name=format)
     for prefix in ns:
+        print("Adding NS prefix: " + prefix)
         serializer.set_namespace(prefix, RDF.Uri(ns[prefix]))
     serializer.serialize_model_to_file(filename, model)
 
 def main():
+    rdf_file_prefix = "obs-model-examples"
     model = createModel()
     ns = {
         "foaf": "http://xmlns.com/foaf/0.1/",
@@ -121,12 +131,15 @@ def main():
         "datacite": "http://purl.org/spar/datacite/"
     }
     
-    add_statements_from_csv("sargasso-lipids-obs-model.csv", model)
-    
+    add_statements_from_csv("sargasso-lipids-obs-model.csv", model, ns)
     
     print("Model size before serialize: " + str(model.size()))
-    serialize(model, ns, "dataone-example-lod.ttl", "turtle")
-    serialize(model, ns, "dataone-example-lod.rdf", "rdfxml")
+    
+    print("Serialize as TTL file...")
+    serialize(model, ns, rdf_file_prefix + ".ttl", "turtle")
+    print
+    print("Serialize as RDFXML file...")
+    serialize(model, ns, rdf_file_prefix + ".rdf", "rdfxml")
 
 if __name__ == "__main__":
     import RDF
