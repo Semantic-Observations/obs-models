@@ -1,18 +1,18 @@
-<!-- Tufts VUE 3.2.2 concept-map (observation_overviewe_v1.vue) 2015-06-30 -->
+<!-- Tufts VUE 3.2.2 concept-map (observation_overview.vue) 2015-07-01 -->
 <!-- Tufts VUE: http://vue.tufts.edu/ -->
 <!-- Do Not Remove: VUE mapping @version(1.1) jar:file:/Applications/VUE.app/Contents/VUE.jar!/tufts/vue/resources/lw_mapping_1_1.xml -->
-<!-- Do Not Remove: Saved date Tue Jun 30 14:54:56 MST 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
+<!-- Do Not Remove: Saved date Wed Jul 01 09:52:10 MST 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
 <!-- Do Not Remove: Saving version @(#)VUE: built May 23 2013 at 2146 by tomadm on Linux 2.6.18-348.2.1.el5 i386 JVM 1.7.0_21-b11(bits=32) -->
 <?xml version="1.0" encoding="US-ASCII"?>
 <LW-MAP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="none" ID="0"
-    label="observation_overviewe_v1.vue" created="1435695528791" x="0.0"
+    label="observation_overview.vue" created="1435695528791" x="0.0"
     y="0.0" width="1.4E-45" height="1.4E-45" strokeWidth="0.0" autoSized="false">
-    <resource referenceCreated="1435701296342" size="23752"
-        spec="/Users/rwalls-iplant/Desktop/observation_overviewe_v1.vue"
+    <resource referenceCreated="1435769530263" size="23772"
+        spec="/Users/rwalls-iplant/obs-models/figures/observation_overview.vue"
         type="1" xsi:type="URLResource">
-        <title>observation_overviewe_v1.vue</title>
-        <property key="File" value="/Users/rwalls-iplant/Desktop/observation_overviewe_v1.vue"/>
+        <title>observation_overview.vue</title>
+        <property key="File" value="/Users/rwalls-iplant/obs-models/figures/observation_overview.vue"/>
     </resource>
     <fillColor>#FFFFFF</fillColor>
     <strokeColor>#404040</strokeColor>
@@ -33,7 +33,7 @@
     <child ID="7" label="Observed entity" layerID="1"
         created="1435695587033" x="155.5" y="131.29327" width="229.0"
         height="132.0" strokeWidth="1.0" autoSized="false" xsi:type="node">
-        <fillColor>#FCDBD9</fillColor>
+        <fillColor>#FDE888</fillColor>
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
@@ -83,7 +83,7 @@
         <ID1 xsi:type="node">6</ID1>
         <ID2 xsi:type="node">8</ID2>
     </child>
-    <child ID="14" label="observes" layerID="1" created="1435695709306"
+    <child ID="14" label="targets" layerID="1" created="1435695709306"
         x="379.34637" y="62.414032" width="120.955475" height="71.14534"
         strokeWidth="1.0" autoSized="false" controlCount="0"
         arrowState="2" xsi:type="link">
@@ -97,10 +97,10 @@
         <ID1 xsi:type="node">6</ID1>
         <ID2 xsi:type="node">7</ID2>
     </child>
-    <child ID="15" label="represents" layerID="1"
-        created="1435695709682" x="713.7998" y="259.79327"
-        width="176.65045" height="114.60068" strokeWidth="1.0"
-        autoSized="false" controlCount="0" arrowState="2" xsi:type="link">
+    <child ID="15" label="describes" layerID="1" created="1435695709682"
+        x="713.7998" y="259.79327" width="176.65045" height="114.60068"
+        strokeWidth="1.0" autoSized="false" controlCount="0"
+        arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
@@ -111,7 +111,7 @@
         <ID2 xsi:type="node">10</ID2>
     </child>
     <child ID="16" label="has characteristic" layerID="1"
-        created="1435696815207" x="348.125" y="262.79327" width="186.0"
+        created="1435696815207" x="348.625" y="262.79327" width="185.0"
         height="111.60065" strokeWidth="1.0" autoSized="false"
         controlCount="0" arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
@@ -135,8 +135,8 @@
         <shape arcwidth="20.0" archeight="20.0" xsi:type="roundRect"/>
     </child>
     <child ID="18" label="uses standard" layerID="1"
-        created="1435697288479" x="915.42645" y="259.79688"
-        width="150.0" height="106.390625" strokeWidth="1.0"
+        created="1435697288479" x="915.92645" y="259.79688"
+        width="149.0" height="106.390625" strokeWidth="1.0"
         autoSized="false" controlCount="0" arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
@@ -148,34 +148,34 @@
         <ID2 xsi:type="node">17</ID2>
     </child>
     <child ID="19" layerID="1" created="1435697883851" x="-294.0"
-        y="-757.8048" width="235.0" height="478.0" strokeWidth="1.0"
-        autoSized="false" xsi:type="node">
+        y="-441.01712" width="235.0" height="161.21231"
+        strokeWidth="1.0" autoSized="false" xsi:type="node">
         <fillColor>#00000000</fillColor>
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73d806fdcba01b853a575aa6866</URIString>
         <child ID="23" label="Context" created="1435698688991" x="5.0"
-            y="36.0" width="150.0" height="32.0" strokeWidth="0.0"
+            y="24.0" width="150.0" height="32.0" strokeWidth="0.0"
             autoSized="false" xsi:type="text">
             <strokeColor>#404040</strokeColor>
             <textColor>#000000</textColor>
             <font>SansSerif-plain-14</font>
             <URIString>http://vue.tufts.edu/rdf/resource/4674a73d806fdcba01b853a5bbfda6db</URIString>
             <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       Context
     &lt;/p&gt;
   &lt;/body&gt;
@@ -186,8 +186,8 @@
         <shape arcwidth="20.0" archeight="20.0" xsi:type="roundRect"/>
     </child>
     <child ID="20" label="has context" layerID="1"
-        created="1435697898930" x="328.15088" y="-345.24185"
-        width="258.9491" height="183.58351" strokeWidth="1.0"
+        created="1435697898930" x="328.65088" y="-345.24185"
+        width="258.4491" height="183.58351" strokeWidth="1.0"
         autoSized="false" controlCount="2" arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
@@ -199,8 +199,8 @@
         <ctrlPoint1 x="302.4941" y="-0.8865967" xsi:type="point"/>
     </child>
     <child ID="21" label="generates data" layerID="1"
-        created="1435697993613" x="725.91644" y="58.913635"
-        width="159.0" height="76.66208" strokeWidth="1.0"
+        created="1435697993613" x="726.41644" y="58.913635"
+        width="158.0" height="76.66208" strokeWidth="1.0"
         autoSized="false" controlCount="0" arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
@@ -220,19 +220,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73e806fdcba01b853a5faed6c0b</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       When the value of one observation process is constrained by another. 
       e.g., space, time, environment
     &lt;/p&gt;
@@ -243,7 +243,7 @@
       e.g., space, time, environment</label>
     </child>
     <child ID="24"
-        label="site, location, environment, organizaitonal context, &#xa;      project/investigation, sampling - relational context in data space, &#xa;      experimental design"
+        label="site, location, environment, organizaitonal context, &#xa;      project/investigation, sampling - relational context in data space, experimental design"
         layerID="1" created="1435698972647" x="-415.0" y="374.59995"
         width="431.0" height="154.0" strokeWidth="0.0" autoSized="false" xsi:type="text">
         <strokeColor>#404040</strokeColor>
@@ -251,19 +251,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73e806fdcba01b853a5936e45fb</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       site, location, environment, organizaitonal context, 
       project/investigation, sampling - relational context in data space, 
       experimental design
@@ -272,8 +272,7 @@
 &lt;/html&gt;
 </richText>
         <label>site, location, environment, organizaitonal context, 
-      project/investigation, sampling - relational context in data space, 
-      experimental design</label>
+      project/investigation, sampling - relational context in data space, experimental design</label>
     </child>
     <child ID="27" label="New Text" layerID="1" created="1435699371529"
         x="-396.0" y="28.599945" width="150.0" height="144.0"
@@ -283,19 +282,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73f806fdcba01b853a50f073033</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       Has context is a good candidate for unpacking semantics
     &lt;/p&gt;
   &lt;/body&gt;
@@ -335,19 +334,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73f806fdcba01b853a5bed20c71</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       color code each box and creat an icon. The icon will be used for the 
       collapsed diagrams
     &lt;/p&gt;
@@ -366,19 +365,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4674a73f806fdcba01b853a5e2e00f32</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-left: 0px; color: #000000; font-family: Arial; font-size: 24; margin-bottom: 0px; margin-right: 0px; margin-top: 0px }
-        ol { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
-        p { margin-left: 0; color: #000000; margin-bottom: 0; margin-right: 0; margin-top: 0 }
-        ul { margin-left: 30; vertical-align: middle; font-family: Arial; list-style-position: outside; font-size: 24; margin-top: 6 }
+        body { margin-bottom: 0px; margin-top: 0px; color: #000000; font-family: Arial; font-size: 24; margin-left: 0px; margin-right: 0px }
+        ol { margin-top: 6; list-style-position: outside; font-family: Arial; vertical-align: middle; font-size: 24; margin-left: 30 }
+        p { margin-bottom: 0; margin-top: 0; color: #000000; margin-left: 0; margin-right: 0 }
+        ul { margin-top: 6; list-style-position: outside; font-family: Arial; font-size: 24; vertical-align: middle; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       Note that Observation occurs in all 4 boxes. We are therefore 
       diambiguating the word &amp;quot;Observation&amp;quot; - add this to MS
     &lt;/p&gt;
@@ -392,13 +391,13 @@
         y="0.0" width="1.4E-45" height="1.4E-45" strokeWidth="0.0" autoSized="false">
         <URIString>http://vue.tufts.edu/rdf/resource/46386be9806fdcba01b853a527813276</URIString>
     </layer>
-    <userZoom>1.0</userZoom>
+    <userZoom>0.49166733631178144</userZoom>
     <userOrigin x="-431.8" y="-772.3048"/>
     <presentationBackground>#202020</presentationBackground>
     <PathwayList currentPathway="0" revealerIndex="-1">
         <pathway ID="0" label="Untitled Pathway" created="1435695528791"
             x="0.0" y="0.0" width="1.4E-45" height="1.4E-45"
-            strokeWidth="0.0" autoSized="false" currentIndex="-1" open="true">
+            strokeWidth="0.0" autoSized="false" currentIndex="0" open="true">
             <strokeColor>#B3CC33CC</strokeColor>
             <textColor>#000000</textColor>
             <font>SansSerif-plain-14</font>
@@ -445,6 +444,6 @@
     </PathwayList>
     <date>2015-06-30</date>
     <modelVersion>6</modelVersion>
-    <saveLocation>/Users/rwalls-iplant/Desktop</saveLocation>
-    <saveFile>/Users/rwalls-iplant/Desktop/observation_overviewe_v1.vue</saveFile>
+    <saveLocation>/Users/rwalls-iplant/obs-models/figures</saveLocation>
+    <saveFile>/Users/rwalls-iplant/obs-models/figures/observation_overview.vue</saveFile>
 </LW-MAP>
