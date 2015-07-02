@@ -144,8 +144,8 @@ def main():
     print("Serialize as TTL file...")
     serialize(model, ns, rdf_file_prefix + ".ttl", "turtle")
     print
-    print("Serialize as RDFXML file...")
-    serialize(model, ns, rdf_file_prefix + ".rdf", "rdfxml")
+    #print("Serialize as RDFXML file...")
+    #serialize(model, ns, rdf_file_prefix + ".rdf", "rdfxml")
 
 if __name__ == "__main__":
     import RDF
