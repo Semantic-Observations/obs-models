@@ -1,14 +1,14 @@
-<!-- Tufts VUE 3.2.2 concept-map (observation-mappings-v5.vue) 2015-06-30 -->
+<!-- Tufts VUE 3.2.2 concept-map (observation-mappings-v5.vue) 2015-08-17 -->
 <!-- Tufts VUE: http://vue.tufts.edu/ -->
 <!-- Do Not Remove: VUE mapping @version(1.1) jar:file:/Applications/VUE.app/Contents/VUE.jar!/tufts/vue/resources/lw_mapping_1_1.xml -->
-<!-- Do Not Remove: Saved date Tue Jun 30 16:23:03 MST 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
+<!-- Do Not Remove: Saved date Mon Aug 17 23:40:14 EDT 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
 <!-- Do Not Remove: Saving version @(#)VUE: built May 23 2013 at 2146 by tomadm on Linux 2.6.18-348.2.1.el5 i386 JVM 1.7.0_21-b11(bits=32) -->
 <?xml version="1.0" encoding="US-ASCII"?>
 <LW-MAP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="none" ID="0"
     label="observation-mappings-v5.vue" created="1400544571505" x="0.0"
     y="0.0" width="2299.6665" height="1062.2" strokeWidth="0.0" autoSized="false">
-    <resource referenceCreated="1435706583897" size="76195"
+    <resource referenceCreated="1439869214312" size="75916"
         spec="/Users/rwalls-iplant/obs-models/figures/observation-mappings-v5.vue"
         type="1" xsi:type="URLResource">
         <title>observation-mappings-v5.vue</title>
@@ -189,7 +189,7 @@
         <ID2 xsi:type="node">10</ID2>
     </child>
     <child ID="17" label="any" layerID="1" created="1400544987568"
-        x="662.36005" y="-540.84357" width="66.66675" height="37.0"
+        x="644.36005" y="-500.84357" width="66.66675" height="37.0"
         strokeWidth="2.0" autoSized="false" xsi:type="node">
         <fillColor>#FFFFFF</fillColor>
         <strokeColor>#000000</strokeColor>
@@ -199,15 +199,15 @@
         <shape xsi:type="rectangle"/>
     </child>
     <child ID="19" label="hasValue" layerID="1" created="1400545037647"
-        x="728.52673" y="-519.44684" width="365.11224" height="38.10382"
+        x="710.52686" y="-491.15894" width="382.34625" height="28.0"
         strokeWidth="1.0" autoSized="false" controlCount="0"
         arrowState="2" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/1705e42280c4264000f596b266904cc3</URIString>
-        <point1 x="1093.139" y="-481.84302"/>
-        <point2 x="729.0268" y="-518.94684"/>
+        <point1 x="1092.373" y="-472.74582"/>
+        <point2 x="711.0268" y="-481.57205"/>
         <ID1 xsi:type="node">7</ID1>
         <ID2 xsi:type="node">17</ID2>
     </child>
@@ -675,8 +675,8 @@
         <ID2 xsi:type="node">6</ID2>
     </child>
     <child ID="84" label="OML:result" layerID="1"
-        created="1425598339006" x="-229.69868" y="-831.2884"
-        width="923.256" height="291.94464" strokeWidth="3.0"
+        created="1425598339006" x="-229.69868" y="-821.2884"
+        width="906.15405" height="321.94464" strokeWidth="3.0"
         autoSized="false" controlCount="1" arrowState="3" xsi:type="link">
         <notes>Has cardinality 1, but the object could be a vector or a matrix.</notes>
         <strokeColor>#30D643</strokeColor>
@@ -684,21 +684,21 @@
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/ec85476a806fdcb300c449c6effde908</URIString>
         <point1 x="-228.19868" y="-698.1364"/>
-        <point2 x="692.0573" y="-540.84375"/>
+        <point2 x="674.9554" y="-500.84375"/>
         <ID1 xsi:type="node">57</ID1>
         <ID2 xsi:type="node">17</ID2>
         <ctrlPoint0 x="598.84753" y="-1015.0867" xsi:type="point"/>
     </child>
-    <child ID="85" layerID="1" created="1425598398095" x="727.5268"
-        y="-512.60956" width="210.45789" height="72.9173"
+    <child ID="85" layerID="1" created="1425598398095" x="709.5268"
+        y="-477.52808" width="205.40271" height="41.34836"
         strokeWidth="3.0" autoSized="false" controlCount="0"
         arrowState="3" xsi:type="link">
         <strokeColor>#EA2218</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/ec85476a806fdcb300c449c6b94d9b6e</URIString>
-        <point1 x="936.4847" y="-441.19226"/>
-        <point2 x="729.0268" y="-511.10956"/>
+        <point1 x="913.4295" y="-437.6797"/>
+        <point2 x="711.0268" y="-476.02805"/>
         <ID1 xsi:type="node">22</ID1>
         <ID2 xsi:type="node">17</ID2>
     </child>
@@ -781,15 +781,15 @@
         <URIString>http://vue.tufts.edu/rdf/resource/eca99581806fdcb300c449c614615999</URIString>
         <shape arcwidth="20.0" archeight="20.0" xsi:type="roundRect"/>
     </child>
-    <child ID="100" layerID="1" created="1425602617085" x="728.5268"
-        y="-846.235" width="486.649" height="311.26807"
+    <child ID="100" layerID="1" created="1425602617085" x="710.5268"
+        y="-846.235" width="504.649" height="348.65692"
         strokeWidth="1.0" strokeStyle="3" autoSized="false"
         controlCount="1" arrowState="0" xsi:type="link">
         <strokeColor>#000000</strokeColor>
         <textColor>#000000</textColor>
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/eca99581806fdcb300c449c6b1c01fff</URIString>
-        <point1 x="729.0268" y="-535.4669"/>
+        <point1 x="711.0268" y="-498.07806"/>
         <point2 x="1214.6758" y="-845.735"/>
         <ID1 xsi:type="node">17</ID1>
         <ID2 xsi:type="node">99</ID2>
@@ -909,19 +909,19 @@
         <point2 x="393.5501" y="-441.52997"/>
     </child>
     <child ID="115" label="OML:propetyType" layerID="1"
-        created="1425605507188" x="-177.4488" y="-668.7675"
-        width="694.0594" height="539.2015" strokeWidth="1.0"
+        created="1425605507188" x="-177.05325" y="-670.7268"
+        width="657.23956" height="541.1609" strokeWidth="1.0"
         autoSized="false" controlCount="1" arrowState="2" xsi:type="link">
         <notes>Seems like this relations should go between %sp;GF:feature and GF:property</notes>
         <strokeColor>#0AAD1D</strokeColor>
         <textColor>#0AAD1D</textColor>
         <font>Arial-plain-24</font>
         <URIString>http://vue.tufts.edu/rdf/resource/ecb7acd7806fdcb300c449c67da59792</URIString>
-        <point1 x="-176.9488" y="-668.2675"/>
-        <point2 x="478.15137" y="-130.06604"/>
+        <point1 x="-176.55325" y="-670.2268"/>
+        <point2 x="472.73425" y="-130.06592"/>
         <ID1 xsi:type="node">57</ID1>
         <ID2 xsi:type="node">64</ID2>
-        <ctrlPoint0 x="678.32404" y="-564.91516" xsi:type="point"/>
+        <ctrlPoint0 x="547.2314" y="-597.495" xsi:type="point"/>
     </child>
     <child ID="116" label="PROV:plan" layerID="1"
         created="1425687494870" x="848.8694" y="-955.74164"
@@ -1411,7 +1411,7 @@
         <URIString>http://vue.tufts.edu/rdf/resource/16fa0cb680c4264000f596b262c8421b</URIString>
     </layer>
     <userZoom>0.5</userZoom>
-    <userOrigin x="-882.8684" y="-1067.4316"/>
+    <userOrigin x="-864.4201" y="-1067.4316"/>
     <presentationBackground>#202020</presentationBackground>
     <PathwayList currentPathway="0" revealerIndex="-1">
         <pathway ID="0" label="Untitled Pathway" created="1400544571505"
@@ -1430,7 +1430,7 @@
                 <font>SansSerif-plain-14</font>
                 <URIString>http://vue.tufts.edu/rdf/resource/16fa0cb880c4264000f596b25cb88166</URIString>
                 <titleStyle ID="3" label="Header"
-                    created="1400544571576" x="335.5" y="172.5"
+                    created="1400544571576" x="341.0" y="175.0"
                     width="118.0" height="50.0" strokeWidth="0.0"
                     autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
@@ -1440,7 +1440,7 @@
                     <shape xsi:type="rectangle"/>
                 </titleStyle>
                 <textStyle ID="4" label="Slide Text"
-                    created="1400544571577" x="346.5" y="281.5"
+                    created="1400544571577" x="349.5" y="282.5"
                     width="101.0" height="35.0" strokeWidth="0.0"
                     autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
@@ -1450,7 +1450,7 @@
                     <shape xsi:type="rectangle"/>
                 </textStyle>
                 <linkStyle ID="5" label="Links" created="1400544571577"
-                    x="373.5" y="384.0" width="49.0" height="30.0"
+                    x="375.5" y="385.0" width="49.0" height="30.0"
                     strokeWidth="0.0" autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
                     <textColor>#B3BFE3</textColor>
