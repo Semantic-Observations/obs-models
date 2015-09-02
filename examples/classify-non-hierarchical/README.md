@@ -5,17 +5,17 @@
 ## Overview
 
 We want to assert that two classes in separate measurement ontologies are the same (using the `OWL:equivalentClass` statement), we would like to explore the implications of these types of assertions.
-Assertions of this type will be made in linking ontologies.
+Assertions of this type will be made in alignment ontologies.
 We want to know a number of things:
 
-- Does a reasoner produces any errors for various ways of writing the linking ontology? (`reason.sh`)
+- Does a reasoner produces any errors for various ways of writing the alignment ontology? (`reason.sh`)
 - Does `OWL:equivalentClass` allow us to link two classes? (`reason.sh`)
-- Can we make meaningful SPARQL queries across linked ontologies? (`query.sh`)
+- Can we make meaningful SPARQL queries across alignment ontologies? (`query.sh`)
 
-Similar to what has been done in [../classify_equivalentClasses](../classify_equivalentClasses), we have produced a set of test linking ontologies.
-Ours are slightly modified but essentially the same with the main difference being that the linking ontologies in this directory do not user a super class.
+Similar to what has been done in [../classify_equivalentClasses](../classify_equivalentClasses), we have produced a set of test alignment ontologies.
+Ours are slightly modified but essentially the same with the main difference being that the alignment ontologies in this directory do not user a super class.
 
-The linking ontologies located in this directory are:
+The alignment ontologies located in this directory are:
 
 ```{text}
 ├── test-equivclass-cardinality.owl
@@ -24,10 +24,10 @@ The linking ontologies located in this directory are:
 ├── test-noequivclass.owl
 ```
 
-All linking ontologies contain two classes (`A`, `B`), each class has a class-specific object property (`hasPropA`, `hasPropB`), and each class has one named individual. They differ with respect to whether they express `OWL:equivalentClass`  between class `A` and `B` and whether they assert a cardinality restriction on the number of object properties each class has (e.g. Instances of class `A` have exactly one and only property `PropA`.)
-We then wrote a script that uses [OWLTools](https://github.com/owlcollab/owltools) to run the `HermiT 1.3.8` reasoner (which is an OWL 2 reasoner) over each linking ontology.
+All alignment ontologies contain two classes (`A`, `B`), each class has a class-specific object property (`hasPropA`, `hasPropB`), and each class has one named individual. They differ with respect to whether they express `OWL:equivalentClass`  between class `A` and `B` and whether they assert a cardinality restriction on the number of object properties each class has (e.g. Instances of class `A` have exactly one and only property `PropA`.)
+We then wrote a script that uses [OWLTools](https://github.com/owlcollab/owltools) to run the `HermiT 1.3.8` reasoner (which is an OWL 2 reasoner) over each alignment ontology.
 
-For the ontological reasoning step, each linking ontology was opened in [Protégé 4.3](http://protege.stanford.edu/) running the `HermiT 1.3.8` reasoner. Each linking ontolgoy was also run on the command line using [OWLTools](https://github.com/owlcollab/owltools) so the procedure could be reproduced.
+For the ontological reasoning step, each alignment ontology was opened in [Protégé 4.3](http://protege.stanford.edu/) running the `HermiT 1.3.8` reasoner. Each alignment ontolgoy was also run on the command line using [OWLTools](https://github.com/owlcollab/owltools) so the procedure could be reproduced.
 
 ## Results
 
