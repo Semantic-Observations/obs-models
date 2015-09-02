@@ -9,6 +9,7 @@ Assertions of this type will be made in linking ontologies.
 We want to know a number of things:
 
 - Does a reasoner produces any errors for various ways of writing the linking ontology? (`reason.sh`)
+- Does `OWL:equivalentClass` allow us to link two classes? (`reason.sh`)
 - Can we make meaningful SPARQL queries across linked ontologies? (`query.sh`)
 
 Similar to what has been done in [../classify_equivalentClasses](../classify_equivalentClasses), we have produced a set of test linking ontologies.
@@ -38,60 +39,95 @@ Corresponding command: `./reason.sh`
 
 Result:
 
-| Test Case | Filename | Consistent? |
+| Test Case | Filename | A::B | Consistent? |
 |-----------|----------|-------------|
-| 1 | test-noequivclass.owl | Yes |
-| 2 | test-noequivclass-cardinality.owl | Yes |
-| 3 | test-equivclass.owl | Yes |
-| 4 | test-equivclass-cardinality.owl | Yes |
+| 1 | test-noequivclass.owl | No | Yes |
+| 2 | test-noequivclass-cardinality.owl | Yes | Yes |
+| 3 | test-equivclass.owl | Yes | Yes |
+| 4 | test-equivclass-cardinality.owl | Yes | Yes |
 
-Raw output:
+Abridged outputs:
+
+`owltools ./test-noequivclass.owl --reasoner hermit --run-reasoner --assert-implied --reasoner-query 'A'`
 
 ```{sh}
-$ ./reason.sh
-2015-09-02 09:17:59,362 INFO  (ParserWrapper:67) Start loading ontology: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass.owl from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass.owl
-2015-09-02 09:17:59,480 INFO  (ParserWrapper:74) Finished loading ontology: null from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass.owl
-2015-09-02 09:17:59,551 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@bef2d72
+2015-09-02 12:20:22,253 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@bef2d72
 all inferences
-2015-09-02 09:17:59,553 INFO  (CommandRunner:2483) Checking for consistency...
+2015-09-02 12:20:22,256 INFO  (CommandRunner:2483) Checking for consistency...
 Consistent? true
-2015-09-02 09:17:59,557 INFO  (CommandRunner:2490) Iterating through all classes...
-2015-09-02 09:17:59,563 INFO  (CommandRunnerBase:78) disposing of org.semanticweb.HermiT.Reasoner@bef2d72
-2015-09-02 09:17:59,563 INFO  (CommandRunnerBase:70) disposing of org.semanticweb.HermiT.Reasoner@bef2d72
-2015-09-02 09:17:59,968 INFO  (ParserWrapper:67) Start loading ontology: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass-cardinality.owl from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass-cardinality.owl
-2015-09-02 09:18:00,095 INFO  (ParserWrapper:74) Finished loading ontology: null from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-noequivclass-cardinality.owl
-2015-09-02 09:18:00,172 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@50b472aa
-all inferences
-2015-09-02 09:18:00,175 INFO  (CommandRunner:2483) Checking for consistency...
-Consistent? true
-2015-09-02 09:18:00,180 INFO  (CommandRunner:2490) Iterating through all classes...
-INFERENCE: B 'B' EquivalentTo A 'A'
-INFERENCE: A 'A' EquivalentTo B 'B'
-2015-09-02 09:18:00,200 INFO  (CommandRunnerBase:78) disposing of org.semanticweb.HermiT.Reasoner@50b472aa
-2015-09-02 09:18:00,200 INFO  (CommandRunnerBase:70) disposing of org.semanticweb.HermiT.Reasoner@50b472aa
-2015-09-02 09:18:00,609 INFO  (ParserWrapper:67) Start loading ontology: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass.owl from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass.owl
-2015-09-02 09:18:00,728 INFO  (ParserWrapper:74) Finished loading ontology: null from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass.owl
-2015-09-02 09:18:00,802 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@a9cd3b1
-all inferences
-2015-09-02 09:18:00,805 INFO  (CommandRunner:2483) Checking for consistency...
-Consistent? true
-2015-09-02 09:18:00,808 INFO  (CommandRunner:2490) Iterating through all classes...
-INFERENCE: B 'B' EquivalentTo A 'A'
-INFERENCE: A 'A' EquivalentTo B 'B'
-2015-09-02 09:18:00,823 INFO  (CommandRunnerBase:78) disposing of org.semanticweb.HermiT.Reasoner@a9cd3b1
-2015-09-02 09:18:00,823 INFO  (CommandRunnerBase:70) disposing of org.semanticweb.HermiT.Reasoner@a9cd3b1
-2015-09-02 09:18:01,232 INFO  (ParserWrapper:67) Start loading ontology: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass-cardinality.owl from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass-cardinality.owl
-2015-09-02 09:18:01,362 INFO  (ParserWrapper:74) Finished loading ontology: null from: file:/Users/mecum/src/obs-models/examples/classify-non-hierarchical/./test-equivclass-cardinality.owl
-2015-09-02 09:18:01,436 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@50b472aa
-all inferences
-2015-09-02 09:18:01,439 INFO  (CommandRunner:2483) Checking for consistency...
-Consistent? true
-2015-09-02 09:18:01,443 INFO  (CommandRunner:2490) Iterating through all classes...
-INFERENCE: B 'B' EquivalentTo A 'A'
-INFERENCE: A 'A' EquivalentTo B 'B'
-2015-09-02 09:18:01,459 INFO  (CommandRunnerBase:78) disposing of org.semanticweb.HermiT.Reasoner@50b472aa
-2015-09-02 09:18:01,459 INFO  (CommandRunnerBase:70) disposing of org.semanticweb.HermiT.Reasoner@50b472aa
+2015-09-02 12:20:22,260 INFO  (CommandRunner:2490) Iterating through all classes...
+# PARSING: A
+Sep 02, 2015 12:20:22 PM org.obolibrary.macro.ManchesterSyntaxTool createParser
+WARNING: parsing:A
+# QUERY: A 'A'
+E: A 'A'
+D: owl:Nothing owl:Nothing
+A:owl:Thing owl:Thing
 ```
+`owltools ./test-noequivclass-cardinality.owl --reasoner hermit --run-reasoner --assert-implied --reasoner-query 'A'`
+
+
+```{sh}
+2015-09-02 12:20:22,923 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@50b472aa
+all inferences
+2015-09-02 12:20:22,926 INFO  (CommandRunner:2483) Checking for consistency...
+Consistent? true
+2015-09-02 12:20:22,931 INFO  (CommandRunner:2490) Iterating through all classes...
+INFERENCE: B 'B' EquivalentTo A 'A'
+INFERENCE: A 'A' EquivalentTo B 'B'
+# PARSING: A
+Sep 02, 2015 12:20:22 PM org.obolibrary.macro.ManchesterSyntaxTool createParser
+WARNING: parsing:A
+# QUERY: A 'A'
+E: A 'A'
+E: B 'B'
+D: owl:Nothing owl:Nothing
+A:owl:Thing owl:Thing
+```
+
+`owltools ./test-equivclass.owl --reasoner hermit --run-reasoner --assert-implied --reasoner-query 'A'`
+
+
+```{sh}
+2015-09-02 12:20:23,580 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@a9cd3b1
+all inferences
+2015-09-02 12:20:23,583 INFO  (CommandRunner:2483) Checking for consistency...
+Consistent? true
+2015-09-02 12:20:23,586 INFO  (CommandRunner:2490) Iterating through all classes...
+INFERENCE: B 'B' EquivalentTo A 'A'
+INFERENCE: A 'A' EquivalentTo B 'B'
+# PARSING: A
+Sep 02, 2015 12:20:23 PM org.obolibrary.macro.ManchesterSyntaxTool createParser
+WARNING: parsing:A
+# QUERY: A 'A'
+E: A 'A'
+E: B 'B'
+D: owl:Nothing owl:Nothing
+A:owl:Thing owl:Thing
+```
+
+`owltools ./test-equivclass-cardinality.owl --reasoner hermit --run-reasoner --assert-implied --reasoner-query 'A'`
+
+
+```{sh}
+2015-09-02 12:20:24,241 INFO  (CommandRunner:5529) Created reasoner: org.semanticweb.HermiT.Reasoner@50b472aa
+all inferences
+2015-09-02 12:20:24,244 INFO  (CommandRunner:2483) Checking for consistency...
+Consistent? true
+2015-09-02 12:20:24,249 INFO  (CommandRunner:2490) Iterating through all classes...
+INFERENCE: B 'B' EquivalentTo A 'A'
+INFERENCE: A 'A' EquivalentTo B 'B'
+# PARSING: A
+Sep 02, 2015 12:20:24 PM org.obolibrary.macro.ManchesterSyntaxTool createParser
+WARNING: parsing:A
+# QUERY: A 'A'
+E: A 'A'
+E: B 'B'
+D: owl:Nothing owl:Nothing
+A:owl:Thing owl:Thing
+```
+
+
 ## Querying
 
 Corresponding command: `./query.sh`
