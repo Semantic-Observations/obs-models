@@ -39,12 +39,12 @@ Corresponding command: `./reason.sh`
 
 Result:
 
-| Test Case | Filename | A::B | Consistent? |
-|-----------|----------|-------------|
-| 1 | test-noequivclass.owl | No | Yes |
-| 2 | test-noequivclass-cardinality.owl | Yes | Yes |
-| 3 | test-equivclass.owl | Yes | Yes |
-| 4 | test-equivclass-cardinality.owl | Yes | Yes |
+| Test Case | Filename                          | A::B | Consistent? |
+|-----------|-----------------------------------|------|-------------|
+| 1         | test-noequivclass.owl             | No   | Yes         |
+| 2         | test-noequivclass-cardinality.owl | Yes  | Yes         |
+| 3         | test-equivclass.owl               | Yes  | Yes         |
+| 4         | test-equivclass-cardinality.owl   | Yes  | Yes         |
 
 Abridged outputs:
 
