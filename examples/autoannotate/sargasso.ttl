@@ -1,0 +1,93 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix domain: <http://example.com/domain/> .
+@prefix foo: <http://foo.org/foo/foo#> .
+@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
+
+[]
+    oboe:hasMeasurement [
+        oboe:hasValue "18.74" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "18.744" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "18.738" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "18.722" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "18.708" ;
+        a oboe:Measurement
+    ] ;
+    oboe:ofEntity [
+        rdf:label "e1" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o1" ;
+    a oboe:Observation .
+
+[]
+    oboe:hasMeasurement [
+        oboe:hasValue "7.9" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "4.0" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "5.0" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "6.0" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "7.0" ;
+        a oboe:Measurement
+    ] ;
+    oboe:ofEntity [
+        rdf:label "e2" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o2" ;
+    a oboe:Observation .
+
+[]
+    oboe:hasMeasurement [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ], [
+        oboe:hasValue "1" ;
+        a oboe:Measurement
+    ] ;
+    oboe:ofEntity [
+        rdf:label "e3" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o3" ;
+    a oboe:Observation .
+
