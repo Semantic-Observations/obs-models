@@ -1,14 +1,14 @@
-<!-- Tufts VUE 3.2.2 concept-map (obs_alignment_master.vue) 2015-09-02 -->
+<!-- Tufts VUE 3.2.2 concept-map (obs_alignment_master.vue) 2015-09-15 -->
 <!-- Tufts VUE: http://vue.tufts.edu/ -->
 <!-- Do Not Remove: VUE mapping @version(1.1) jar:file:/Applications/VUE.app/Contents/VUE.jar!/tufts/vue/resources/lw_mapping_1_1.xml -->
-<!-- Do Not Remove: Saved date Wed Sep 02 16:36:50 MST 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
+<!-- Do Not Remove: Saved date Tue Sep 15 08:57:44 MST 2015 by rwalls-iplant on platform Mac OS X 10.9.5 in JVM 1.6.0_65-b14-462-11M4609 -->
 <!-- Do Not Remove: Saving version @(#)VUE: built May 23 2013 at 2146 by tomadm on Linux 2.6.18-348.2.1.el5 i386 JVM 1.7.0_21-b11(bits=32) -->
 <?xml version="1.0" encoding="US-ASCII"?>
 <LW-MAP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="none" ID="0"
     label="obs_alignment_master.vue" created="1400544571505" x="0.0"
     y="0.0" width="2299.6665" height="1062.2" strokeWidth="0.0" autoSized="false">
-    <resource referenceCreated="1441237010514" size="86630"
+    <resource referenceCreated="1442332664158" size="86630"
         spec="/Users/rwalls-iplant/obs-models/figures/obs_alignment_master.vue"
         type="1" xsi:type="URLResource">
         <title>obs_alignment_master.vue</title>
@@ -1133,19 +1133,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/4fbc8ad0806fdcba008d434427098474</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 24; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 24; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       Perhaps leave QUDT out of this figure? Not really part of the alignment
     &lt;/p&gt;
   &lt;/body&gt;
@@ -1417,25 +1417,25 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/8abe32998ac2a11e015044273920d7b3</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 24; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 24; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       {Constraint} members have a common
     &lt;/p&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       - feature of interest
     &lt;/p&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       - phenomenon time
     &lt;/p&gt;
   &lt;/body&gt;
@@ -1452,19 +1452,19 @@
         <font>-plain-18</font>
         <URIString>http://vue.tufts.edu/rdf/resource/8abe32998ac2a11e015044275117f2ed</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 24; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 24; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 24; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 24; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       &lt;font style="font-size:18;"&gt;&lt;i&gt;Could be cleaner diagram and model with 
       OBOE:Observation subClassOf OML:ObservationCollection, with the 
       constraint attached to the subClass arrow? &lt;/i&gt;&lt;/font&gt;
@@ -1486,10 +1486,10 @@
   &lt;head&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 18; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 18; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
@@ -1510,19 +1510,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/8abe329a8ac2a11e0150442717ef5388</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 18; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 18; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       New Text
     &lt;/p&gt;
   &lt;/body&gt;
@@ -1538,19 +1538,19 @@
         <font>SansSerif-plain-14</font>
         <URIString>http://vue.tufts.edu/rdf/resource/8abe329a8ac2a11e01504427169f3dea</URIString>
         <richText>&lt;html&gt;
-  &lt;head style="color: #000000" color="#000000"&gt;
+  &lt;head color="#000000" style="color: #000000"&gt;
     &lt;style type="text/css"&gt;
       &lt;!--
-        body { margin-top: 0px; font-size: 18; color: #000000; margin-right: 0px; margin-bottom: 0px; font-family: Arial; margin-left: 0px }
-        ol { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; margin-left: 30; font-family: Arial }
-        p { margin-top: 0; color: #000000; margin-right: 0; margin-bottom: 0; margin-left: 0 }
-        ul { vertical-align: middle; margin-top: 6; font-size: 18; list-style-position: outside; font-family: Arial; margin-left: 30 }
+        body { margin-top: 0px; font-size: 18; margin-bottom: 0px; color: #000000; margin-right: 0px; font-family: Arial; margin-left: 0px }
+        ol { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
+        p { margin-top: 0; margin-bottom: 0; color: #000000; margin-right: 0; margin-left: 0 }
+        ul { margin-top: 6; font-size: 18; list-style-position: outside; vertical-align: middle; font-family: Arial; margin-left: 30 }
       --&gt;
     &lt;/style&gt;
     
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p style="color: #000000" color="#000000"&gt;
+    &lt;p color="#000000" style="color: #000000"&gt;
       New Text
     &lt;/p&gt;
   &lt;/body&gt;
@@ -1629,7 +1629,7 @@
         y="0.0" width="1.4E-45" height="1.4E-45" strokeWidth="0.0" autoSized="false">
         <URIString>http://vue.tufts.edu/rdf/resource/16fa0cb680c4264000f596b262c8421b</URIString>
     </layer>
-    <userZoom>0.5</userZoom>
+    <userZoom>0.2337858689642629</userZoom>
     <userOrigin x="-657.4158" y="-822.3153"/>
     <presentationBackground>#202020</presentationBackground>
     <PathwayList currentPathway="0" revealerIndex="-1">
@@ -1649,7 +1649,7 @@
                 <font>SansSerif-plain-14</font>
                 <URIString>http://vue.tufts.edu/rdf/resource/16fa0cb880c4264000f596b25cb88166</URIString>
                 <titleStyle ID="3" label="Header"
-                    created="1400544571576" x="335.5" y="172.5"
+                    created="1400544571576" x="341.0" y="175.0"
                     width="118.0" height="50.0" strokeWidth="0.0"
                     autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
@@ -1659,7 +1659,7 @@
                     <shape xsi:type="rectangle"/>
                 </titleStyle>
                 <textStyle ID="4" label="Slide Text"
-                    created="1400544571577" x="346.5" y="281.5"
+                    created="1400544571577" x="349.5" y="282.5"
                     width="101.0" height="35.0" strokeWidth="0.0"
                     autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
@@ -1669,7 +1669,7 @@
                     <shape xsi:type="rectangle"/>
                 </textStyle>
                 <linkStyle ID="5" label="Links" created="1400544571577"
-                    x="373.5" y="384.0" width="49.0" height="30.0"
+                    x="375.5" y="385.0" width="49.0" height="30.0"
                     strokeWidth="0.0" autoSized="true" isStyle="true" xsi:type="node">
                     <strokeColor>#404040</strokeColor>
                     <textColor>#B3BFE3</textColor>
