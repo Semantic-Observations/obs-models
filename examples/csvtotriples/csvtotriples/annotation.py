@@ -246,7 +246,7 @@ class Annotation:
                         else:
                             print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
 
-                    self.addValues(key, matched_data[0:4])
+                    self.addValues(key, row, matched_data[0:4])
 
                 # f.close()
 
@@ -367,11 +367,15 @@ class Annotation:
         print "context...<<stub>>"
 
 
-    def addValues(self, key, data):
+    def addValues(self, key, row, data):
         print "values...<<stub>>"
 
-        # print key
-        # print data
+        mapping_value = None
+
+        # Handle maps with values
+        if len(row) == 4 and len(row[2].strip()) > 0:
+            print "Mapping with value %s." % row[2]
+            mapping_value = row[2]
 
         data_index = data.index
 
@@ -381,7 +385,11 @@ class Annotation:
 
             s = RDF.Node(blank=identifier)
             p = RDF.Uri(self.ns['oboe']+'hasValue')
-            o = RDF.Node(literal=str(data[i]))
+
+            if mapping_value is None:
+                o = RDF.Node(literal=str(data[i]))
+            else:
+                o = RDF.Node(literal=str(mapping_value))
 
             rdfutils.addStatement(self.model, s, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
             rdfutils.addStatement(self.model, s, p, o)

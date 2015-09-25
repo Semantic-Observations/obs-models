@@ -56,49 +56,49 @@
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "lowercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "lowercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "lowercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "lowercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "uppercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "uppercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "uppercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "1" ;
+    oboe:hasValue "uppercast" ;
     oboe:ofCharacteristic <domain:CastIdentifier> ;
     oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
@@ -126,4 +126,3 @@
     ] ;
     rdf:label "o3" ;
     a oboe:Observation .
-
