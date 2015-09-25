@@ -120,6 +120,10 @@ class Annotation:
             if len(''.join(row).strip()) == 0:
                 continue
 
+            # Skip lines that start with a '#'
+            if len(row[0]) > 0 and row[0][0] == "#":
+                continue
+
             # Get the first value in the row to test if it's a header
             header = row[0]
 
