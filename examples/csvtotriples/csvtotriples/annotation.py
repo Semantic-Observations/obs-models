@@ -13,7 +13,7 @@ import requests
 import RDF
 from urlparse import urlparse
 
-from autoannotate import rdfutils
+from csvtotriples import rdfutils
 
 
 class Annotation:

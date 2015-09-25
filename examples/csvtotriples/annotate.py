@@ -14,10 +14,10 @@ import pandas
 import csv
 import re
 
-from autoannotate import annotation
+from csvtotriples import annotation
 
 
 if __name__ == "__main__":
     anno = annotation.Annotation("sargasso-annotations.csv")
-    anno.annotate()
+    anno.process()
     anno.serialize("sargasso.ttl")
