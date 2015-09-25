@@ -8,6 +8,102 @@
     <owl:equivalentClass> <oml:Observation> .
 
 []
+    oboe:hasValue "18.74" ;
+    oboe:ofCharacteristic <foo:Temperature> ;
+    oboe:usesStandard <foo:Celsius> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.744" ;
+    oboe:ofCharacteristic <foo:Temperature> ;
+    oboe:usesStandard <foo:Celsius> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.738" ;
+    oboe:ofCharacteristic <foo:Temperature> ;
+    oboe:usesStandard <foo:Celsius> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.722" ;
+    oboe:ofCharacteristic <foo:Temperature> ;
+    oboe:usesStandard <foo:Celsius> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "4.0" ;
+    oboe:ofCharacteristic <foo:Depth> ;
+    oboe:usesStandard <foo:Length> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "5.0" ;
+    oboe:ofCharacteristic <foo:Depth> ;
+    oboe:usesStandard <foo:Length> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "6.0" ;
+    oboe:ofCharacteristic <foo:Depth> ;
+    oboe:usesStandard <foo:Length> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "7.0" ;
+    oboe:ofCharacteristic <foo:Depth> ;
+    oboe:usesStandard <foo:Length> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    a oboe:Measurement .
+
+[]
     oboe:ofEntity [
         rdf:label "e1" ;
         a oboe:Entity

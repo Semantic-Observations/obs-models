@@ -40,7 +40,7 @@ observation,o3,,
 ,,,
 ,,,
 MAPPINGS,,,
-temp,o1,,
-depth,o2,,
-cast,o3,lowercast,cast lt 15
-cast,o3,uppercast,cast gte 15
+temp,m1,,
+depth,m2,,
+cast,m3,lowercast,cast lt 15
+cast,m3,uppercast,cast gte 15

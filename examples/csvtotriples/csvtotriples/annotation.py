@@ -17,11 +17,6 @@ from csvtotriples import rdfutils
 
 
 class Annotation:
-    """
-        Class to hold the information about the annotation process.
-        This is passed around from function to function.
-    """
-
     def __init__(self, template):
         print "Loading annotation template from file: %s." % template
 
@@ -35,12 +30,12 @@ class Annotation:
         self.observations = {}
         self.measurements = {}
         self.entities = {}
-        self.mappings = {}
+        self.characteristics = {}
+        self.standards = {}
+        self.mappings = []
 
 
     def __str__(self):
-        """ Pretty-printing method for the annotation."""
-
         outstring = ""
 
         if len(self.meta) > 0:
@@ -88,7 +83,7 @@ class Annotation:
         return outstring
 
 
-    def annotate(self):
+    def process(self):
         f = open(self.template, "rbU")
         reader = csv.reader(f)
 
@@ -198,6 +193,15 @@ class Annotation:
                             self.addMeasurement(row, parent)
                         elif node_type == "context":
                             self.addContext(row, parent)
+                    elif len(stack) == 3:
+                        parent = stack[1][1]
+                        node_type = row[2]
+
+                        if node_type == "characteristic":
+                            self.addCharacteristic(row, parent)
+                        elif node_type == "standard":
+                            self.addStandard(row, parent)
+
 
                 elif state == "MAPPINGS":
                     # Each mapping is at least an attribute/key pair.
@@ -212,10 +216,14 @@ class Annotation:
 
                     # Do straight mapping for straight mappings
                     if len(''.join(row[2:]).strip()) == 0:
+                        self.mappings.append([row[0], row[1]])
+
                         matched_data = dataset[attrib]
 
                     # Otherwise, do conditional mapping
                     else:
+                        self.mappings.append([row[0], row[1], row[2], row[3]])
+
                         # Find the mapping condition (lt, gt, etc)
                         condition = row[3].split(" ")
 
@@ -238,7 +246,7 @@ class Annotation:
                         else:
                             print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
 
-                    self.addValues(key, matched_data[0:5])
+                    self.addValues(key, matched_data[0:4])
 
                 # f.close()
 
@@ -273,8 +281,22 @@ class Annotation:
 
 
     def addTriple(self, row):
-        rdfutils.addStatement(self.model, row[0], row[1], RDF.Uri(row[2]))
-        # self.triples.append((row[0], row[1], row[2]))
+        s = row[0]
+        p = row[1]
+        o = row[2]
+
+        # Make URIs when of form x:y
+        if s.find(":") >= 0:
+            s = RDF.Uri(s)
+
+        if p.find(":") >= 0:
+            p = RDF.Uri(p)
+
+        if o.find(":") >= 0:
+            o = RDF.Uri(o)
+
+        rdfutils.addStatement(self.model, s, p, o)
+        self.triples.append((s, p, o))
 
 
     def addObservation(self, row):
@@ -319,16 +341,66 @@ class Annotation:
     def addMeasurement(self, row, parent):
         print "measurement...<<stub>>"
 
+        print row
+        print parent
+
+
+    def addCharacteristic(self, row, parent):
+        print "Adding characteristic of %s to %s." % (row[3], parent)
+
+        if parent not in self.characteristics:
+            self.characteristics[parent] = []
+
+        self.characteristics[parent].append(row[3])
+
+
+    def addStandard(self, row, parent):
+        print "Adding standard of %s to %s." % (row[3], parent)
+
+        if parent not in self.standards:
+            self.standards[parent] = []
+
+        self.standards[parent].append(row[3])
+
 
     def addContext(self, row, parent):
         print "context...<<stub>>"
 
 
-    def addValues(self, row, data):
+    def addValues(self, key, data):
         print "values...<<stub>>"
 
-        print row
-        print data
+        # print key
+        # print data
+
+        data_index = data.index
+
+        for i in range(0, len(data)):
+            identifier =  key + '-' + str(len(self.mappings)) + '-' + str(data_index[i])
+            print identifier
+
+            s = RDF.Node(blank=identifier)
+            p = RDF.Uri(self.ns['oboe']+'hasValue')
+            o = RDF.Node(literal=str(data[i]))
+
+            rdfutils.addStatement(self.model, s, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
+            rdfutils.addStatement(self.model, s, p, o)
+
+            print self.characteristics
+            # Add characteristics
+            if key in self.characteristics:
+                for characteristic in self.characteristics[key]:
+                    print "Statement characteristic %s for %s." % (characteristic, key)
+
+                    rdfutils.addStatement(self.model, s, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic))
+
+            # Add standards
+            if key in self.standards:
+                for standard in self.standards[key]:
+                    print "Statement standard %s for %s." % (standard, key)
+
+                    rdfutils.addStatement(self.model, s, self.ns['oboe']+'usesStandard', RDF.Uri(standard))
+
 
 
     def addMapping(self, row):
