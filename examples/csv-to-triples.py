@@ -16,7 +16,7 @@ def add_statements_from_csv(filename, model, ns):
 
     triple_section = False
     ns_section = False
-    rownum = 0
+    rownum = 0w
     for row in reader:
         rownum = rownum+1
         print("Processing row: " + str(rownum))
@@ -38,7 +38,7 @@ def add_statements_from_csv(filename, model, ns):
             predicate = row[1]
             object = row[2]
             print("Constructing: " + subject + " " + predicate + " " + object)
-            
+
             # Parse the value to determine if it is a blank node or a prefix:class, then turn them into proper nodes
             s_node = cell_to_node(subject, ns)
             print("Subject B/R/L: " + str(s_node.is_blank()) + "/" + str(s_node.is_resource()) + "/" + str(s_node.is_literal()))
@@ -46,23 +46,23 @@ def add_statements_from_csv(filename, model, ns):
             print("Predicate B/R/L: " + str(p_node.is_blank()) + "/" + str(p_node.is_resource()) + "/" + str(p_node.is_literal()))
             o_node = cell_to_node(object, ns)
             print("Object B/R/L: " + str(o_node.is_blank()) + "/" + str(o_node.is_resource()) + "/" + str(o_node.is_literal()))
-            
+
             # add a Statement to the model with the s, p, o
             addStatement(model, s_node, p_node, o_node)
             model.sync()
-            
+
     cfile.close()
 
 def cell_to_node(cell, ns):
-    
+
     newnode = None
-    
+
     # split out the prefix
     tokens = str.split(cell, ":")
     if (len(tokens) > 1):
         prefix = tokens[0]
         concept = tokens[1]
-        
+
         # If prefix == "_" then make a blank node
         if (prefix=="_"):
             newnode = RDF.Node(blank=concept)
@@ -74,7 +74,7 @@ def cell_to_node(cell, ns):
     if (newnode is None):
         # TODO: If literal contains ^^ split it out as the type
         newnode = RDF.Node(literal=cell)
-            
+
     return(newnode)
 
 def addStatement(model, s, p, o):
@@ -136,11 +136,11 @@ def main():
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "owl": "http://www.w3.org/2002/07/owl#"
     }
-    
+
     add_statements_from_csv("sargasso-lipids-obs-model.csv", model, ns)
-    
+
     print("Model size before serialize: " + str(model.size()))
-    
+
     print("Serialize as TTL file...")
     serialize(model, ns, rdf_file_prefix + ".ttl", "turtle")
     print
