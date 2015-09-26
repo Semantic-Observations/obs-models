@@ -212,45 +212,25 @@ class Annotation:
                     attrib = row[0]
                     key = row[1]
 
-                    dataset = self.dataset
+                    mapping = {}
 
-                    if attrib not in dataset:
-                        print "Couldn't find attribute %s in dataset with columns %s. Moving to next row." % (attrib, dataset.columns)
-                        continue
+                    if len(row[0]) > 0:
+                        mapping['attribute'] = row[0]
 
-                    # Do straight mapping for straight mappings
-                    if len(''.join(row[2:]).strip()) == 0:
-                        self.mappings.append([row[0], row[1]])
+                    if len(row[1]) > 0:
+                        mapping['key'] = row[1]
 
-                        matched_data = dataset[attrib]
+                    if len(row[2]) > 0:
+                        mapping['value'] = row[2]
 
-                    # Otherwise, do conditional mapping
-                    else:
-                        self.mappings.append([row[0], row[1], row[2], row[3]])
+                    if len(row[3]) > 0:
+                        mapping['condition'] = row[3]
 
-                        # Find the mapping condition (lt, gt, etc)
-                        condition = row[3].split(" ")
+                    self.mappings.append(mapping)
 
-                        if len(condition) != 3:
-                            print "Condition format error. Expected three tokens, separated by a space. Moving to next row."
-                            continue
 
-                        if condition[1] == "eq":
-                            matched_data = dataset[attrib][dataset[attrib] == int(condition[2])]
-                        elif condition[1] == "neq":
-                            matched_data = dataset[attrib][dataset[attrib] != int(condition[2])]
-                        elif condition[1] == "lt":
-                            matched_data = dataset[attrib][dataset[attrib] < int(condition[2])]
-                        elif condition[1] == "gt":
-                            matched_data = dataset[attrib][dataset[attrib] > int(condition[2])]
-                        elif condition[1] == "lte":
-                            matched_data = dataset[attrib][dataset[attrib] >= int(condition[2])]
-                        elif condition[1] == "gte":
-                            matched_data = dataset[attrib][dataset[attrib] <= int(condition[2])]
-                        else:
-                            print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
 
-                    self.addValues(key, row, matched_data[0:4])
+        self.processMappings()
 
                 # f.close()
 
@@ -374,37 +354,93 @@ class Annotation:
     def addValues(self, key, row, data):
         print "values...<<stub>>"
 
+    def processMappings(self):
+
+        index = 1
+
+        for mapping in self.mappings:
+            self.processMapping(mapping, index)
+            index += 1
+
+
+    def processMapping(self, mapping, index):
+        dataset = self.dataset
+        attrib = mapping['attribute']
+
+        if attrib not in dataset:
+            print "Couldn't find attribute %s in dataset with columns %s. Moving to next row." % (attrib, dataset.columns)
+            return
+
+        # Do straight mapping for straight mappings
+        if 'value' in mapping and 'condition' in mapping:
+            # Find the mapping condition (lt, gt, etc)
+            condition = row[3].split(" ")
+
+            if len(condition) != 3:
+                print "Condition format error. Expected three tokens, separated by a space. Moving to next row."
+                return
+
+            if condition[1] == "eq":
+                matched_data = dataset[attrib][dataset[attrib] == int(condition[2])]
+            elif condition[1] == "neq":
+                matched_data = dataset[attrib][dataset[attrib] != int(condition[2])]
+            elif condition[1] == "lt":
+                matched_data = dataset[attrib][dataset[attrib] < int(condition[2])]
+            elif condition[1] == "gt":
+                matched_data = dataset[attrib][dataset[attrib] > int(condition[2])]
+            elif condition[1] == "lte":
+                matched_data = dataset[attrib][dataset[attrib] >= int(condition[2])]
+            elif condition[1] == "gte":
+                matched_data = dataset[attrib][dataset[attrib] <= int(condition[2])]
+            else:
+                print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
+                return
+        else:
+            matched_data = dataset[mapping['attribute']]
+
+
+        self.addValues(mapping, index, matched_data[0:4])
+
+
+    def addValues(self, mapping, index, data):
         mapping_value = None
+        attrib = mapping['attribute']
+        key = mapping['key']
+
 
         # Handle maps with values
-        if len(row) == 4 and len(row[2].strip()) > 0:
-            print "Mapping with value %s." % row[2]
-            mapping_value = row[2]
+        if 'value' in mapping:
+            print "Mapping with value %s." % mapping['value']
+            mapping_value = mapping['value']
 
         data_index = data.index
 
         for i in range(0, len(data)):
-            identifier =  key + '-' + str(len(self.mappings)) + '-' + str(data_index[i])
+            identifier = key + '-' + str(index) + '-' + str(data_index[i])
             print identifier
 
-            s = RDF.Node(blank=identifier)
-            p = RDF.Uri(self.ns['oboe']+'hasValue')
+            blank_node = RDF.Node(blank=identifier)
 
+            # Replace with mapping value if needed
             if mapping_value is None:
-                o = RDF.Node(literal=str(data[i]))
+                node_value = str(data[i])
             else:
-                o = RDF.Node(literal=str(mapping_value))
+                node_value = str(mapping_value)
 
-            rdfutils.addStatement(self.model, s, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
-            rdfutils.addStatement(self.model, s, p, o)
 
-            print self.characteristics
+
+            rdfutils.addStatement(self.model, blank_node, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
+            rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
+
+
+
+
             # Add characteristics
             if key in self.characteristics:
                 for characteristic in self.characteristics[key]:
                     print "Statement characteristic %s for %s." % (characteristic, key)
 
-                    rdfutils.addStatement(self.model, s, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic))
+                    rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic))
 
             # Add standards
             if key in self.standards:
