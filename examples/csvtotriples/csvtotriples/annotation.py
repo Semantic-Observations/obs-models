@@ -368,8 +368,6 @@ class Annotation:
 
         rdfutils.addStatement(self.model, self.observations[o1], self.ns['oboe']+'hasContext', self.observations[o2])
 
-    def addValues(self, key, row, data):
-        print "values...<<stub>>"
 
     def processMappings(self):
 
@@ -476,7 +474,8 @@ class Annotation:
                 for standard in self.standards[key]:
                     print "Statement standard %s for %s." % (standard, key)
 
-                    rdfutils.addStatement(self.model, s, self.ns['oboe']+'usesStandard', RDF.Uri(standard))
+                    rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', RDF.Uri(standard))
+
             # Add conversions
             if key in self.conversions:
                 for conversion in self.conversions[key]:
