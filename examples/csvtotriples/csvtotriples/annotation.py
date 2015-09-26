@@ -36,49 +36,7 @@ class Annotation:
 
 
     def __str__(self):
-        outstring = ""
-
-        if len(self.meta) > 0:
-            outstring += "META\n"
-
-            for m in self.meta:
-                outstring += "  %s: %s\n" % (m, self.meta[m])
-
-        if len(self.namespaces) > 0:
-            outstring += "NAMESPACES\n"
-
-            for n in self.namespaces:
-                outstring += "  %s: %s\n" % (n, self.namespaces[n])
-
-        if len(self.triples) > 0:
-            outstring += "TRIPLES\n"
-
-            for t in self.triples:
-                outstring += "  %s %s %s\n" % t
-
-        if len(self.observations) > 0:
-            outstring += "OBSERVATIONS\n"
-
-            for o in self.observations:
-                outstring += "  %s\n" % o
-
-        if len(self.measurements) > 0:
-            outstring += "MEASUREMENTS\n"
-
-            for m in self.measurements:
-                outstring += "  %s\n" % m
-
-        if len(self.entities) > 0:
-            outstring += "ENTITIES\n"
-
-            for e in self.entities:
-                outstring += "  %s\n" % e
-
-        if len(self.mappings) > 0:
-            outstring += "MAPPINGS\n"
-
-            for m in self.mappings:
-                outstring += "  %s\n" % n
+        outstring = "annotation"
 
         return outstring
 
