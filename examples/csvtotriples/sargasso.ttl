@@ -1,114 +1,419 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix domain: <http://example.com/domain/> .
-@prefix foo: <http://foo.org/foo/foo#> .
 @prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
 @prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema> .
+@prefix foo: <http://foo.org/foo/foo#> .
 
 <oboe:Observation>
     <owl:equivalentClass> <oml:Observation> .
 
 []
-    oboe:hasValue "18.74" ;
-    oboe:ofCharacteristic <foo:Temperature> ;
-    oboe:usesStandard <foo:Celsius> ;
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "18.744" ;
-    oboe:ofCharacteristic <foo:Temperature> ;
-    oboe:usesStandard <foo:Celsius> ;
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "18.738" ;
-    oboe:ofCharacteristic <foo:Temperature> ;
-    oboe:usesStandard <foo:Celsius> ;
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "18.722" ;
-    oboe:ofCharacteristic <foo:Temperature> ;
-    oboe:usesStandard <foo:Celsius> ;
+    oboe:hasValue "1" ;
+    oboe:ofCharacteristic <domain:CastIdentifier> ;
+    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "4.0" ;
+    oboe:hasValue "36.641"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "36.641"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "36.64"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "36.64"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.739"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumetricDensity> ;
+    oboe:usesStandard <oboe-standard:KilogramPerMeterCubed> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.743"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumetricDensity> ;
+    oboe:usesStandard <oboe-standard:KilogramPerMeterCubed> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.737"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumetricDensity> ;
+    oboe:usesStandard <oboe-standard:KilogramPerMeterCubed> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "18.721"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumetricDensity> ;
+    oboe:usesStandard <oboe-standard:KilogramPerMeterCubed> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "26.343"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumePerVolume> ;
+    oboe:usesStandard <oboe-standard:MilliliterPerLIter> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "26.342"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumePerVolume> ;
+    oboe:usesStandard <oboe-standard:MilliliterPerLIter> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "26.343"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumePerVolume> ;
+    oboe:usesStandard <oboe-standard:MilliliterPerLIter> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "26.347"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe-characteristic:VolumePerVolume> ;
+    oboe:usesStandard <oboe-standard:MilliliterPerLIter> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.1521"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.1491"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.1505"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.1637"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.5947"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.5991"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.5972"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "0.5974"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "86.1837"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "86.0895"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "86.1304"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "86.127"^^xsd:decimal ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "20110315" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "20110315" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "20110315" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "20110315" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1639" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1639" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1639" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "1639" ;
+    oboe:ofCharacteristic <foo:NotImplemented> ;
+    oboe:usesStandard <foo:NotImplemented> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "33.002"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Latitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "33.002"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Latitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "33.002"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Latitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "33.002"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Latitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "-64.005"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Longitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "-64.005"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Longitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "-64.005"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Longitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "-64.005"^^xsd:decimal ;
+    oboe:ofCharacteristic <domain:Longitude> ;
+    oboe:usesStandard <domain:DecimalDegrees> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "305"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
+    foo:hasConversion <oboe-standard:DecibarToBar> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "305"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
+    foo:hasConversion <oboe-standard:DecibarToBar> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "305"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
+    foo:hasConversion <oboe-standard:DecibarToBar> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "305"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
+    foo:hasConversion <oboe-standard:DecibarToBar> ;
+    a oboe:Measurement .
+
+[]
+    oboe:hasValue "4.0"^^xsd:decimal ;
     oboe:ofCharacteristic <foo:Depth> ;
     oboe:usesStandard <foo:Length> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "5.0" ;
+    oboe:hasValue "5.0"^^xsd:decimal ;
     oboe:ofCharacteristic <foo:Depth> ;
     oboe:usesStandard <foo:Length> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "6.0" ;
+    oboe:hasValue "6.0"^^xsd:decimal ;
     oboe:ofCharacteristic <foo:Depth> ;
     oboe:usesStandard <foo:Length> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "7.0" ;
+    oboe:hasValue "7.0"^^xsd:decimal ;
     oboe:ofCharacteristic <foo:Depth> ;
     oboe:usesStandard <foo:Length> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "lowercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "4.0"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "lowercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "5.0"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "lowercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "6.0"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "lowercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "7.0"^^xsd:decimal ;
+    oboe:ofCharacteristic <oboe:Pressure> ;
+    oboe:usesStandard <oboe-standard:Bar> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "uppercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "18.74"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:Salinity>, <pato:PATO_0000146> ;
+    oboe:usesStandard <oboe-standard:Celsius>, <oboe-standard:PracticalSalinityUnit> ;
+    foo:hasConversion <qudt-unit:DegreeCelsius> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "uppercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "18.744"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:Salinity>, <pato:PATO_0000146> ;
+    oboe:usesStandard <oboe-standard:Celsius>, <oboe-standard:PracticalSalinityUnit> ;
+    foo:hasConversion <qudt-unit:DegreeCelsius> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "uppercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "18.738"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:Salinity>, <pato:PATO_0000146> ;
+    oboe:usesStandard <oboe-standard:Celsius>, <oboe-standard:PracticalSalinityUnit> ;
+    foo:hasConversion <qudt-unit:DegreeCelsius> ;
     a oboe:Measurement .
 
 []
-    oboe:hasValue "uppercast" ;
-    oboe:ofCharacteristic <domain:CastIdentifier> ;
-    oboe:usesStandard <domain:SargassoProjectCastIdentifiers> ;
+    oboe:hasValue "18.722"^^xsd:decimal ;
+    oboe:ofCharacteristic <foo:Salinity>, <pato:PATO_0000146> ;
+    oboe:usesStandard <oboe-standard:Celsius>, <oboe-standard:PracticalSalinityUnit> ;
+    foo:hasConversion <qudt-unit:DegreeCelsius> ;
     a oboe:Measurement .
 
 []
+    oboe:hasContext [
+        oboe:ofEntity [
+            rdf:label "e7" ;
+            a oboe:Entity
+        ] ;
+        rdf:label "o7" ;
+        a oboe:Observation
+    ] ;
     oboe:ofEntity [
         rdf:label "e1" ;
         a oboe:Entity
     ] ;
     rdf:label "o1" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e10" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o10" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e11" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o11" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e12" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o12" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e13" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o13" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e14" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o14" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e15" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o15" ;
     a oboe:Observation .
 
 []
@@ -126,3 +431,44 @@
     ] ;
     rdf:label "o3" ;
     a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e4" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o4" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e5" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o5" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e6" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o6" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e8" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o8" ;
+    a oboe:Observation .
+
+[]
+    oboe:ofEntity [
+        rdf:label "e9" ;
+        a oboe:Entity
+    ] ;
+    rdf:label "o9" ;
+    a oboe:Observation .
+
