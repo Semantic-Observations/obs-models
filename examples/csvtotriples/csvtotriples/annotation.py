@@ -227,10 +227,16 @@ class Annotation:
 
 
     def addNamespace(self, row):
+        if len(row[0]) < 1 or len(row[1]) < 1:
+            return
+
         self.ns[row[0]] = row[1]
 
 
     def addTriple(self, row):
+        if len(row[0]) < 1 or len(row[1]) < 1 or len(row[2]) < 1:
+            return
+
         s = row[0]
         p = row[1]
         o = row[2]
@@ -250,6 +256,9 @@ class Annotation:
 
 
     def addObservation(self, row):
+        if len(row[1]) < 1:
+            return
+
         blank_node = RDF.Node(blank=row[1])
 
         # Save the bnode
@@ -268,6 +277,9 @@ class Annotation:
 
 
     def addEntity(self, row, parent):
+        if len(row[2]) < 1:
+            return
+
         blank_node = RDF.Node(blank=row[2])
 
         # rdf:type
@@ -296,6 +308,9 @@ class Annotation:
 
 
     def addCharacteristic(self, row, parent):
+        if len(parent) < 1 or len(row[3]) < 1:
+            return
+
         print "Adding characteristic of %s to %s." % (row[3], parent)
 
         if parent not in self.characteristics:
@@ -305,6 +320,9 @@ class Annotation:
 
 
     def addStandard(self, row, parent):
+        if len(parent) < 1 or len(row[3]) < 1:
+            return
+
         print "Adding standard of %s to %s." % (row[3], parent)
 
         if parent not in self.standards:
