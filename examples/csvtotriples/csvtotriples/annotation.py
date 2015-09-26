@@ -344,8 +344,29 @@ class Annotation:
 
 
     def addContext(self, row, parent):
-        print "context...<<stub>>"
+        if len(parent) < 1 or len(row[2]) < 1:
+            return
 
+
+        o1 = row[2]
+        o2 = parent
+
+        print "Adding context for %s of %s." % (o1, o2)
+
+        # Create blank nodes for observations if needed
+        if o1 not in self.observations:
+            s = RDF.Node(blank=identifier)
+
+            self.observations[o1] = s
+            rdfutils.addStatement(self.model, s, self.ns['ns']+'type', RDF.Uri(self.ns['oboe']+'Observation'))
+
+        if o2 not in self.observations:
+            s = RDF.Node(blank=identifier)
+
+            self.observations[02] = s
+            rdfutils.addStatement(self.model, s, self.ns['ns']+'type', RDF.Uri(self.ns['oboe']+'Observation'))
+
+        rdfutils.addStatement(self.model, self.observations[o1], self.ns['oboe']+'hasContext', self.observations[o2])
 
     def addValues(self, key, row, data):
         print "values...<<stub>>"
