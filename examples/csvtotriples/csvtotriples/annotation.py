@@ -32,6 +32,7 @@ class Annotation:
         self.entities = {}
         self.characteristics = {}
         self.standards = {}
+        self.conversions = {}
         self.datatypes = {}
         self.mappings = []
 
@@ -166,6 +167,8 @@ class Annotation:
                             self.addCharacteristic(row, parent)
                         elif node_type == "standard":
                             self.addStandard(row, parent)
+                        elif node_type == "conversion":
+                            self.addConversion(row, parent)
 
 
                 elif state == "MAPPINGS":
@@ -310,6 +313,18 @@ class Annotation:
         self.standards[parent].append(row[3])
 
 
+    def addConversion(self, row, parent):
+        if len(parent) < 1 or len(row[3]) < 1:
+            return
+
+        print "Adding conversion of %s to %s." % (row[3], parent)
+
+        if parent not in self.conversions:
+            self.conversions[parent] = []
+
+        self.conversions[parent].append(row[3])
+
+
     def addContext(self, row, parent):
         print "context...<<stub>>"
 
@@ -423,6 +438,12 @@ class Annotation:
                     print "Statement standard %s for %s." % (standard, key)
 
                     rdfutils.addStatement(self.model, s, self.ns['oboe']+'usesStandard', RDF.Uri(standard))
+            # Add conversions
+            if key in self.conversions:
+                for conversion in self.conversions[key]:
+                    print "Statement conversion %s for %s." % (conversion, key)
+
+                    rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'hasConversion', RDF.Uri(conversion))
 
 
 
