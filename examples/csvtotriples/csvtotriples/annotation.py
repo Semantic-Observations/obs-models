@@ -195,10 +195,10 @@ class Annotation:
                 elif state == "DATATYPES":
                     self.addDataType(row)
 
+        f.close()
 
         self.processMappings()
 
-                # f.close()
 
     def addMeta(self, row):
         self.meta[row[0]] = row[1]
