@@ -8,11 +8,8 @@ import csv
 
 
 def main():
-    headers = ['META', 'NAMESPACES', 'TRIPLES', 'OBSERVATIONS', 'MAPPINGS']
-
-
     # Open file with Pandas
-
+    # TODO
     columns = ['test', 'this', 'out']
 
 
@@ -20,7 +17,7 @@ def main():
     with open("skeleton.csv", "wb") as f:
         writer = csv.writer(f)
 
-        for header in headers[0:2]:
+        for header in ['META', 'NAMESPACES', 'TRIPLES']:
             writer.writerow([header])
             writer.writerow([])
             writer.writerow([])
@@ -40,6 +37,7 @@ def main():
             writer.writerow(['', 'measurement', 'm'+str(index)])
             writer.writerow(['', '', 'characteristic', 'foo:EditMe'])
             writer.writerow(['', '', 'standard', 'foo:EditMe'])
+            writer.writerow(['', '', 'datatype', 'foo:EditMe'])
 
             writer.writerow([])
             index += 1
@@ -51,6 +49,15 @@ def main():
 
         # Mappings
         writer.writerow(['MAPPINGS'])
+
+        index = 1
+        for column in columns:
+            writer.writerow([column, 'm'+str(index)])
+            index += 1
+
+
+        # Datatypes
+        writer.writerow(['DATATYPES'])
 
         index = 1
         for column in columns:
