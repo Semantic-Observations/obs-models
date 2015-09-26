@@ -32,6 +32,7 @@ class Annotation:
         self.entities = {}
         self.characteristics = {}
         self.standards = {}
+        self.datatypes = {}
         self.mappings = []
 
 
@@ -97,6 +98,8 @@ class Annotation:
                     state = "OBSERVATIONS"
                 elif header == "MAPPINGS":
                     state = "MAPPINGS"
+                elif header == "DATATYPES":
+                    state = "DATATYPES"
             else:
                 # We aren't at a a header so we need to do actual work
 
@@ -186,6 +189,8 @@ class Annotation:
 
                     self.mappings.append(mapping)
 
+                elif state == "DATATYPES":
+                    self.addDataType(row)
 
 
         self.processMappings()
@@ -386,6 +391,18 @@ class Annotation:
                 node_value = str(mapping_value)
 
 
+            # Use datatype, if present
+            print "Searching for %s in datatypes." % mapping['attribute']
+
+            if attrib in self.datatypes:
+                value_node = RDF.Node(literal=node_value, datatype=RDF.Uri(self.datatypes[attrib]))
+            else:
+                value_node = RDF.Node(literal=node_value)
+
+
+            # Use language, if present
+            # TODO
+
 
             rdfutils.addStatement(self.model, blank_node, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
             rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
@@ -411,6 +428,23 @@ class Annotation:
 
     def addMapping(self, row):
         print "mapping...<<stub>>"
+
+
+    def addDataType(self, row):
+        if len(row[0]) < 1 or len(row[1]) < 1:
+            return
+
+        match = re.search("(.+):(.+)", row[1])
+        if match is not None and len(match.groups()) == 2:
+            namespace = match.group(1)
+            datatype = match.group(2)
+
+            full_uri = self.ns[namespace] + datatype
+
+        else:
+            print "Invalid datatype mapping."
+
+        self.datatypes[row[0]] = full_uri
 
 
     def serialize(self, filename, format=None):
