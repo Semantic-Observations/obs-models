@@ -79,7 +79,7 @@ observation,o9,,
 ,measurement,m9,
 ,,characteristic,pato:PATO_0000146
 ,,standard,oboe-standard:Celsius
-,,conversion,qudt-unit:DegreeCelsius
+,,,
 #sal,,,
 observation,o10,,
 ,entity,e10,envo:ENVO_0002149
