@@ -38,19 +38,20 @@ class Annotation:
 
 
     def __str__(self):
-        outstring = "annotation"
+        outstring = "Current model size is %d." % self.model.size()
 
         return outstring
 
 
-    def process(self):
+    def parse(self):
+        """ Parse the annotation template file. Triples that don't need to look
+        at the data are created here but triples that do need to look at the
+        data are generated in the process() method.
+        """
+
+
         f = open(self.template, "rbU")
         reader = csv.reader(f)
-
-
-        """ Store annotation information in a dict, which we will return. """
-
-        annotation = {}
 
 
         """ Keep track of what state we're in.
@@ -186,7 +187,15 @@ class Annotation:
 
         f.close()
 
-        self.processMappings()
+
+    def process(self):
+        """ Parses the template file line-by-line and then processes it."""
+        
+        index = 1
+
+        for mapping in self.mappings:
+            self.processMapping(mapping, index)
+            index += 1
 
 
     def addMeta(self, row):
@@ -365,14 +374,6 @@ class Annotation:
         rdfutils.addStatement(self.model, self.observations[o1], self.ns['oboe']+'hasContext', self.observations[o2])
 
 
-    def processMappings(self):
-        index = 1
-
-        for mapping in self.mappings:
-            self.processMapping(mapping, index)
-            index += 1
-
-
     def processMapping(self, mapping, index):
         dataset = self.dataset
         attrib = mapping['attribute']
@@ -409,7 +410,7 @@ class Annotation:
             matched_data = dataset[mapping['attribute']]
 
 
-        self.addValues(mapping, index, matched_data[0:4])
+        self.addValues(mapping, index, matched_data[0:1])
 
 
     def addValues(self, mapping, index, data):

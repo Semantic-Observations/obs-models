@@ -5,8 +5,9 @@ For now, the annotation script and template only work with the OBOE ontology but
 
 This work can be done by hand but is tedious and time-consuming for larger datasets and the work is highly redundant. By using a template to describe the set of triples we wish to generate, this work becomes more efficient and potentially less error-prone.
 
-The script `annotate.py` reads in an annotation template file (CSV format) and produces and
-semantic observations graph for the data inside a CSV file.
+The script `annotate.py` shows an example of how to annotate a dataset.
+Itreads in an annotation template file (CSV format) and produces and semantic observations graph for the data inside a CSV file.
+
 The script `csvtotriples/skeleton.py` generates an empty (skeleton) annotation template and is a good place to start when creating an annotation template for a new dataset.
 
 ## Template File
@@ -26,6 +27,8 @@ Each section may contain a number of values:
 
 ### META:
 
+A set of tuples of relevant information about the dataset.
+
 `metadata_identifier`: URI for the dataset's metadata
 
 `data_identifier`: URI for the data itself. This URI should be resolvable and return the dataset.
@@ -37,6 +40,9 @@ META,,,
 metadata_identifier,http://www.bco-dmo.org/dataset/3584,,
 data_identifier,http://data.bco-dmo.org/jg/serv/BCO/vanMooy/SargassoSeaLipids/X1103_CTD_profiles.flat9,,
 ```
+
+Other tuples can be placed here if it is useful for documentation or other purposes.
+Only the content in the `dataset_identifier` tuple matters for program execution.
 
 
 ### NAMESPACES
@@ -181,16 +187,18 @@ anno = annotation.Annotation("sargasso-annotations.csv")
 
 During the initialization of the `Annotation` instance, a blank RDF graph (using Redland) and a variety of housekeeping variables related to parsing and processing the template file are set aside. At this point, the template file hasn't been parsed or processed in any way and there are no triples present in the graph.
 
+### Parsing
 
-### Processing
+The Parsing step reads the template file in, line-by-line, and does some pre-processing. This step does add some triples, but on triples that use the values within the dataset are created here.
+For example, Observations nodes are created but their Measurement nodes are created in the Processing step.
 
-The main method doing the work is the `process` method on the instance of the `Annotation` class:
+Call the parsing method like:
 
 ```{python}
-anno.process()
+anno.parse()
 ```
 
-Once called, the template file is read, line-by-line, and each section is processed immediately. This has different meaning for each section:
+Different types of work are done for each section:
 
 #### META
 
@@ -223,9 +231,19 @@ Mappings are parsed and saved for later.
 Datatypes are parsed and saved for later.
 
 
-## Generating a Skeleton Template
+### Processing
 
-Note: This script is in progress.
+The main method doing the work is the `process` method on the instance of the `Annotation` class:
+
+```{python}
+anno.process()
+```
+
+During the Processing step, mappings are read, one-by-one, and the corresponding data are retrieved from the dataset.
+Using the information determined during the Parsing step, RDF nodes and triples for each value (cell) are created.
+
+
+## Generating a Skeleton Template
 
 Instead of creating an annotation template by hand, the user may want to create one by copying an existing template. As an alternative, `skeleton.py` creates an annotaton template based upon the structure of the data.
 To generate a skeleton template, run the `skeleton.py` script on the command line, passing a filename to a dataset as the first and only argument.

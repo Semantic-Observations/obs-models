@@ -19,5 +19,8 @@ from csvtotriples import annotation
 
 if __name__ == "__main__":
     anno = annotation.Annotation("sargasso-annotations.csv")
+    anno.parse()
     anno.process()
     anno.serialize("sargasso.ttl")
+
+    print anno
