@@ -434,25 +434,21 @@
         oboe:hasValue "18.74"^^xsd:decimal ;
         oboe:ofCharacteristic <pato:PATO_0000146> ;
         oboe:usesStandard <oboe-standard:Celsius> ;
-        foo:hasConversion <qudt-unit:DegreeCelsius> ;
         a oboe:Measurement
     ], [
         oboe:hasValue "18.744"^^xsd:decimal ;
         oboe:ofCharacteristic <pato:PATO_0000146> ;
         oboe:usesStandard <oboe-standard:Celsius> ;
-        foo:hasConversion <qudt-unit:DegreeCelsius> ;
         a oboe:Measurement
     ], [
         oboe:hasValue "18.738"^^xsd:decimal ;
         oboe:ofCharacteristic <pato:PATO_0000146> ;
         oboe:usesStandard <oboe-standard:Celsius> ;
-        foo:hasConversion <qudt-unit:DegreeCelsius> ;
         a oboe:Measurement
     ], [
         oboe:hasValue "18.722"^^xsd:decimal ;
         oboe:ofCharacteristic <pato:PATO_0000146> ;
         oboe:usesStandard <oboe-standard:Celsius> ;
-        foo:hasConversion <qudt-unit:DegreeCelsius> ;
         a oboe:Measurement
     ] ;
     oboe:ofEntity [

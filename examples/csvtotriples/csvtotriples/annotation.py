@@ -190,7 +190,7 @@ class Annotation:
 
     def process(self):
         """ Parses the template file line-by-line and then processes it."""
-        
+
         index = 1
 
         for mapping in self.mappings:
@@ -410,7 +410,7 @@ class Annotation:
             matched_data = dataset[mapping['attribute']]
 
 
-        self.addValues(mapping, index, matched_data[0:1])
+        self.addValues(mapping, index, matched_data[0:4])
 
 
     def addValues(self, mapping, index, data):
