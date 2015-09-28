@@ -223,7 +223,17 @@ class Annotation:
 
                 print "Retreiving data from url: %s" % url
 
-            self.dataset = pandas.read_fwf(filename)
+            # Load dataset
+            # Autodetect file format, using appropriate pandas.read_* method.
+            with open(filename, "rb") as f:
+                header_line = f.readline()
+
+                if len(header_line.split(",")) > 1:          #CSV
+                    self.dataset = pandas.read_fwf(filename)
+                elif len(header_line.split("\t")) > 1:       # TSV
+                    self.dataset = pandas.read_table(filename)
+                else:
+                    self.dataset = pandas.read_fwf(filename) #FWF
 
 
     def addNamespace(self, row):
