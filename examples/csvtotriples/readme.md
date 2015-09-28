@@ -71,7 +71,7 @@ oboe:Observation,owl:equivalentClass,oml:Observation,
 
 ### OBSERVATIONS
 
-This section contains a hierarchical description of OBOE Observations, Entities, Measurements, Characteristics, Standards, and Contexts.
+This section contains a hierarchical description of OBOE Observations, Entities, Measurements, Characteristics, Standards, Conversions, and Contexts.
 Blank cells are used to encode the hierarchy.
 
 ```
@@ -80,13 +80,14 @@ observation , o1          ,                ,
             , measurement , m1             ,
             ,             , characteristic , foo:mycharacteristic
             ,             , standard       , foo:mystandard
+            ,             , conversion     , foo:myconversion
             , context     , o2             ,
 
 ```
 
 In the above code block, an Observation with key `o1` is of an Entity `e1`, has a Measurement `m1`, and a Context of Observation `o2`. The keys uniquely specify linkages between instances of concepts within the template.
 In the above example, a lower case letter matching the first letter of the corresponding to a semantic concept (i.e. o for Observation)  is followed by a number but this is just used for clarity and the only requirement is that keys must be non-zero-length strings.
-Moving one level of indentation (column) over to the right, the above code block specifies that Measurement `m1` is of a Characteristic `foo:mycharacteristic` and was measured according to Standard `foo:mystandard`.
+Moving one level of indentation (column) over to the right, the above code block specifies that Measurement `m1` is of a Characteristic `foo:mycharacteristic`, was measured according to Standard `foo:mystandard`, and has a Conversion `foo:myconversion`.
 In the previous sentence, short-hand URIs are used instead of keys.
 This is because no within-document linkages are made for Characteristics and Standards.
 
