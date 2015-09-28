@@ -179,25 +179,7 @@ class Annotation:
 
 
                 elif state == "MAPPINGS":
-                    # Each mapping is at least an attribute/key pair.
-                    attrib = row[0]
-                    key = row[1]
-
-                    mapping = {}
-
-                    if len(row[0]) > 0:
-                        mapping['attribute'] = row[0]
-
-                    if len(row[1]) > 0:
-                        mapping['key'] = row[1]
-
-                    if len(row[2]) > 0:
-                        mapping['value'] = row[2]
-
-                    if len(row[3]) > 0:
-                        mapping['condition'] = row[3]
-
-                    self.mappings.append(mapping)
+                    self.addMapping(row)
 
                 elif state == "DATATYPES":
                     self.addDataType(row)
@@ -507,7 +489,25 @@ class Annotation:
 
 
     def addMapping(self, row):
-        print "mapping...<<stub>>"
+        # Each mapping is at least an attribute/key pair.
+        attrib = row[0]
+        key = row[1]
+
+        mapping = {}
+
+        if len(row[0]) > 0:
+            mapping['attribute'] = row[0]
+
+        if len(row[1]) > 0:
+            mapping['key'] = row[1]
+
+        if len(row[2]) > 0:
+            mapping['value'] = row[2]
+
+        if len(row[3]) > 0:
+            mapping['condition'] = row[3]
+
+        self.mappings.append(mapping)
 
 
     def addDataType(self, row):
