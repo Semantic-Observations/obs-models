@@ -84,6 +84,13 @@ class Annotation:
             if len(row[0]) > 0 and row[0][0] == "#":
                 continue
 
+            # Remove cells that are comments (#)
+            ncols = len(row)
+            for i in range(0, ncols):
+                if row[i].startswith("#"):
+                    row[i] = ""
+
+
             # Get the first value in the row to test if it's a header
             header = row[0]
 
