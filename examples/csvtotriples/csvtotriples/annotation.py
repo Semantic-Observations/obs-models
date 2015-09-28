@@ -311,10 +311,7 @@ class Annotation:
 
 
     def addMeasurement(self, row, parent):
-        print "measurement...<<stub>>"
-
-        print row
-        print parent
+        self.measurements[row[2]] = parent
 
 
     def addCharacteristic(self, row, parent):
@@ -380,7 +377,6 @@ class Annotation:
 
 
     def processMappings(self):
-
         index = 1
 
         for mapping in self.mappings:
@@ -470,6 +466,14 @@ class Annotation:
             rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
 
 
+            # OBOE:Observation OBOE:hasMeasurement OBOE:Measurement
+            if key in self.measurements:
+                observation_key = self.measurements[key]
+
+                if observation_key in self.observations:
+                    observation_node = self.observations[observation_key]
+
+                    rdfutils.addStatement(self.model, observation_node, self.ns['oboe']+'hasMeasurement', blank_node)
 
 
             # Add characteristics
