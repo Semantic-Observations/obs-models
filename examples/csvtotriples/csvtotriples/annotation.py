@@ -28,6 +28,7 @@ class Annotation:
         self.ns = {}
         self.triples = []
         self.observations = {}
+        self.contexts = {}
         self.measurements = {}
         self.entities = {}
         self.characteristics = {}
@@ -107,8 +108,6 @@ class Annotation:
                     state = "OBSERVATIONS"
                 elif header == "MAPPINGS":
                     state = "MAPPINGS"
-                elif header == "DATATYPES":
-                    state = "DATATYPES"
             else:
                 # We aren't at a a header so we need to do actual work
 
@@ -177,13 +176,12 @@ class Annotation:
                             self.addStandard(row, parent)
                         elif node_type == "conversion":
                             self.addConversion(row, parent)
+                        elif node_type == "datatype":
+                            self.addDatatype(row, parent)
 
 
                 elif state == "MAPPINGS":
                     self.addMapping(row)
-
-                elif state == "DATATYPES":
-                    self.addDataType(row)
 
         f.close()
 
@@ -242,6 +240,13 @@ class Annotation:
 
 
     def addTriple(self, row):
+        """ Adds the triple in a row.
+            Triples can be (URI, URI, URI) or (URI, URI, owl:unionOf(URI URI))
+            Note that a space separates the two URIs and not a comma.
+            TODO: Totally re-do addStatement stuff and this method in particular.
+        """
+
+
         if len(row[0]) < 1 or len(row[1]) < 1 or len(row[2]) < 1:
             return
 
@@ -249,66 +254,65 @@ class Annotation:
         p = row[1]
         o = row[2]
 
-        # Make URIs when of form x:y
-        if s.find(":") >= 0:
-            s = RDF.Uri(s)
 
-        if p.find(":") >= 0:
-            p = RDF.Uri(p)
+        # Handle unionOf case
+        # TODO: Not fully implemented
+        if o.startswith("owl:unionOf"):
+            match_result = re.match("owl:unionOf\(([\w:]+)\s+([\w:]+)\)", o)
 
-        if o.find(":") >= 0:
-            o = RDF.Uri(o)
+            if match_result is None:
+                print "Error while parsing row with unionOf statement."
+                print "Row was %s." % row
+                print "No triples added for statement."
 
-        rdfutils.addStatement(self.model, s, p, o)
-        self.triples.append((s, p, o))
+                return
+
+            union_node = RDF.Node(blank='union_node')
+
+            rdfutils.addStatement(self.model, union_node, self.ns['rdf']+'type', RDF.Uri(self.ns['owl']+'Class'))
+            rdfutils.addStatement(self.model, s, p, union_node)
+
+            for group in match_result.groups():
+                group_parts = group.split(":")
+                rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', RDF.Uri(self.ns[group_parts[0]]+group_parts[1]))
+
+
+            return
+        else:
+            # Make URIs when of form x:y
+            if s.find(":") >= 0:
+                s = RDF.Uri(s)
+
+            if p.find(":") >= 0:
+                p = RDF.Uri(p)
+
+            if o.find(":") >= 0:
+                o = RDF.Uri(o)
+
+            # TODO: Move this into the process step
+            rdfutils.addStatement(self.model, s, p, o)
 
 
     def addObservation(self, row):
-        if len(row[1]) < 1:
-            return
-
-        blank_node = RDF.Node(blank=row[1])
-
-        # Save the bnode
-        self.observations[row[1]] = blank_node
-
-        # Add the triple
-        rdfutils.addStatement(self.model,
-                     blank_node,
-                     RDF.Uri(self.ns["rdf"]+"type"),
-                     RDF.Uri(self.ns["oboe"]+"Observation"))
-
-        rdfutils.addStatement(self.model,
-                     blank_node,
-                     RDF.Uri(self.ns["rdf"]+"label"),
-                     row[1])
+        """This method doesn't do anything currently."""
 
 
     def addEntity(self, row, parent):
         if len(row[2]) < 1:
             return
 
-        blank_node = RDF.Node(blank=row[2])
-
-        # rdf:type
-        rdfutils.addStatement(self.model,
-                     blank_node,
-                     RDF.Uri(self.ns["rdf"]+"type"),
-                     RDF.Uri(self.ns["oboe"]+"Entity"))
-
-        # oboe:ofEntity
-        rdfutils.addStatement(self.model,
-                     self.observations[parent],
-                     RDF.Uri(self.ns["oboe"]+"ofEntity"),
-                     blank_node)
-        # rdf:label
-        rdfutils.addStatement(self.model,
-                     blank_node,
-                     RDF.Uri(self.ns["rdf"]+"label"),
-                     row[2])
+        self.entities[parent] = row[2]
 
 
     def addMeasurement(self, row, parent):
+        """ Add a mapping between a measurement template and an observation
+            template
+
+            row[2] is a key like m2
+            parent is a key like o2
+        """
+
+        print "Adding measurement of %s to %s." % (row[2], parent)
         self.measurements[row[2]] = parent
 
 
@@ -318,10 +322,7 @@ class Annotation:
 
         print "Adding characteristic of %s to %s." % (row[3], parent)
 
-        if parent not in self.characteristics:
-            self.characteristics[parent] = []
-
-        self.characteristics[parent].append(row[3])
+        self.characteristics[parent] = row[3]
 
 
     def addStandard(self, row, parent):
@@ -330,10 +331,7 @@ class Annotation:
 
         print "Adding standard of %s to %s." % (row[3], parent)
 
-        if parent not in self.standards:
-            self.standards[parent] = []
-
-        self.standards[parent].append(row[3])
+        self.standards[parent] = row[3]
 
 
     def addConversion(self, row, parent):
@@ -342,36 +340,25 @@ class Annotation:
 
         print "Adding conversion of %s to %s." % (row[3], parent)
 
-        if parent not in self.conversions:
-            self.conversions[parent] = []
-
-        self.conversions[parent].append(row[3])
+        self.conversions[parent] = row[3]
 
 
     def addContext(self, row, parent):
         if len(parent) < 1 or len(row[2]) < 1:
             return
 
+        print "Adding context for %s of %s." % (row[2], parent)
 
-        o1 = row[2]
-        o2 = parent
+        self.contexts[row[2]] = parent
 
-        print "Adding context for %s of %s." % (o1, o2)
 
-        # Create blank nodes for observations if needed
-        if o1 not in self.observations:
-            s = RDF.Node(blank=identifier)
+    def addDatatype(self, row, parent):
+        if len(parent) < 1 or len(row[3]) < 1:
+            return
 
-            self.observations[o1] = s
-            rdfutils.addStatement(self.model, s, self.ns['ns']+'type', RDF.Uri(self.ns['oboe']+'Observation'))
+        print "Adding datatype for %s of %s." % (row[3], parent)
 
-        if o2 not in self.observations:
-            s = RDF.Node(blank=identifier)
-
-            self.observations[02] = s
-            rdfutils.addStatement(self.model, s, self.ns['ns']+'type', RDF.Uri(self.ns['oboe']+'Observation'))
-
-        rdfutils.addStatement(self.model, self.observations[o1], self.ns['oboe']+'hasContext', self.observations[o2])
+        self.datatypes[parent] = row[3]
 
 
     def processMapping(self, mapping, index):
@@ -385,35 +372,49 @@ class Annotation:
         # Do straight mapping for straight mappings
         if 'value' in mapping and 'condition' in mapping:
             # Find the mapping condition (lt, gt, etc)
-            condition = row[3].split(" ")
+            condition = row[2].split(" ")
 
-            if len(condition) != 3:
+            if len(condition) != 2:
                 print "Condition format error. Expected three tokens, separated by a space. Moving to next row."
                 return
 
             if condition[1] == "eq":
-                matched_data = dataset[attrib][dataset[attrib] == int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] == int(condition[3])]
             elif condition[1] == "neq":
-                matched_data = dataset[attrib][dataset[attrib] != int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] != int(condition[3])]
             elif condition[1] == "lt":
-                matched_data = dataset[attrib][dataset[attrib] < int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] < int(condition[3])]
             elif condition[1] == "gt":
-                matched_data = dataset[attrib][dataset[attrib] > int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] > int(condition[3])]
             elif condition[1] == "lte":
-                matched_data = dataset[attrib][dataset[attrib] >= int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] >= int(condition[3])]
             elif condition[1] == "gte":
-                matched_data = dataset[attrib][dataset[attrib] <= int(condition[2])]
+                matched_data = dataset[attrib][dataset[attrib] <= int(condition[3])]
             else:
                 print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
                 return
         else:
             matched_data = dataset[mapping['attribute']]
 
+        # TODO: remove this out of development
+        matched_data = matched_data[0:1]
 
-        self.addValues(mapping, index, matched_data[0:4])
+        self.addValues(mapping, index, matched_data)
 
 
     def addValues(self, mapping, index, data):
+        """ Add values, and all related nodes and properties.
+
+            For a given value, we add information that...
+                It is a Measurement
+                    of a Characteristic
+                    according to a Standard
+                    using an (optional) converstion Standard
+                It is part of an Observation
+                    of an Entity
+
+
+        """
         mapping_value = None
         attrib = mapping['attribute']
         key = mapping['key']
@@ -430,7 +431,7 @@ class Annotation:
             identifier = key + '-' + str(index) + '-' + str(data_index[i])
             print identifier
 
-            blank_node = RDF.Node(blank=identifier)
+            blank_node = "_:m"+str(index)+ "_" + str(data_index[i])
 
             # Replace with mapping value if needed
             if mapping_value is None:
@@ -440,10 +441,11 @@ class Annotation:
 
 
             # Use datatype, if present
-            print "Searching for %s in datatypes." % mapping['attribute']
+            print "Searching for %s in datatypes." % key
 
-            if attrib in self.datatypes:
-                value_node = RDF.Node(literal=node_value, datatype=RDF.Uri(self.datatypes[attrib]))
+            if key in self.datatypes:
+                print "Datatyping!"
+                value_node = RDF.Node(literal=node_value, datatype=RDF.Uri(self.datatypes[key]))
             else:
                 value_node = RDF.Node(literal=node_value)
 
@@ -456,36 +458,32 @@ class Annotation:
             rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
 
 
-            # OBOE:Observation OBOE:hasMeasurement OBOE:Measurement
-            if key in self.measurements:
-                observation_key = self.measurements[key]
+            # Observation-hasMeasurement-Measurement
+            observation_key = "_:" + self.measurements[key] + "_" + str(data_index[i])
+            rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasMeasurement', RDF.Uri(blank_node))
 
-                if observation_key in self.observations:
-                    observation_node = self.observations[observation_key]
+            # Observation-ofEntity-Entity
+            entity_node = blank_node+"_entity"
+            rdfutils.addStatement(self.model, entity_node, self.ns['rdf']+'type', RDF.Uri(self.entities[self.measurements[key]]))
+            rdfutils.addStatement(self.model, observation_key, self.ns["oboe"]+"ofEntity", entity_node)
 
-                    rdfutils.addStatement(self.model, observation_node, self.ns['oboe']+'hasMeasurement', blank_node)
-
-
-            # Add characteristics
+            # Measurement-ofCharacteristic-Characteristic
             if key in self.characteristics:
-                for characteristic in self.characteristics[key]:
-                    print "Statement characteristic %s for %s." % (characteristic, key)
+                characteristic_node = blank_node+"_characteristic"
+                rdfutils.addStatement(self.model, characteristic_node, self.ns['rdf']+'type', RDF.Uri(self.characteristics[key]))
+                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', characteristic_node)
 
-                    rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic))
-
-            # Add standards
+            # Measurement-usesStandard-Standard
             if key in self.standards:
-                for standard in self.standards[key]:
-                    print "Statement standard %s for %s." % (standard, key)
+                standard_node = blank_node+"_standard"
+                rdfutils.addStatement(self.model, standard_node, self.ns['rdf']+'type', RDF.Uri(self.standards[key]))
+                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', standard_node)
 
-                    rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', RDF.Uri(standard))
-
-            # Add conversions
+            # Measurement-xxxx-Standard
             if key in self.conversions:
-                for conversion in self.conversions[key]:
-                    print "Statement conversion %s for %s." % (conversion, key)
-
-                    rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'hasConversion', RDF.Uri(conversion))
+                conversion_node = blank_node+"_conversion"
+                rdfutils.addStatement(self.model, conversion_node, self.ns['rdf']+'type', RDF.Uri(self.conversions[key]))
+                rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'usesConversion', conversion_node)
 
 
 
