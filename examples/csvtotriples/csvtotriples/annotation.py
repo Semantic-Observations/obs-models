@@ -452,6 +452,12 @@ class Annotation:
             observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
             rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasMeasurement', RDF.Uri(blank_node))
 
+            # Observation-hasContext-Observation
+            if self.measurements[key] in self.contexts:
+                other_observation = self.contexts[self.measurements[key]]
+                other_observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
+                rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasContext', RDF.Uri(other_observation_key))
+
             # Observation-ofEntity-Entity
             if key in self.entities:
                 entity_node = blank_node+"_entity"
