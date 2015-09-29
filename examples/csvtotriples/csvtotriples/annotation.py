@@ -254,43 +254,52 @@ class Annotation:
         p = row[1]
         o = row[2]
 
+        # Handle unionOf case, either in subject or object
+        if s.startswith("owl:unionOf"):
+            s = self.createUnionOfNode(s)
+        elif o.startswith("owl:unionOf"):
+            o = self.createUnionOfNode(o)
 
-        # Handle unionOf case
-        # TODO: Not fully implemented
-        if o.startswith("owl:unionOf"):
-            match_result = re.match("owl:unionOf\(([\w:]+)\s+([\w:]+)\)", o)
+        # TODO: Move this into the process step
+        # Convert subjects or objects to URIs if they're strings
+        if type(s) is str:
+            s_parts = s.split(":")
+            s = RDF.Uri(self.ns[s_parts[0]]+s_parts[1])
 
-            if match_result is None:
-                print "Error while parsing row with unionOf statement."
-                print "Row was %s." % row
-                print "No triples added for statement."
+        if type(o) is str:
+            o_parts = o.split(":")
+            o = RDF.Uri(self.ns[o_parts[0]]+o_parts[1])
 
-                return
-
-            union_node = RDF.Node(blank='union_node')
-
-            rdfutils.addStatement(self.model, union_node, self.ns['rdf']+'type', RDF.Uri(self.ns['owl']+'Class'))
-            rdfutils.addStatement(self.model, s, p, union_node)
-
-            for group in match_result.groups():
-                group_parts = group.split(":")
-                rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', RDF.Uri(self.ns[group_parts[0]]+group_parts[1]))
+        rdfutils.addStatement(self.model, s, p, o)
 
 
-            return
-        else:
-            # Make URIs when of form x:y
-            if s.find(":") >= 0:
-                s = RDF.Uri(s)
+    def createUnionOfNode(self, node):
+        """ Create a unionOf class node.
 
-            if p.find(":") >= 0:
-                p = RDF.Uri(p)
+            Modifies the `node` so it becomes an anonymous union class
+            and returns it.
+        """
 
-            if o.find(":") >= 0:
-                o = RDF.Uri(o)
+        match_result = re.search("owl:unionOf\(([\w\s:]+)\)", node)
 
-            # TODO: Move this into the process step
-            rdfutils.addStatement(self.model, s, p, o)
+        if match_result is None:
+            print "Error while parsing row with unionOf statement."
+            print "Row was %s." % row
+            print "No triples added for statement."
+
+            return node
+
+        union_node = RDF.Node()
+        rdfutils.addStatement(self.model, union_node, self.ns['rdf']+'type', RDF.Uri(self.ns['owl']+'Class'))
+
+        # Split the string 'foo:Thing1 foo:Thing2' into [foo:Thing1, foo:Thing2]
+        target_classes = match_result.group(1).split(" ")
+
+        for class_name in target_classes:
+            class_parts = class_name.split(":")
+            rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', RDF.Uri(self.ns[class_parts[0]]+class_parts[1]))
+
+        return union_node
 
 
     def addObservation(self, row):
