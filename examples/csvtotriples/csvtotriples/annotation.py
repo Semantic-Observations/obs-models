@@ -428,15 +428,13 @@ class Annotation:
             identifier = key + '-' + str(index) + '-' + str(data_index[i])
             blank_node = "_:m"+str(index)+ "_" + str(data_index[i])
 
-            # Replace with mapping value if needed
+            # Value Mapping: Replace with mapping value if needed
             if mapping_value is None:
                 node_value = str(data[i])
             else:
                 node_value = str(mapping_value)
 
-
-            # Use datatype, if present
-
+            # Datatype: Use RDF datatype, if present
             if key in self.datatypes:
                 value_node = RDF.Node(literal=node_value, datatype=RDF.Uri(self.datatypes[key]))
             else:
@@ -446,7 +444,7 @@ class Annotation:
             # Use language, if present
             # TODO
 
-
+            # Create Measurement
             rdfutils.addStatement(self.model, blank_node, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
             rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
 
