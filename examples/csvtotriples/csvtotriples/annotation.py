@@ -321,7 +321,8 @@ class Annotation:
             parent is a key like o2
         """
 
-        self.measurements[row[2]] = parent
+        self.measurements[row[2]] = parent # TODO: Do I need this anymore?
+        self.observations[row[2]] = parent
 
 
     def addCharacteristic(self, row, parent):
