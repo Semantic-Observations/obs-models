@@ -462,19 +462,19 @@ class Annotation:
             if key in self.characteristics:
                 characteristic_node = blank_node+"_characteristic"
                 rdfutils.addStatement(self.model, characteristic_node, self.ns['rdf']+'type', RDF.Uri(self.characteristics[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', characteristic_node)
+                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic_node))
 
             # Measurement-usesStandard-Standard
             if key in self.standards:
                 standard_node = blank_node+"_standard"
                 rdfutils.addStatement(self.model, standard_node, self.ns['rdf']+'type', RDF.Uri(self.standards[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', standard_node)
+                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', RDF.Uri(standard_node))
 
             # Measurement-xxxx-Standard
             if key in self.conversions:
                 conversion_node = blank_node+"_conversion"
                 rdfutils.addStatement(self.model, conversion_node, self.ns['rdf']+'type', RDF.Uri(self.conversions[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'usesConversion', conversion_node)
+                rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'usesConversion', RDF.Uri(conversion_node))
 
 
 
