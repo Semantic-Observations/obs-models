@@ -16,66 +16,68 @@
 @prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core> .
 
-<obo:IAO_0000104>
-    <owl:equivalentClass> <prov:Plan> .
+oml:Observation
+    <rdfs:subClassOf> prov:Activity .
 
-<obo:OBI_0000011>
-    <rdfs:subClassOf> <prov:Activity> .
+oml:Protocol
+    <rdfs:subClassOf> oml:Process, prov:Plan .
 
-<obo:OBI_0000272>
-    <rdfs:subClassOf> <obo:IAO_0000104> .
+oml:hasCharacteristic
+    <align:similarProperty> envo:RO_0000053 .
 
-<obo:bco_0000003>
-    <owl:equivalentClass> <oboe:Observation> ;
-    <rdfs:subClassOf> <obo:OBI_0000011>, <oml:Observation> .
+oboe:Characteristic
+    <owl:equivalentClass> gf:PropertyType, ssn:Property .
 
-<oboe:Characteristic>
-    <owl:equivalentClass> <gf:PropertyType>, <ssn:Property> .
-
-<oboe:Entity>
-    <owl:equivalentClass> <gf:feature>, <prov:Entity>, <ssn:FeatureOfInterest>, [
+oboe:Entity
+    <owl:equivalentClass> gf:feature, ssn:FeatureOfInterest, prov:Entity, [
         a owl:Class ;
-        owl:unionOf (envo:BFO_0000015, envo:BFO_0000040)
+        owl:unionOf envo:BFO_0000015, envo:BFO_0000040
     ] .
 
-<oboe:Measurement>
-    <rdfs:subClassOf> <oml:Observation> ;
-    <skos:related> <obo:IAO_0000027> .
+oboe:Measurement
+    <rdfs:subClassOf> oml:Observation ;
+    <skos:related> envo:IAO_0000027 .
 
-<oboe:Observation>
-    <rdfs:subClassOf> <oml:ObservationCollection>, <prov:Activity> .
+oboe:Observation
+    <rdfs:subClassOf> oml:ObservationCollection, prov:Activity .
 
-<oboe:Protocol>
-    <owl:equivalentClass> <obo:OBI_0000272> ;
-    <rdfs:subClassOf> <prov:Plan> .
+oboe:Protocol
+    <owl:equivalentClass> envo:OBI_0000272 ;
+    <rdfs:subClassOf> prov:Plan .
 
-<oboe:hasMeasurement>
-    <align:similarProperty> <obo:OBI_0000299> ;
-    <owl:inverseOf> <oml:memberOf> .
+oboe:hasMeasurement
+    <align:similarProperty> envo:OBI_0000299 ;
+    <owl:inverseOf> oml:memberOf .
 
-<oboe:ofEntity>
-    <align:similarProperty> <obo:OBI_0000293> ;
-    <rdfs:subPropertyOf> <oml:featureOfInterest> .
+oboe:ofEntity
+    <align:similarProperty> envo:OBI_0000293 ;
+    <rdfs:subPropertyOf> oml:featureOfInterest .
 
-<oml:Observation>
-    <rdfs:subClassOf> <prov:Activity> .
+envo:IAO_0000104
+    <owl:equivalentClass> prov:Plan .
 
-<oml:Protocol>
-    <rdfs:subClassOf> <oml:Process>, <prov:Plan> .
+envo:OBI_0000011
+    <rdfs:subClassOf> prov:Activity .
 
-<oml:hasCharacteristic>
-    <align:similarProperty> <obo:RO_0000053> .
+envo:OBI_0000272
+    <rdfs:subClassOf> envo:IAO_0000104 .
 
-<owl:unionOf(obo:BFO_0000020 obo:PATO_0000001)>
-    <skos:related> <oboe:Characteristic> .
+envo:bco_0000003
+    <owl:equivalentClass> oboe:Observation ;
+    <rdfs:subClassOf> oml:Observation, envo:OBI_0000011 .
 
-<prov:Plan>
-    <owl:equivalentClass> <obo:IAO_0000104> .
+ssn:ActivityOfSensing
+    <owl:equivalentClass> oml:Observation ;
+    <rdfs:subClassOf> prov:Activity .
 
-<ssn:ActivityOfSensing>
-    <owl:equivalentClass> <oml:Observation> ;
-    <rdfs:subClassOf> <prov:Activity> .
+ssn:Observation
+    <rdfs:subClassOf> prov:Entity .
 
-<ssn:Observation>
-    <rdfs:subClassOf> <prov:Entity> .
+prov:Plan
+    <owl:equivalentClass> envo:IAO_0000104 .
+
+[]
+    a owl:Class ;
+    owl:unionOf envo:BFO_0000020, envo:PATO_0000001 ;
+    <skos:related> oboe:Characteristic .
 
