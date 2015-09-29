@@ -321,15 +321,12 @@ class Annotation:
             parent is a key like o2
         """
 
-        print "Adding measurement of %s to %s." % (row[2], parent)
         self.measurements[row[2]] = parent
 
 
     def addCharacteristic(self, row, parent):
         if len(parent) < 1 or len(row[3]) < 1:
             return
-
-        print "Adding characteristic of %s to %s." % (row[3], parent)
 
         self.characteristics[parent] = row[3]
 
@@ -338,16 +335,12 @@ class Annotation:
         if len(parent) < 1 or len(row[3]) < 1:
             return
 
-        print "Adding standard of %s to %s." % (row[3], parent)
-
         self.standards[parent] = row[3]
 
 
     def addConversion(self, row, parent):
         if len(parent) < 1 or len(row[3]) < 1:
             return
-
-        print "Adding conversion of %s to %s." % (row[3], parent)
 
         self.conversions[parent] = row[3]
 
@@ -356,16 +349,12 @@ class Annotation:
         if len(parent) < 1 or len(row[2]) < 1:
             return
 
-        print "Adding context for %s of %s." % (row[2], parent)
-
         self.contexts[row[2]] = parent
 
 
     def addDatatype(self, row, parent):
         if len(parent) < 1 or len(row[3]) < 1:
             return
-
-        print "Adding datatype for %s of %s." % (row[3], parent)
 
         self.datatypes[parent] = row[3]
 
@@ -428,18 +417,14 @@ class Annotation:
         attrib = mapping['attribute']
         key = mapping['key']
 
-
         # Handle maps with values
         if 'value' in mapping:
-            print "Mapping with value %s." % mapping['value']
             mapping_value = mapping['value']
 
         data_index = data.index
 
         for i in range(0, len(data)):
             identifier = key + '-' + str(index) + '-' + str(data_index[i])
-            print identifier
-
             blank_node = "_:m"+str(index)+ "_" + str(data_index[i])
 
             # Replace with mapping value if needed
@@ -450,10 +435,8 @@ class Annotation:
 
 
             # Use datatype, if present
-            print "Searching for %s in datatypes." % key
 
             if key in self.datatypes:
-                print "Datatyping!"
                 value_node = RDF.Node(literal=node_value, datatype=RDF.Uri(self.datatypes[key]))
             else:
                 value_node = RDF.Node(literal=node_value)
