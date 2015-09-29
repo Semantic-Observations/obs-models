@@ -211,16 +211,3 @@
 <_:o6_0>
     oboe:hasMeasurement <_:m10_0>, <_:m11_0>, <_:m12_0>, <_:m13_0>, <_:m14_0>, <_:m15_0>, <_:m8_0>, <_:m9_0> .
 
-oboe:Entity
-    <owl:equivalentClass> [
-        a owl:Class ;
-        owl:unionOf obo:BFO_0000015, obo:BFO_0000040
-    ] .
-
-oboe:Observation
-    <owl:equivalentClass> oml:Observation .
-
-[]
-    a owl:Class ;
-    owl:unionOf foo:Thing1, foo:Thing2 ;
-    <owl:equivalentClass> foo:Thing3 .
