@@ -1,0 +1,8 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix align: <https://github.com/Semantic-Observations/obs-models/> .
+
+<align:B> a owl:Class .
+<align:C> a owl:Class .
+<align:A> a owl:Class ;
+    owl:unionOf (align:B align:C) .
