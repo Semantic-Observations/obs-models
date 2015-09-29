@@ -448,9 +448,8 @@ class Annotation:
             rdfutils.addStatement(self.model, blank_node, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
             rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
 
-
             # Observation-hasMeasurement-Measurement
-            observation_key = "_:" + self.measurements[key] + "_" + str(data_index[i])
+            observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
             rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasMeasurement', RDF.Uri(blank_node))
 
             # Observation-ofEntity-Entity
