@@ -1,0 +1,81 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix align: <https://github.com/Semantic-Observations/obs-models/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qudt-unit: <http://data.nasa.gov/qudt/owl/unit#> .
+@prefix owlTime: <http://www.w3.org/2006/time#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite> .
+@prefix gf: <http://def.seegrid.csiro.au/isotc211/iso19109/2005/feature#> .
+@prefix qudt: <http://data.nasa.gov/qudt/owl/qudt#> .
+@prefix envo: <http://purl.obolibrary.org/obo/> .
+@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core> .
+
+<obo:IAO_0000104>
+    <owl:equivalentClass> <prov:Plan> .
+
+<obo:OBI_0000011>
+    <rdfs:subClassOf> <prov:Activity> .
+
+<obo:OBI_0000272>
+    <rdfs:subClassOf> <obo:IAO_0000104> .
+
+<obo:bco_0000003>
+    <owl:equivalentClass> <oboe:Observation> ;
+    <rdfs:subClassOf> <obo:OBI_0000011>, <oml:Observation> .
+
+<oboe:Characteristic>
+    <owl:equivalentClass> <gf:PropertyType>, <ssn:Property> .
+
+<oboe:Entity>
+    <owl:equivalentClass> <gf:feature>, <prov:Entity>, <ssn:FeatureOfInterest>, [
+        a owl:Class ;
+        owl:unionOf (envo:BFO_0000015, envo:BFO_0000040)
+    ] .
+
+<oboe:Measurement>
+    <rdfs:subClassOf> <oml:Observation> ;
+    <skos:related> <obo:IAO_0000027> .
+
+<oboe:Observation>
+    <rdfs:subClassOf> <oml:ObservationCollection>, <prov:Activity> .
+
+<oboe:Protocol>
+    <owl:equivalentClass> <obo:OBI_0000272> ;
+    <rdfs:subClassOf> <prov:Plan> .
+
+<oboe:hasMeasurement>
+    <align:similarProperty> <obo:OBI_0000299> ;
+    <owl:inverseOf> <oml:memberOf> .
+
+<oboe:ofEntity>
+    <align:similarProperty> <obo:OBI_0000293> ;
+    <rdfs:subPropertyOf> <oml:featureOfInterest> .
+
+<oml:Observation>
+    <rdfs:subClassOf> <prov:Activity> .
+
+<oml:Protocol>
+    <rdfs:subClassOf> <oml:Process>, <prov:Plan> .
+
+<oml:hasCharacteristic>
+    <align:similarProperty> <obo:RO_0000053> .
+
+<owl:unionOf(obo:BFO_0000020 obo:PATO_0000001)>
+    <skos:related> <oboe:Characteristic> .
+
+<prov:Plan>
+    <owl:equivalentClass> <obo:IAO_0000104> .
+
+<ssn:ActivityOfSensing>
+    <owl:equivalentClass> <oml:Observation> ;
+    <rdfs:subClassOf> <prov:Activity> .
+
+<ssn:Observation>
+    <rdfs:subClassOf> <prov:Entity> .
+
