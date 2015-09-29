@@ -459,10 +459,12 @@ class Annotation:
                 rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasContext', RDF.Uri(other_observation_key))
 
             # Observation-ofEntity-Entity
-            if key in self.entities:
-                entity_node = blank_node+"_entity"
+            if self.observations[key] in self.entities:
+                entity_string = self.entities[self.observations[key]]
+
+                entity_node = self.observations[key] + "_entity"
                 rdfutils.addStatement(self.model, entity_node, self.ns['rdf']+'type', RDF.Uri(self.entities[self.measurements[key]]))
-                rdfutils.addStatement(self.model, observation_key, self.ns["oboe"]+"ofEntity", entity_node)
+                rdfutils.addStatement(self.model, observation_key, self.ns["oboe"]+"ofEntity", RDF.Uri(entity_node))
 
             # Measurement-ofCharacteristic-Characteristic
             if key in self.characteristics:

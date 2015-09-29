@@ -11,8 +11,8 @@
 
 <_:m10_0>
     oboe:hasValue "36.641"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m10_0_characteristic" ;
-    oboe:usesStandard "_:m10_0_standard" ;
+    oboe:ofCharacteristic <_:m10_0_characteristic> ;
+    oboe:usesStandard <_:m10_0_standard> ;
     a oboe:Measurement .
 
 <_:m10_0_characteristic>
@@ -23,8 +23,8 @@
 
 <_:m11_0>
     oboe:hasValue "18.739"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m11_0_characteristic" ;
-    oboe:usesStandard "_:m11_0_standard" ;
+    oboe:ofCharacteristic <_:m11_0_characteristic> ;
+    oboe:usesStandard <_:m11_0_standard> ;
     a oboe:Measurement .
 
 <_:m11_0_characteristic>
@@ -35,8 +35,8 @@
 
 <_:m12_0>
     oboe:hasValue "26.343"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m12_0_characteristic" ;
-    oboe:usesStandard "_:m12_0_standard" ;
+    oboe:ofCharacteristic <_:m12_0_characteristic> ;
+    oboe:usesStandard <_:m12_0_standard> ;
     a oboe:Measurement .
 
 <_:m12_0_characteristic>
@@ -47,8 +47,8 @@
 
 <_:m13_0>
     oboe:hasValue "0.1521"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m13_0_characteristic" ;
-    oboe:usesStandard "_:m13_0_standard" ;
+    oboe:ofCharacteristic <_:m13_0_characteristic> ;
+    oboe:usesStandard <_:m13_0_standard> ;
     a oboe:Measurement .
 
 <_:m13_0_characteristic>
@@ -59,8 +59,8 @@
 
 <_:m14_0>
     oboe:hasValue "0.5947"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m14_0_characteristic" ;
-    oboe:usesStandard "_:m14_0_standard" ;
+    oboe:ofCharacteristic <_:m14_0_characteristic> ;
+    oboe:usesStandard <_:m14_0_standard> ;
     a oboe:Measurement .
 
 <_:m14_0_characteristic>
@@ -71,8 +71,8 @@
 
 <_:m15_0>
     oboe:hasValue "86.1837"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m15_0_characteristic" ;
-    oboe:usesStandard "_:m15_0_standard" ;
+    oboe:ofCharacteristic <_:m15_0_characteristic> ;
+    oboe:usesStandard <_:m15_0_standard> ;
     a oboe:Measurement .
 
 <_:m15_0_characteristic>
@@ -83,8 +83,8 @@
 
 <_:m1_0>
     oboe:hasValue "1" ;
-    oboe:ofCharacteristic "_:m1_0_characteristic" ;
-    oboe:usesStandard "_:m1_0_standard" ;
+    oboe:ofCharacteristic <_:m1_0_characteristic> ;
+    oboe:usesStandard <_:m1_0_standard> ;
     a oboe:Measurement .
 
 <_:m1_0_characteristic>
@@ -95,8 +95,8 @@
 
 <_:m2_0>
     oboe:hasValue "20110315" ;
-    oboe:ofCharacteristic "_:m2_0_characteristic" ;
-    oboe:usesStandard "_:m2_0_standard" ;
+    oboe:ofCharacteristic <_:m2_0_characteristic> ;
+    oboe:usesStandard <_:m2_0_standard> ;
     a oboe:Measurement .
 
 <_:m2_0_characteristic>
@@ -107,8 +107,8 @@
 
 <_:m3_0>
     oboe:hasValue "1639" ;
-    oboe:ofCharacteristic "_:m3_0_characteristic" ;
-    oboe:usesStandard "_:m3_0_standard" ;
+    oboe:ofCharacteristic <_:m3_0_characteristic> ;
+    oboe:usesStandard <_:m3_0_standard> ;
     a oboe:Measurement .
 
 <_:m3_0_characteristic>
@@ -119,8 +119,8 @@
 
 <_:m4_0>
     oboe:hasValue "33.002"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m4_0_characteristic" ;
-    oboe:usesStandard "_:m4_0_standard" ;
+    oboe:ofCharacteristic <_:m4_0_characteristic> ;
+    oboe:usesStandard <_:m4_0_standard> ;
     a oboe:Measurement .
 
 <_:m4_0_characteristic>
@@ -131,8 +131,8 @@
 
 <_:m5_0>
     oboe:hasValue "-64.005"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m5_0_characteristic" ;
-    oboe:usesStandard "_:m5_0_standard" ;
+    oboe:ofCharacteristic <_:m5_0_characteristic> ;
+    oboe:usesStandard <_:m5_0_standard> ;
     a oboe:Measurement .
 
 <_:m5_0_characteristic>
@@ -143,9 +143,9 @@
 
 <_:m6_0>
     oboe:hasValue "305"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m6_0_characteristic" ;
-    oboe:usesStandard "_:m6_0_standard" ;
-    foo:usesConversion "_:m6_0_conversion" ;
+    oboe:ofCharacteristic <_:m6_0_characteristic> ;
+    oboe:usesStandard <_:m6_0_standard> ;
+    foo:usesConversion <_:m6_0_conversion> ;
     a oboe:Measurement .
 
 <_:m6_0_characteristic>
@@ -159,8 +159,8 @@
 
 <_:m7_0>
     oboe:hasValue "4.0"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m7_0_characteristic" ;
-    oboe:usesStandard "_:m7_0_standard" ;
+    oboe:ofCharacteristic <_:m7_0_characteristic> ;
+    oboe:usesStandard <_:m7_0_standard> ;
     a oboe:Measurement .
 
 <_:m7_0_characteristic>
@@ -171,8 +171,8 @@
 
 <_:m8_0>
     oboe:hasValue "4.0"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m8_0_characteristic" ;
-    oboe:usesStandard "_:m8_0_standard" ;
+    oboe:ofCharacteristic <_:m8_0_characteristic> ;
+    oboe:usesStandard <_:m8_0_standard> ;
     a oboe:Measurement .
 
 <_:m8_0_characteristic>
@@ -183,8 +183,8 @@
 
 <_:m9_0>
     oboe:hasValue "18.74"^^<xsd:decimal> ;
-    oboe:ofCharacteristic "_:m9_0_characteristic" ;
-    oboe:usesStandard "_:m9_0_standard" ;
+    oboe:ofCharacteristic <_:m9_0_characteristic> ;
+    oboe:usesStandard <_:m9_0_standard> ;
     a oboe:Measurement .
 
 <_:m9_0_characteristic>
@@ -194,20 +194,41 @@
     a <oboe-standard:Celsius> .
 
 <_:o1_0>
-    oboe:hasMeasurement <_:m1_0> .
+    oboe:hasContext <_:o1_0> ;
+    oboe:hasMeasurement <_:m1_0> ;
+    oboe:ofEntity <o1_entity> .
 
 <_:o2_0>
     oboe:hasMeasurement <_:m2_0>, <_:m3_0> .
 
 <_:o3_0>
-    oboe:hasMeasurement <_:m4_0>, <_:m5_0> .
+    oboe:hasMeasurement <_:m4_0>, <_:m5_0> ;
+    oboe:ofEntity <o3_entity> .
 
 <_:o4_0>
-    oboe:hasMeasurement <_:m6_0> .
+    oboe:hasMeasurement <_:m6_0> ;
+    oboe:ofEntity <o4_entity> .
 
 <_:o5_0>
-    oboe:hasMeasurement <_:m7_0> .
+    oboe:hasContext <_:o5_0> ;
+    oboe:hasMeasurement <_:m7_0> ;
+    oboe:ofEntity <o5_entity> .
 
 <_:o6_0>
-    oboe:hasMeasurement <_:m10_0>, <_:m11_0>, <_:m12_0>, <_:m13_0>, <_:m14_0>, <_:m15_0>, <_:m8_0>, <_:m9_0> .
+    oboe:hasMeasurement <_:m10_0>, <_:m11_0>, <_:m12_0>, <_:m13_0>, <_:m14_0>, <_:m15_0>, <_:m8_0>, <_:m9_0> ;
+    oboe:ofEntity <o6_entity> .
 
+<o1_entity>
+    a <domain:3DRelativeSite> .
+
+<o3_entity>
+    a <foo:LatLonEntity> .
+
+<o4_entity>
+    a <foo:WaterColumnEntity> .
+
+<o5_entity>
+    a <foo:WaterColumnEntity> .
+
+<o6_entity>
+    a <foo:SeaWaterEntity> .
