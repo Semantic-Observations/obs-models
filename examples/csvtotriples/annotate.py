@@ -10,6 +10,7 @@
     triples to disk in the specified format.
 """
 
+import sys
 import pandas
 import csv
 import re
@@ -18,9 +19,16 @@ from csvtotriples import annotation
 
 
 if __name__ == "__main__":
-    anno = annotation.Annotation("sargasso-annotations.csv")
+    # Parse command line args to get filename
+    if len(sys.argv) != 2:
+        print "Unexpected number of command line arguments. Expected `python annotate.py your_template.csv`"
+        sys.exit()
+
+    filename = sys.argv[1]
+
+    anno = annotation.Annotation(filename)
     anno.parse()
     anno.process()
-    anno.serialize("sargasso.ttl")
+    anno.serialize(filename + ".ttl")
 
     print anno
