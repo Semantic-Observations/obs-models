@@ -286,8 +286,19 @@ class Annotation:
     def createUnionOfNode(self, node):
         """ Create a unionOf class node.
 
-            Modifies the `node` so it becomes an anonymous union class
-            and returns it.
+            Takes as input `node`, which is the unprocessed text from the CSV.
+            With this text, we create and add nodes to the graph and return
+                a reference to the first element in the unionOf set.
+
+            owl:unionOf is handled in the following fashion:
+
+            - Create blank nodes for each union class (A, B, C, etc...)
+                - For each union class bnode, create another bnode CA
+                    - To this bnode (CA), add two properties:
+                        - rdf:first <A>
+                        - rdf:rest #rdfnil
+            - Return the first union class' bnode (A)
+
         """
 
         match_result = re.search("owl:unionOf\(([\w\s:]+)\)", node)
@@ -299,15 +310,39 @@ class Annotation:
 
             return node
 
+        # Split the string 'foo:Thing1 foo:Thing2' into [foo:Thing1, foo:Thing2, etc...]
+        union_class_uri_strings = match_result.group(1).split(" ")
+
+        # Stores union member blank nodes
+        container_nodes = []
+
+        for class_uri_string in union_class_uri_strings:
+            print "Creating wrapper node for %s." % class_uri_string
+
+            container_node = RDF.Node()
+            container_nodes.append(container_node)
+
+            # Add just the first statements now
+            rdfutils.addStatement(self.model, container_node, self.ns['rdf']+'first', RDF.Uri(class_uri_string))
+
+        if len(container_nodes) < 1:
+            print "Something went wrong when creating nodes for a unionOf statement. Result may be incorrect."
+            return node
+
+        # rdf:rest Statements
+
+        # rdf:rest statements for 1:(n-1)
+        for i in range(len(container_nodes)-1):
+            rdfutils.addStatement(self.model, container_nodes[i], self.ns['rdf']+'rest', container_nodes[i+1])
+
+        # rdf:rest statement for n
+        last_container_node = container_nodes[len(container_nodes) - 1]
+        rdfutils.addStatement(self.model, last_container_node, self.ns['rdf']+'rest', RDF.Uri(self.ns['rdf']+'nil'))
+
+        # Create wrapper for the union
         union_node = RDF.Node()
         rdfutils.addStatement(self.model, union_node, self.ns['rdf']+'type', RDF.Uri(self.ns['owl']+'Class'))
-
-        # Split the string 'foo:Thing1 foo:Thing2' into [foo:Thing1, foo:Thing2]
-        target_classes = match_result.group(1).split(" ")
-
-        for class_name in target_classes:
-            class_parts = class_name.split(":")
-            rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', RDF.Uri(self.ns[class_parts[0]]+class_parts[1]))
+        rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', container_nodes[0])
 
         return union_node
 
