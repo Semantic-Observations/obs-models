@@ -262,13 +262,22 @@ class Annotation:
 
         # TODO: Move this into the process step
         # Convert subjects or objects to URIs if they're strings
+
         if type(s) is str:
             s_parts = s.split(":")
-            s = RDF.Uri(self.ns[s_parts[0]]+s_parts[1])
+            # If prefix == "_" then make a blank node
+            if (s_parts[0]=="_"):
+                s = RDF.Node(blank=s_parts[1])
+            else:
+                s = RDF.Uri(self.ns[s_parts[0]]+s_parts[1])
 
         if type(o) is str:
             o_parts = o.split(":")
-            o = RDF.Uri(self.ns[o_parts[0]]+o_parts[1])
+            # If prefix == "_" then make a blank node
+            if (o_parts[0]=="_"):
+                o = RDF.Node(blank=o_parts[1])
+            else:
+                o = RDF.Uri(self.ns[o_parts[0]]+o_parts[1])
 
         rdfutils.addStatement(self.model, s, p, o)
 
