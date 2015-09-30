@@ -13,14 +13,12 @@
 @prefix qudt: <http://data.nasa.gov/qudt/owl/qudt#> .
 @prefix envo: <http://purl.obolibrary.org/obo/> .
 @prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix ssnext: <http://purl.oclc.org/NET/ssnprov/ssnprov#> .
 @prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core> .
 
 oml:Observation
     <rdfs:subClassOf> prov:Activity .
-
-oml:Protocol
-    <rdfs:subClassOf> oml:Process, prov:Plan .
 
 oml:hasCharacteristic
     <align:similarProperty> envo:RO_0000053 .
@@ -43,14 +41,16 @@ oboe:Observation
 
 oboe:Protocol
     <owl:equivalentClass> envo:OBI_0000272 ;
-    <rdfs:subClassOf> prov:Plan .
+    <rdfs:subClassOf> oml:Process, prov:Plan .
 
 oboe:hasMeasurement
     <align:similarProperty> envo:OBI_0000299 ;
-    <owl:inverseOf> oml:memberOf .
+    <owl:inverseOf> [
+        <rdfs:subPropertyOf> oml:memberOf
+    ] .
 
 oboe:ofEntity
-    <align:similarProperty> envo:OBI_0000293 ;
+    <owl:equivalentProperty> envo:OBI_0000293 ;
     <rdfs:subPropertyOf> oml:featureOfInterest .
 
 envo:IAO_0000104
@@ -66,7 +66,7 @@ envo:bco_0000003
     <owl:equivalentClass> oboe:Observation ;
     <rdfs:subClassOf> oml:Observation, envo:OBI_0000011 .
 
-ssn:ActivityOfSensing
+ssnext:ActivityOfSensing
     <owl:equivalentClass> oml:Observation ;
     <rdfs:subClassOf> prov:Activity .
 
