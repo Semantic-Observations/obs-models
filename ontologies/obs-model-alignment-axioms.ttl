@@ -17,67 +17,72 @@
 @prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core> .
 
+<_:memberOfSubProp>
+    rdfs:subPropertyOf oml:memberOf .
+
 oml:Observation
-    <rdfs:subClassOf> prov:Activity .
+    rdfs:subClassOf prov:Activity .
 
 oml:hasCharacteristic
-    <align:similarProperty> envo:RO_0000053 .
+    align:similarProperty envo:RO_0000053 .
 
 oboe:Characteristic
-    <owl:equivalentClass> gf:PropertyType, ssn:Property .
+    owl:equivalentClass gf:PropertyType, ssn:Property .
 
 oboe:Entity
-    <owl:equivalentClass> gf:feature, ssn:FeatureOfInterest, prov:Entity, [
+    owl:equivalentClass gf:feature, ssn:FeatureOfInterest, prov:Entity, [
         a owl:Class ;
-        owl:unionOf envo:BFO_0000015, envo:BFO_0000040
+        owl:unionOf (envo:BFO_0000040
+            envo:BFO_0000015
+        )
     ] .
 
 oboe:Measurement
-    <rdfs:subClassOf> oml:Observation ;
-    <skos:related> envo:IAO_0000027 .
+    rdfs:subClassOf oml:Observation ;
+    skos:related envo:IAO_0000027 .
 
 oboe:Observation
-    <rdfs:subClassOf> oml:ObservationCollection, prov:Activity .
+    rdfs:subClassOf oml:ObservationCollection, prov:Activity .
 
 oboe:Protocol
-    <owl:equivalentClass> envo:OBI_0000272 ;
-    <rdfs:subClassOf> oml:Process, prov:Plan .
+    rdfs:subClassOf oml:Process, prov:Plan ;
+    owl:equivalentClass envo:OBI_0000272 .
 
 oboe:hasMeasurement
-    <align:similarProperty> envo:OBI_0000299 ;
-    <owl:inverseOf> [
-        <rdfs:subPropertyOf> oml:memberOf
-    ] .
+    owl:inverseOf <_:memberOfSubProp> ;
+    align:similarProperty envo:OBI_0000299 .
 
 oboe:ofEntity
-    <owl:equivalentProperty> envo:OBI_0000293 ;
-    <rdfs:subPropertyOf> oml:featureOfInterest .
+    rdfs:subPropertyOf oml:featureOfInterest ;
+    owl:equivalentProperty envo:OBI_0000293 .
 
 envo:IAO_0000104
-    <owl:equivalentClass> prov:Plan .
+    owl:equivalentClass prov:Plan .
 
 envo:OBI_0000011
-    <rdfs:subClassOf> prov:Activity .
+    rdfs:subClassOf prov:Activity .
 
 envo:OBI_0000272
-    <rdfs:subClassOf> envo:IAO_0000104 .
+    rdfs:subClassOf envo:IAO_0000104 .
 
 envo:bco_0000003
-    <owl:equivalentClass> oboe:Observation ;
-    <rdfs:subClassOf> oml:Observation, envo:OBI_0000011 .
+    rdfs:subClassOf oml:Observation, envo:OBI_0000011 ;
+    owl:equivalentClass oboe:Observation .
 
 ssnext:ActivityOfSensing
-    <owl:equivalentClass> oml:Observation ;
-    <rdfs:subClassOf> prov:Activity .
+    rdfs:subClassOf prov:Activity ;
+    owl:equivalentClass oml:Observation .
 
 ssn:Observation
-    <rdfs:subClassOf> prov:Entity .
+    rdfs:subClassOf prov:Entity .
 
 prov:Plan
-    <owl:equivalentClass> envo:IAO_0000104 .
+    owl:equivalentClass envo:IAO_0000104 .
 
 []
     a owl:Class ;
-    owl:unionOf envo:BFO_0000020, envo:PATO_0000001 ;
-    <skos:related> oboe:Characteristic .
+    owl:unionOf (envo:BFO_0000020
+        envo:PATO_0000001
+    ) ;
+    skos:related oboe:Characteristic .
 
