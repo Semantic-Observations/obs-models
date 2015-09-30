@@ -232,3 +232,4 @@
 
 <o6_entity>
     a <foo:SeaWaterEntity> .
+
