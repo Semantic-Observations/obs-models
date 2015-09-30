@@ -89,7 +89,7 @@ class Annotation:
             o_parts = o.split(":")
 
             if len(o_parts) == 2:
-                if s_parts[0] == "_":
+                if o_parts[0] == "_":
                     o = RDF.Uri(o)
                 else:
                     o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
