@@ -17,10 +17,11 @@ from csvtotriples import rdfutils
 
 
 class Annotation:
-    def __init__(self, template):
+    def __init__(self, template, nrows=None):
         print "Loading annotation template from file: %s." % template
 
         self.template = template
+        self.nrows = nrows
         self.model = rdfutils.createModel() # An RDF Model
 
         # Store annotation template as a number of a dicts/arrays
@@ -405,7 +406,8 @@ class Annotation:
             matched_data = dataset[mapping['attribute']]
 
         # TODO: remove this out of development
-        matched_data = matched_data[0:1]
+        if self.nrows is not None:
+            matched_data = matched_data[0:self.nrows]
 
         self.addValues(mapping, index, matched_data)
 
