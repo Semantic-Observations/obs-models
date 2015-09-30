@@ -1,29 +1,54 @@
 # CSV To Triples
 
-`csvtotriples` automatically generate triples for a dataset according to an observations ontology.
+`csvtotriples` automatically generate triples for a dataset according to an observations ontology using a custom template file.
 For now, the annotation script and template only work with the OBOE ontology but wouldn't require significant modification to work with others.
 
-This work can be done by hand but is tedious and time-consuming for larger datasets and the work is highly redundant. By using a template to describe the set of triples we wish to generate, this work becomes more efficient and potentially less error-prone.
+The work of creating triples for an entire dataset can be done by hand but is tedious and time-consuming for larger datasets and the work is highly redundant. By using a template to describe the set of triples we wish to generate, this work becomes more efficient and potentially less error-prone.
 
-The script `annotate.py` shows an example of how to annotate a dataset.
-Itreads in an annotation template file (CSV format) and produces and semantic observations graph for the data inside a CSV file.
+## Usage
+
+The script `annotate.py` takes the following arguments from the command line and generates a Turtle file of triples for your dataset.
+
+- Filename (required)
+- Number of rows (optional, defaults to all rows from the dataset)
+- Output filename (optional, defaults to the same name as the annotation template filename plus '.ttl')
+
+For example, if we have a template file called mydataset-template.csv, run the following:
+
+```{sh}
+python path/to/annotate.py mydataset-template.csv
+```
+
+The resulting triples will be written out to a file `mydataset-template.csv.ttl`. This will overwrite whatever is located in that file so be careful.
+
+You may want to run the script with its additional command line arguments, like:
+
+```{sh}
+python path/to/annotate.py -n 5 -o mydataset.ttl mydataset-template.csv
+```
+
+The above command will only annotate the first five rows of the dataset and will write the result to `mydataset.ttl`.
+
 
 The script `csvtotriples/skeleton.py` generates an empty (skeleton) annotation template and is a good place to start when creating an annotation template for a new dataset.
+
 
 ## Template File
 
 The template file format was designed to make it easy to annotate a dataset with minimal repetition.
 
-The file contains six sections which contain specific information relevant to the automatic annotation process:
+The file contains five sections which contain specific information relevant to the automatic annotation process:
 
-- META: Identifiers for the metadata (optional) and data. [required]
-- NAMESPACES: Namespaces for the annotation graph. [optional]
-- TRIPLES: Triples the user wants to manually specify. These are simply added directly to the graph. [optional]
-- OBSERVATIONS: The observations the data are being annotated with. [required]
-- MAPPINGS: Mappings between a semantic concept and attributes of the data [required]
-- DATATYPES: Datatype for attributes (columns) of the data [optional]
+- META: Identifiers for the metadata and data.
+- NAMESPACES: Namespaces for the annotation graph.
+- TRIPLES: Triples the user wants to manually specify. These are simply added directly to the graph.
+- OBSERVATIONS: The observations the data are being annotated with.
+- MAPPINGS: Mappings between a semantic concept and attributes of the data
 
-Each section may contain a number of values:
+
+Note: Any blank rows, rows that start with a #, or cells that start with a # will be ignored and can be helpful in documenting your template.
+
+Each section is optional and each section may contain a number of values:
 
 ### META:
 
@@ -74,28 +99,35 @@ TRIPLES,,,
 oboe:Observation,owl:equivalentClass,oml:Observation,
 ```
 
+The TRIPLES section supports subjects and objects that are `owl:unionOf` statements, like:
+
+```{csv}
+TRIPLES
+foo:MyThing,owl:equivalentClass,owl:unionOf(foo:OneThing foo:AnotherThing),
+owl:unionOf(foo:A foo:B),owl:equivalentClass,foo:C,
+```
+
 
 ### OBSERVATIONS
 
 This section contains a hierarchical description of OBOE Observations, Entities, Measurements, Characteristics, Standards, Conversions, and Contexts.
-Blank cells are used to encode the hierarchy.
+Blank/indented cells are used to encode the hierarchy.
 
 ```
 observation , o1          ,                ,
-            , entity      , e1             , foo:myentity
+            , entity      , foo:myentity   ,
             , measurement , m1             ,
             ,             , characteristic , foo:mycharacteristic
             ,             , standard       , foo:mystandard
             ,             , conversion     , foo:myconversion
+            ,             , datatype       , xsd:decimal
             , context     , o2             ,
 
 ```
 
 In the above code block, an Observation with key `o1` is of an Entity `e1`, has a Measurement `m1`, and a Context of Observation `o2`. The keys uniquely specify linkages between instances of concepts within the template.
 In the above example, a lower case letter matching the first letter of the corresponding to a semantic concept (i.e. o for Observation)  is followed by a number but this is just used for clarity and the only requirement is that keys must be non-zero-length strings.
-Moving one level of indentation (column) over to the right, the above code block specifies that Measurement `m1` is of a Characteristic `foo:mycharacteristic`, was measured according to Standard `foo:mystandard`, and has a Conversion `foo:myconversion`.
-In the previous sentence, short-hand URIs are used instead of keys.
-This is because no within-document linkages are made for Characteristics and Standards.
+Moving one level of indentation (column) over to the right, the above code block specifies that Measurement `m1` is of a Characteristic `foo:mycharacteristic`, was measured according to Standard `foo:mystandard`, and has a Conversion `foo:myconversion` and all values should have the RDF datatype of `xsd:decimal`.
 
 Example:
 
@@ -119,7 +151,7 @@ Each of the Measurements in in the template were taking according to the same St
 Either a tuple or a quad:
 
 `attribute,key`
-`attribute,key,value,condition`
+`attribute,key,condition,value`
 
 For the first form, attributes (usually columns) of the data are mapped onto a semantic concept by its key (usually a measurement, e.g. m1).
 For the second form, attributes are again mapped to semantic concepts but instead of the values being read from the data and inserted directly into the graph, as in the tuple form, the `value` is substituted from the mapping according to a condition.
@@ -134,20 +166,20 @@ For example, say you had data with the column `spp` which contained the species 
 
 but the data had encoded the species using a common name, such as "King", we could handle this with the following mapping:
 
-`spp,m3,Oncorhynchus tshawytscha,spp eq Chinook`
+`spp,m3,spp eq Chinook,Oncorhynchus tshawytscha`
 
 Example:
 
 ```{csv}
 MAPPINGS,,,
-cast,m1,,
 date,m2,,
 time,m3,,
+spp,m3,spp eq Chinook,Oncorhynchus tshawytscha
 ```
 
 Without a mapping covering values within the data, values from the data won't be entered into the graph.
 Mappings select data from a column of the dataset and add the necessary triples for that value to the graph.
-If no mappings are specified, no Measurements/Characteristics/Standards will be added to the graph (and no values either)
+If no mappings are specified, no Measurements/Characteristics/Standards/etc will be added to the graph (and no values either)
 If a conditional mapping is specified that doesn't cover all data in a column (i.e. `site,m10,SiteAlpha,site eq 1`), any values in the `site` column not equal to 1 won't be added to the graph.
 All values in the dataset must correspond to a mapping, conditional or otherwise.
 
@@ -172,7 +204,8 @@ prmax,xsd:decimal,,
 - Parsing and processing happen in independent stages, so the order of sections is not important
 - Blank lines are ignored
 - All contents are case-sensitive
-- Text beginning with `#` are ignored and can be used as comments
+- Cells beginning with `#` are ignored and can be used as comments
+- Rows that start with `#` are ignored and can be used as comments
 
 
 ## How Annotation Works
@@ -183,14 +216,14 @@ Annotation begins by creating an `Annotation` object, whose constructor takes th
 
 ```{python}
 anno = annotation.Annotation("sargasso-annotations.csv")
+anno = annotation.Annotation("sargasso-annotations.csv", nrows=50)
 ```
 
 During the initialization of the `Annotation` instance, a blank RDF graph (using Redland) and a variety of housekeeping variables related to parsing and processing the template file are set aside. At this point, the template file hasn't been parsed or processed in any way and there are no triples present in the graph.
 
 ### Parsing
 
-The Parsing step reads the template file in, line-by-line, and does some pre-processing. This step does add some triples, but on triples that use the values within the dataset are created here.
-For example, Observations nodes are created but their Measurement nodes are created in the Processing step.
+The Parsing step reads the template file in, line-by-line, and does some pre-processing, and stores information for the Processing step.
 
 Call the parsing method like:
 
@@ -233,7 +266,7 @@ Datatypes are parsed and saved for later.
 
 ### Processing
 
-The main method doing the work is the `process` method on the instance of the `Annotation` class:
+The main method doing the work is the Processing step, called like:
 
 ```{python}
 anno.process()
