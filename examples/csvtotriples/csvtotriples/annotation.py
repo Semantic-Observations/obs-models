@@ -324,23 +324,8 @@ class Annotation:
         # TODO: Move this into the process step
         # Convert subjects or objects to URIs if they're strings
 
-        if type(s) is str:
-            s_parts = s.split(":")
-            # If prefix == "_" then make a blank node
-            if (s_parts[0]=="_"):
-                s = RDF.Node(blank=s_parts[1])
-            else:
-                s = RDF.Uri(self.ns[s_parts[0]]+s_parts[1])
 
-        if type(o) is str:
-            o_parts = o.split(":")
-            # If prefix == "_" then make a blank node
-            if (o_parts[0]=="_"):
-                o = RDF.Node(blank=o_parts[1])
-            else:
-                o = RDF.Uri(self.ns[o_parts[0]]+o_parts[1])
-
-        rdfutils.addStatement(self.model, s, p, o)
+        self.addStatement(s, p, o)
 
 
     def createUnionOfNode(self, node):
@@ -383,7 +368,7 @@ class Annotation:
             container_nodes.append(container_node)
 
             # Add just the first statements now
-            rdfutils.addStatement(self.model, container_node, self.ns['rdf']+'first', RDF.Uri(class_uri_string))
+            self.addStatement(container_node, 'rdf:first', class_uri_string)
 
         if len(container_nodes) < 1:
             print "Something went wrong when creating nodes for a unionOf statement. Result may be incorrect."
@@ -393,16 +378,16 @@ class Annotation:
 
         # rdf:rest statements for 1:(n-1)
         for i in range(len(container_nodes)-1):
-            rdfutils.addStatement(self.model, container_nodes[i], self.ns['rdf']+'rest', container_nodes[i+1])
+            self.addStatement(container_nodes[i], 'rdf:rest', container_nodes[i+1])
 
         # rdf:rest statement for n
         last_container_node = container_nodes[len(container_nodes) - 1]
-        rdfutils.addStatement(self.model, last_container_node, self.ns['rdf']+'rest', RDF.Uri(self.ns['rdf']+'nil'))
+        self.addStatement(last_container_node, 'rdf:rest', 'rdf:nil')
 
         # Create wrapper for the union
         union_node = RDF.Node()
-        rdfutils.addStatement(self.model, union_node, self.ns['rdf']+'type', RDF.Uri(self.ns['owl']+'Class'))
-        rdfutils.addStatement(self.model, union_node, self.ns['owl']+'unionOf', container_nodes[0])
+        self.addStatement(union_node, 'rdf:type', 'owl:Class')
+        self.addStatement(union_node, 'owl:unionOf', container_nodes[0])
 
         return union_node
 
@@ -551,44 +536,49 @@ class Annotation:
             # TODO
 
             # Create Measurement
-            rdfutils.addStatement(self.model, blank_node, self.ns['rdf']+'type', RDF.Uri(self.ns['oboe']+'Measurement'))
-            rdfutils.addStatement(self.model, blank_node, RDF.Uri(self.ns['oboe']+'hasValue'), value_node)
+            self.addStatement(blank_node, 'rdf:type', 'oboe:Measurement')
+            self.addStatement(blank_node, 'oboe:hasValue', value_node)
 
             # Observation-hasMeasurement-Measurement
             observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
-            rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasMeasurement', RDF.Uri(blank_node))
+            self.addStatement(observation_key, 'oboe:hasMeasurement', blank_node)
 
             # Observation-hasContext-Observation
             if self.measurements[key] in self.contexts:
                 other_observation = self.contexts[self.measurements[key]]
                 other_observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
-                rdfutils.addStatement(self.model, observation_key, self.ns['oboe']+'hasContext', RDF.Uri(other_observation_key))
+
+                self.addStatement(observation_key, 'oboe:hasContext', other_observation_key)
 
             # Observation-ofEntity-Entity
             if self.observations[key] in self.entities:
                 entity_string = self.entities[self.observations[key]]
 
                 entity_node = self.observations[key] + "_entity"
-                rdfutils.addStatement(self.model, entity_node, self.ns['rdf']+'type', RDF.Uri(self.entities[self.measurements[key]]))
-                rdfutils.addStatement(self.model, observation_key, self.ns["oboe"]+"ofEntity", RDF.Uri(entity_node))
+
+                self.addStatement(entity_node, 'rdf:type', self.entities[self.measurements[key]])
+                self.addStatement(observation_key, 'oboe:ofEntity', entity_node)
 
             # Measurement-ofCharacteristic-Characteristic
             if key in self.characteristics:
                 characteristic_node = blank_node+"_characteristic"
-                rdfutils.addStatement(self.model, characteristic_node, self.ns['rdf']+'type', RDF.Uri(self.characteristics[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'ofCharacteristic', RDF.Uri(characteristic_node))
+
+                self.addStatement(characteristic_node, 'rdf:type', RDF.Uri(self.characteristics[key]))
+                self.addStatement(blank_node, 'oboe:ofCharacteristic', characteristic_node)
 
             # Measurement-usesStandard-Standard
             if key in self.standards:
                 standard_node = blank_node+"_standard"
-                rdfutils.addStatement(self.model, standard_node, self.ns['rdf']+'type', RDF.Uri(self.standards[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['oboe']+'usesStandard', RDF.Uri(standard_node))
+
+                self.addStatement(standard_node, 'rdf:type', self.standards[key])
+                self.addStatement(blank_node, 'oboe:usesStandard', standard_node)
 
             # Measurement-xxxx-Standard
             if key in self.conversions:
                 conversion_node = blank_node+"_conversion"
-                rdfutils.addStatement(self.model, conversion_node, self.ns['rdf']+'type', RDF.Uri(self.conversions[key]))
-                rdfutils.addStatement(self.model, blank_node, self.ns['foo']+'usesConversion', RDF.Uri(conversion_node))
+
+                self.addStatement(conversion_node, 'rdf:type', self.conversions[key])
+                self.addStatement(blank_node, 'foo:usesConversion', conversion_node)
 
 
 
