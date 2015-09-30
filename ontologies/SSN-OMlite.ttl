@@ -1,0 +1,68 @@
+# baseURI: http://example.org/W3ssn-OMlite-alignment
+# imports: file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl
+# imports: http://def.seegrid.csiro.au/ontology/om/om-lite
+# imports: http://example.org/OMlite-PROV
+# imports: http://purl.oclc.org/NET/ssnx/ssn
+
+@prefix ISO-OMlite: <http://example.org/ISO-OMlite#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov_ssn: <http://purl.oclc.org/NET/ssnprov/ssnprov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+oml:Observation
+  owl:equivalentClass prov_ssn:ActivityOfSensing ;
+.
+oml:featureOfInterest
+  owl:equivalentProperty ssn:featureOfInterest ;
+.
+oml:observedProperty
+  owl:equivalentProperty ssn:observedProperty ;
+.
+oml:result
+  owl:equivalentProperty ssn:observationResult ;
+.
+oml:resultTime
+  owl:equivalentProperty ssn:observationResultTime ;
+.
+<http://example.org/W3ssn-OMlite-alignment>
+  rdf:type owl:Ontology ;
+  owl:imports <file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl> ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/om-lite> ;
+  owl:imports <http://example.org/OMlite-PROV> ;
+  owl:imports <http://purl.oclc.org/NET/ssnx/ssn> ;
+.
+prov_ssn:ActivityOfSensing
+  owl:equivalentClass oml:Observation ;
+.
+ssn:Observation
+  rdfs:subClassOf oml:Observation ;
+.
+ssn:Sensing
+  rdfs:subClassOf oml:Process ;
+.
+ssn:Sensor
+  rdfs:subClassOf oml:Process ;
+.
+ssn:featureOfInterest
+  owl:equivalentProperty oml:featureOfInterest ;
+.
+ssn:observationResult
+  owl:equivalentProperty oml:result ;
+.
+ssn:observationResultTime
+  owl:equivalentProperty oml:resultTime ;
+.
+ssn:observedBy
+  rdfs:subPropertyOf oml:procedure ;
+.
+ssn:observedProperty
+  owl:equivalentProperty oml:observedProperty ;
+.
+ssn:sensingMethodUsed
+  rdfs:subPropertyOf oml:procedure ;
+.

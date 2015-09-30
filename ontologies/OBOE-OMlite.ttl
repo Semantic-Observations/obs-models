@@ -1,0 +1,64 @@
+# baseURI: http://example.org/OBOE-OMlite
+# imports: http://def.seegrid.csiro.au/ontology/om/om-lite
+# imports: http://ecoinformatics.org/oboe/oboe.1.0/oboe.owl
+# imports: http://www.w3.org/2006/time
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe.owl#> .
+@prefix oboe-core: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+oboe-core:Measurement
+  rdfs:comment "an oboe-core:Measurement is an oml:Observation whose (featureOfInterest|phenomenonTime) is that of the one oboe-core:Observation that it is a memberOf"^^xsd:string ;
+  rdfs:subClassOf oml:Observation ;
+.
+oboe-core:Observation
+  rdfs:comment "oboe-core:Observation is a subclass of oml:ObservationCollection with the contraint that all instances of the featureOfInterest of any member must be the same for anu one oboe-core:Observation. "^^xsd:string ;
+  rdfs:subClassOf oml:ObservationCollection ;
+.
+oboe-core:Protocol
+  rdfs:subClassOf oml:Process ;
+.
+oboe-core:contextObservationFor
+  rdfs:subPropertyOf oml:context ;
+.
+oboe-core:hasContext
+  rdfs:subPropertyOf oml:context ;
+.
+oboe-core:hasContextObservation
+  rdfs:subPropertyOf oml:relatedObservation ;
+.
+oboe-core:hasMeasurement
+  rdfs:subPropertyOf rdfs:member ;
+.
+oboe-core:hasValue
+  rdfs:subPropertyOf oml:result ;
+.
+oboe-core:measurementFor
+  rdfs:subPropertyOf oml:memberOf ;
+.
+oboe-core:ofCharacteristic
+  rdfs:subPropertyOf oml:observedProperty ;
+.
+oboe-core:ofEntity
+  rdfs:subPropertyOf oml:featureOfInterest ;
+.
+oboe-core:usesMethod
+  rdfs:subPropertyOf oml:procedure ;
+.
+oboe-core:usesProtocol
+  rdfs:subPropertyOf oml:procedure ;
+.
+<http://example.org/OBOE-OMlite>
+  rdf:type owl:Ontology ;
+  rdfs:comment "Mapping of classes and properties from OBOE to om-lite"^^xsd:string ;
+  rdfs:label "OBOE -> om-lite map"^^xsd:string ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/om-lite> ;
+  owl:imports <http://ecoinformatics.org/oboe/oboe.1.0/oboe.owl> ;
+  owl:imports <http://www.w3.org/2006/time> ;
+.

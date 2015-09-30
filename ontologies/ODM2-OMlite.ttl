@@ -1,0 +1,73 @@
+# baseURI: http://example.org/ODM2-OMlite
+# imports: http://def.seegrid.csiro.au/ontology/om/om-lite
+# imports: http://def.seegrid.csiro.au/ontology/om/sam-lite
+# imports: http://www.w3.org/ns/prov
+
+@prefix OBOE-OMlite: <http://example.org/OBOE-OMlite#> .
+@prefix odm2: <http://example.org/odm2core#> .
+@prefix odm2r: <http://example.org/odm2results#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saml: <http://def.seegrid.csiro.au/ontology/om/sam-lite#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ODM2-OMlite>
+  rdf:type owl:Ontology ;
+  rdfs:comment "Mapping of classes and properties from ODM2 to om-lite"^^xsd:string ;
+  rdfs:label "ODM2 -> om-lite map"^^xsd:string ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/om-lite> ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/sam-lite> ;
+  owl:imports <http://www.w3.org/ns/prov> ;
+.
+odm2:Action
+  rdf:type owl:Class ;
+  rdfs:label "Action"^^xsd:string ;
+  rdfs:subClassOf prov:Activity ;
+.
+odm2:ObservationAction
+  rdf:type owl:Class ;
+  rdfs:label "Observation Action"^^xsd:string ;
+  rdfs:subClassOf oml:Observation ;
+  rdfs:subClassOf odm2:Action ;
+.
+odm2:Organization
+  rdf:type owl:Class ;
+  rdfs:label "Organization"^^xsd:string ;
+  rdfs:subClassOf prov:Agent ;
+.
+odm2:Person
+  rdf:type owl:Class ;
+  rdfs:label "Person"^^xsd:string ;
+  rdfs:subClassOf prov:Agent ;
+.
+odm2:SamplingFeature
+  rdf:type owl:Class ;
+  rdfs:label "SamplingFeature"^^xsd:string ;
+  rdfs:subClassOf saml:SamplingFeature ;
+.
+odm2:Variable
+  rdf:type owl:Class ;
+  rdfs:label "Variable"^^xsd:string ;
+.
+odm2:featureOfInterest
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain odm2:ObservationAction ;
+  rdfs:label "Observation feature of interest"^^xsd:string ;
+  rdfs:range odm2:SamplingFeature ;
+  rdfs:subPropertyOf oml:featureOfInterest ;
+.
+odm2:result
+  rdf:type rdf:Property ;
+  rdfs:domain odm2:ObservationAction ;
+  rdfs:label "Observation result"^^xsd:string ;
+  rdfs:subPropertyOf oml:result ;
+.
+odm2:variable
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "Variable"^^xsd:string ;
+  rdfs:range odm2:Variable ;
+  rdfs:subPropertyOf oml:observedProperty ;
+.

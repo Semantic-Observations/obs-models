@@ -1,0 +1,192 @@
+# baseURI: file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl
+# imports: http://purl.oclc.org/NET/ssnx/ssn
+# imports: http://www.w3.org/ns/prov
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dul: <http://www.loa-cnr.it/ontologies/DUL.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix prov_ssn: <http://purl.oclc.org/NET/ssnprov/ssnprov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl>
+  rdf:type owl:Ontology ;
+.
+<http://purl.oclc.org/NET/ssnprov/ssnprov>
+  rdf:type owl:Ontology ;
+  dc:creator "David Corsar"^^xsd:string ;
+  dc:creator "Kerry Taylor"^^xsd:string ;
+  dc:creator "Michael Compton"^^xsd:string ;
+  rdfs:comment "This ontology describes an alignment of the W3C Semantic Sensor Network (SSN( Incubator Group's SSN Ontology and the W3C Provenance Working Group's PROV-O ontoloyg.  The alignment extends the expressive capability of the SSNO for recording observations and system deployments, enabling more comprehensive historical information to be described than is possible using SSNO alone."^^xsd:string ;
+.
+prov_ssn:ActivityOfSensing
+  rdf:type owl:Class ;
+  rdfs:comment "The prov:Activity of a ssn:Sensor performing the sensing.  An ActivityOfSensing prov:generated the ssn:SensorOutput,  was influenced by (prov:wasInfluencedBy) the ssn:Stimulus and, through SensorPerformedSensing (a prov:Association), prov:wasAssociatedWith the sensor."^^xsd:string ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:generated ;
+      owl:someValuesFrom ssn:SensorOutput ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:qualifiedAssociation ;
+      owl:someValuesFrom prov_ssn:SensorPerformedSensing ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:qualifiedUsage ;
+      owl:someValuesFrom prov_ssn:SensingUsage ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:wasInfluencedBy ;
+      owl:someValuesFrom ssn:Stimulus ;
+    ] ;
+.
+prov_ssn:ObservationInterpretation
+  rdf:type owl:Class ;
+  rdfs:comment """
+The prov:Activity of ObservationInterpretation records the activity that interpreted the results of an ActivityOfSensing and resulted in (prov:generated) a dul:Situation that is the ssn:Observation.  The activity of ObservationInterpretation prov:wasInformedBy the ActivityOfSensing and may be prov:wasInformedBy some of the aspects recorded by the ssn:Observation.
+         """^^xsd:string ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:generated ;
+      owl:someValuesFrom ssn:Observation ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:wasInformedBy ;
+      owl:someValuesFrom prov_ssn:ActivityOfSensing ;
+    ] ;
+.
+prov_ssn:PerformedSensing
+  rdf:type owl:Class ;
+  rdfs:comment """
+         The prov:Role of a ssn:Sensor in a SensorPerformedSensing that is prov:qualifiedAssociation with an ActivityOfSensing. 
+         """^^xsd:string ;
+  rdfs:subClassOf prov:Role ;
+.
+prov_ssn:SensingMethod
+  rdf:type owl:Class ;
+  rdfs:comment """
+         The prov:Role of ssn:Sensing in a SensorUsage that is prov:qualifiedUsage with an ActivityOfSensing. 
+         """^^xsd:string ;
+  rdfs:subClassOf prov:Role ;
+.
+prov_ssn:SensingUsage
+  rdf:type owl:Class ;
+  rdfs:comment """
+         The  of a ssn:Sensing for an ActivityOfSensing. 
+         The ActivityOfSensing prov:qualifiedUsage for describing the prov:Role and prov:Plan used by a ssn:Sensor when performing sensing.
+       
+         """^^xsd:string ;
+  rdfs:subClassOf prov:Usage ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:entity ;
+      owl:someValuesFrom ssn:Sensing ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:hadRole ;
+      owl:someValuesFrom prov_ssn:SensingMethod ;
+    ] ;
+.
+prov_ssn:SensorPerformedSensing
+  rdf:type owl:Class ;
+  rdfs:comment """
+         The ActivityOfSensing prov:qualifiedAssociation for describing the prov:Role and prov:Plan followed by a ssn:Sensor when performing sensing. 
+         """^^xsd:string ;
+  rdfs:subClassOf prov:Association ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov_ssn:sensingAgent ;
+      owl:someValuesFrom ssn:Sensor ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:hadPlan ;
+      owl:someValuesFrom ssn:Sensing ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:hadRole ;
+      owl:someValuesFrom prov_ssn:PerformedSensing ;
+    ] ;
+.
+prov_ssn:sensingAgent
+  rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf prov:agent ;
+  owl:inverseOf prov_ssn:sensingAgentINV ;
+.
+prov_ssn:sensingAgentINV
+  rdf:type owl:ObjectProperty ;
+.
+ssn:DeploymentRelatedProcess
+  rdfs:subClassOf prov:Activity ;
+.
+ssn:Observation
+  rdfs:subClassOf prov:Entity ;
+.
+ssn:ObservationValue
+  rdfs:subClassOf prov:Entity ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:alternateOf ;
+      owl:someValuesFrom ssn:SensorOutput ;
+    ] ;
+.
+ssn:Platform
+  rdfs:subClassOf prov:Entity ;
+.
+ssn:Sensing
+  rdfs:subClassOf prov:Plan ;
+.
+ssn:Sensor
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf prov:Entity ;
+.
+ssn:SensorOutput
+  rdfs:subClassOf prov:Entity ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty prov:alternateOf ;
+      owl:someValuesFrom ssn:ObservationValue ;
+    ] ;
+.
+ssn:Stimulus
+  rdfs:subClassOf prov:Activity ;
+.
+ssn:System
+  rdfs:subClassOf prov:Collection ;
+.
+ssn:deployedOnPlatform
+  rdfs:subPropertyOf prov:used ;
+.
+ssn:deployedSystem
+  rdfs:subPropertyOf prov:used ;
+.
+ssn:hasSubSystem
+  rdfs:subPropertyOf prov:hadMember ;
+.
+ssn:implements
+  owl:propertyChainAxiom (
+      prov_ssn:sensingAgentINV
+      prov:hadPlan
+    ) ;
+.
+ssn:isProducedBy
+  rdfs:subPropertyOf prov:wasAttributedTo ;
+.
+ssn:observationResult
+  rdfs:subPropertyOf prov:wasDerivedFrom ;
+.
+ssn:observedBy
+  rdfs:subPropertyOf prov:wasAttributedTo ;
+.
