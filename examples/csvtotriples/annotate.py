@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     # Handle output filename
     if args.o is None:
-        outfile = args.filename + ".ttl"
+        outfile = args.filename.replace(".csv", ".ttl")
     else:
         outfile = args.o
 
