@@ -17,6 +17,15 @@ obo,http://purl.obolibrary.org/obo/,,
 rdfs,http://www.w3.org/2000/01/rdf-schema#,,
 ,,,
 TRIPLES,,,
+#Remove these if they end up in the alignment,,,
+oboe-standard:Celsius,owl:equivalentClass,qudt-unit:DegreeCelsius,
+pato:PATO_0000146,rdf:subClassOf,oboe:Characteristic,
+envo:ENVO_0002149,rdf:subClassOf,oboe:Entity,
+oboe-standard:Length,owl:equivalentClass,qudt-unit:Meter,
+domain:Depth,rdf:subClassOf,pato:PATO_0001595,
+#End of section that should be removed if they end up in the alignemnt,,,
+,,,
+,,,
 ,,,
 OBSERVATIONS,,,
 ,,,
@@ -66,13 +75,13 @@ observation,o5,,
 ,entity,foo:WaterColumnEntity,
 ,measurement,m7,
 ,,characteristic,foo:Depth
-,,standard,foo:Length
+,,standard,oboe-standard:Length
 ,,datatype,xsd:decimal
 ,context,o1,#cast
 ,,,
 #n-vars-at-depth,,,
 observation,o6,,
-,entity,foo:SeaWaterEntity,
+,entity,envo:ENVO_0002149,
 ,measurement,m8,#press
 ,,characteristic,oboe:Pressure
 ,,standard,oboe-standard:Bar
