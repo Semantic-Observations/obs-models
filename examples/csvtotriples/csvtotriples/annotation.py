@@ -50,6 +50,61 @@ class Annotation:
         return self.model.size()
 
 
+    def addStatement(self, s, p, o):
+        """ Custom addStatement override to make RDF statements as easy as
+            possible to add to the graph.
+
+            This method has the following features:
+
+            - Converts strings into RDF.Uri's if they match foo:Thing
+            - Converts subjects and predicates to RDF.Uri's if they aren't
+                of type RDF.Node
+
+
+        """
+
+        # Subject
+        if type(s) is str:
+            s_parts = s.split(":")
+
+            if len(s_parts) == 2:
+                if s_parts[0] == "_":
+                    s = RDF.Uri(s)
+                else:
+                    s = RDF.Uri(self.ns[s_parts[0]] + s_parts[1])
+            else:
+                s = RDF.Uri(s)
+
+        # Predicate
+        if type(p) is str:
+            p_parts = p.split(":")
+
+            if len(p_parts) == 2:
+                p = RDF.Uri(self.ns[p_parts[0]] + p_parts[1])
+            else:
+                p = RDF.Uri(p)
+
+        # Object
+        if type(o) is str:
+            o_parts = o.split(":")
+
+            if len(o_parts) == 2:
+                if s_parts[0] == "_":
+                    o = RDF.Uri(o)
+                else:
+                    o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
+            else:
+                o = RDF.Node(s)
+
+        # Add the statement
+        statement = RDF.Statement(s, p, o)
+
+        if statement is None:
+            raise Exception("Creating of new RDF.Statement failed.")
+
+        self.model.add_statement(statement)
+
+
     def parse(self):
         """ Parse the annotation template file. Triples that don't need to look
         at the data are created here but triples that do need to look at the
