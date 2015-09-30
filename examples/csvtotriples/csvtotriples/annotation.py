@@ -21,6 +21,7 @@ class Annotation:
         print "Loading annotation template from file: %s." % template
 
         self.template = template
+        self.dataset = None
         self.nrows = nrows
         self.model = rdfutils.createModel() # An RDF Model
 
@@ -59,8 +60,6 @@ class Annotation:
             - Converts strings into RDF.Uri's if they match foo:Thing
             - Converts subjects and predicates to RDF.Uri's if they aren't
                 of type RDF.Node
-
-
         """
 
         # Subject
@@ -111,6 +110,8 @@ class Annotation:
         data are generated in the process() method.
         """
 
+        if not os.path.isfile(self.template):
+            raise Exception("Could not find the template file located at %s." % self.template)
 
         f = open(self.template, "rbU")
         reader = csv.reader(f)
@@ -248,20 +249,16 @@ class Annotation:
 
 
     def process(self):
-        """ Parses the template file line-by-line and then processes it."""
+        """ Processes what has been read in from the parse() method."""
 
-        index = 1
+        # Add triples that have been parsed
+        # TODO
 
-        for mapping in self.mappings:
-            self.processMapping(mapping, index)
-            index += 1
+        # Download the data file, if necessary
+        if 'data_identifier' in self.meta:
+            print "Processing data_identifier"
 
-
-    def addMeta(self, row):
-        self.meta[row[0]] = row[1]
-
-        if row[0] == 'data_identifier':
-            url = row[1]
+            url = self.meta['data_identifier']
             parsed_url = urlparse(url)
             parsed_paths = parsed_url.path.split('/')
             filename = parsed_paths[len(parsed_paths)-1]
@@ -272,16 +269,14 @@ class Annotation:
                 r = requests.get(url)
 
                 if r.status_code != 200:
-                    print "Status code was not 200. Download must have failed."
-                    sys.exit()
+                    raise Exception("Status code was not 200. Download must have failed.")
 
                 with open(filename, "wb") as f:
                     f.write(r.text)
 
                 print "Retreiving data from url: %s" % url
 
-            # Load dataset
-            # Autodetect file format, using appropriate pandas.read_* method.
+            # Load the data file with pandas (autodetect format)
             with open(filename, "rb") as f:
                 header_line = f.readline()
 
@@ -291,6 +286,20 @@ class Annotation:
                     self.dataset = pandas.read_table(filename)
                 else:
                     self.dataset = pandas.read_fwf(filename) #FWF
+
+        if self.dataset is None:
+            raise Exception("No dataset loaded. Somethingn went wrong.")
+
+        # Process the mappings present
+        index = 1
+
+        for mapping in self.mappings:
+            self.processMapping(mapping, index)
+            index += 1
+
+
+    def addMeta(self, row):
+        self.meta[row[0]] = row[1]
 
 
     def addNamespace(self, row):
@@ -311,21 +320,7 @@ class Annotation:
         if len(row[0]) < 1 or len(row[1]) < 1 or len(row[2]) < 1:
             return
 
-        s = row[0]
-        p = row[1]
-        o = row[2]
-
-        # Handle unionOf case, either in subject or object
-        if s.startswith("owl:unionOf"):
-            s = self.createUnionOfNode(s)
-        elif o.startswith("owl:unionOf"):
-            o = self.createUnionOfNode(o)
-
-        # TODO: Move this into the process step
-        # Convert subjects or objects to URIs if they're strings
-
-
-        self.addStatement(s, p, o)
+        self.triples.append([row[0], row[1], row[2]])
 
 
     def createUnionOfNode(self, node):
@@ -448,6 +443,23 @@ class Annotation:
             return
 
         self.datatypes[parent] = row[3]
+
+
+    def processTriples(self):
+        """ Adds each triple in self.triples to the model."""
+
+        for triple in self.triples:
+            s = triple[0]
+            p = triple[1]
+            o = triple[2]
+
+            # Handle unionOf case, either in subject or object
+            if s.startswith("owl:unionOf"):
+                s = self.createUnionOfNode(s)
+            elif o.startswith("owl:unionOf"):
+                o = self.createUnionOfNode(o)
+
+            self.addStatement(s, p, o)
 
 
     def processMapping(self, mapping, index):
