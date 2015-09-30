@@ -44,6 +44,11 @@ class Annotation:
 
         return outstring
 
+    def size(self):
+        """ Returns the number of statements in the RDF Model"""
+
+        return self.model.size()
+
 
     def parse(self):
         """ Parse the annotation template file. Triples that don't need to look

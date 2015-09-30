@@ -1,0 +1,7 @@
+#Tests the unionOf facility,,
+NAMESPACES,,
+foo,http://foo.org/foo#,
+owl,http://www.w3.org/2002/07/owl#,,
+rdf,http://www.w3.org/1999/02/22-rdf-syntax-ns#,,
+TRIPLES,,
+foo:A,owl:equivalentClass,owl:unionOf(foo:B foo:C)
