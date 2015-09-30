@@ -9,7 +9,7 @@ import RDF
 if __name__ == "__main__":
     parser=RDF.TurtleParser()
     model = RDF.Model()
-    parser.parse_into_model(model, "union.ttl")
+    parser.parse_into_model(model, "file:./union.ttl")
     print(model.size())
     for statement in model:
         print(statement)
