@@ -436,7 +436,7 @@ class Annotation:
         if len(parent) < 1 or len(row[2]) < 1:
             return
 
-        self.contexts[row[2]] = parent
+        self.contexts[parent] = row[2]
 
 
     def addDatatype(self, row, parent):
@@ -505,7 +505,7 @@ class Annotation:
         self.addValues(mapping, index, matched_data)
 
 
-    def addValues(self, mapping, index, data):
+    def addValues(self, mapping, mapping_index, data):
         """ Add values, and all related nodes and properties.
 
             For a given value, we add information that...
@@ -515,9 +515,9 @@ class Annotation:
                     using an (optional) converstion Standard
                 It is part of an Observation
                     of an Entity
-
-
+                    which may have some Context
         """
+
         mapping_value = None
         attrib = mapping['attribute']
         key = mapping['key']
@@ -528,9 +528,8 @@ class Annotation:
 
         data_index = data.index
 
-        for i in range(0, len(data)):
-            identifier = key + '-' + str(index) + '-' + str(data_index[i])
-            blank_node = "_:m"+str(index)+ "_" + str(data_index[i])
+        for i in range(len(data)):
+            measurement = "_:m%d_%d" % (mapping_index, data_index[i])
 
             # Value Mapping: Replace with mapping value if needed
             if mapping_value is None:
@@ -544,54 +543,55 @@ class Annotation:
             else:
                 value_node = RDF.Node(literal=node_value)
 
-
             # Use language, if present
             # TODO
 
+            # Create Observation
+            observation = "_:" + self.observations[key] + "row" + str(data_index[i])
+            self.addStatement(observation, 'rdf:type', 'oboe:Observation')
+            self.addStatement(observation, 'rdf:label', RDF.Node(literal=observation))
+
             # Create Measurement
-            self.addStatement(blank_node, 'rdf:type', 'oboe:Measurement')
-            self.addStatement(blank_node, 'oboe:hasValue', value_node)
+            self.addStatement(measurement, 'rdf:type', 'oboe:Measurement')
+            self.addStatement(measurement, 'oboe:hasValue', value_node)
+            self.addStatement(measurement, 'rdf:label', RDF.Node(literal=attrib))
 
             # Observation-hasMeasurement-Measurement
-            observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
-            self.addStatement(observation_key, 'oboe:hasMeasurement', blank_node)
+            self.addStatement(observation, 'oboe:hasMeasurement', measurement)
 
             # Observation-hasContext-Observation
             if self.measurements[key] in self.contexts:
-                other_observation = self.contexts[self.measurements[key]]
-                other_observation_key = "_:" + self.observations[key] + "_" + str(data_index[i])
+                other_observation = "_:" + self.contexts[self.measurements[key]] + "row" + str(data_index[i])
 
-                self.addStatement(observation_key, 'oboe:hasContext', other_observation_key)
+                self.addStatement(observation, 'oboe:hasContext', other_observation)
 
             # Observation-ofEntity-Entity
             if self.observations[key] in self.entities:
-                entity_string = self.entities[self.observations[key]]
+                entity = "_:" + self.observations[key] + "_entity"
 
-                entity_node = self.observations[key] + "_entity"
-
-                self.addStatement(entity_node, 'rdf:type', self.entities[self.measurements[key]])
-                self.addStatement(observation_key, 'oboe:ofEntity', entity_node)
+                self.addStatement(entity, 'rdf:type', self.entities[self.measurements[key]])
+                self.addStatement(observation, 'oboe:ofEntity', entity)
 
             # Measurement-ofCharacteristic-Characteristic
             if key in self.characteristics:
-                characteristic_node = blank_node+"_characteristic"
+                characteristic = measurement + "_characteristic"
 
-                self.addStatement(characteristic_node, 'rdf:type', RDF.Uri(self.characteristics[key]))
-                self.addStatement(blank_node, 'oboe:ofCharacteristic', characteristic_node)
+                self.addStatement(characteristic, 'rdf:type', RDF.Uri(self.characteristics[key]))
+                self.addStatement(measurement, 'oboe:ofCharacteristic', characteristic)
 
             # Measurement-usesStandard-Standard
             if key in self.standards:
-                standard_node = blank_node+"_standard"
+                standard = measurement + "_standard"
 
-                self.addStatement(standard_node, 'rdf:type', self.standards[key])
-                self.addStatement(blank_node, 'oboe:usesStandard', standard_node)
+                self.addStatement(standard, 'rdf:type', self.standards[key])
+                self.addStatement(measurement, 'oboe:usesStandard', standard)
 
             # Measurement-xxxx-Standard
             if key in self.conversions:
-                conversion_node = blank_node+"_conversion"
+                conversion = measurement + "_conversion"
 
-                self.addStatement(conversion_node, 'rdf:type', self.conversions[key])
-                self.addStatement(blank_node, 'foo:usesConversion', conversion_node)
+                self.addStatement(conversion, 'rdf:type', self.conversions[key])
+                self.addStatement(measurement, 'foo:usesConversion', conversion)
 
 
 
