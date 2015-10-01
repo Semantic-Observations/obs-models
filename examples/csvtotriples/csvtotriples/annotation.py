@@ -67,6 +67,17 @@ class Annotation:
         """
 
         # Subject
+        # Check types of s, p, and o before continuing
+        if type(s) not in [RDF.Node, RDF.Uri, str]:
+            raise Exception("Subject of triple not Node, Uri, or string.")
+
+        if type(p) not in [RDF.Node, RDF.Uri, str]:
+            raise Exception("Predicate of triple not Node, Uri, or string.")
+
+        if type(o) not in [RDF.Node, RDF.Uri, str]:
+            raise Exception("Object of triple not Node, Uri, or string.")
+
+
         if type(s) is str:
             s_parts = s.split(":")
 
