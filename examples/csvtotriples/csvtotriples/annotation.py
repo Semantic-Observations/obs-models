@@ -45,6 +45,7 @@ class Annotation:
 
         return outstring
 
+
     def size(self):
         """ Returns the number of statements in the RDF Model"""
 
@@ -68,7 +69,7 @@ class Annotation:
 
             if len(s_parts) == 2:
                 if s_parts[0] == "_":
-                    s = RDF.Uri(s)
+                    s = RDF.Node(blank=s_parts[1])
                 else:
                     s = RDF.Uri(self.ns[s_parts[0]] + s_parts[1])
             else:
@@ -89,7 +90,7 @@ class Annotation:
 
             if len(o_parts) == 2:
                 if o_parts[0] == "_":
-                    o = RDF.Uri(o)
+                    o = RDF.Node(blank=o_parts[1])
                 else:
                     o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
             else:
