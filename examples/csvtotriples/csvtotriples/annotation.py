@@ -52,7 +52,7 @@ class Annotation:
         return self.model.size()
 
 
-    def addStatement(self, s, p, o):
+    def addStatement(self, s, p, o, literal=False):
         """ Custom addStatement override to make RDF statements as easy as
             possible to add to the graph.
 
@@ -61,6 +61,9 @@ class Annotation:
             - Converts strings into RDF.Uri's if they match foo:Thing
             - Converts subjects and predicates to RDF.Uri's if they aren't
                 of type RDF.Node
+
+            Param `literal` specifies whether to treat the object as a literal
+            node.
         """
 
         # Subject
@@ -86,15 +89,18 @@ class Annotation:
 
         # Object
         if type(o) is str:
-            o_parts = o.split(":")
+            if not literal:
+                o_parts = o.split(":")
 
-            if len(o_parts) == 2:
-                if o_parts[0] == "_":
-                    o = RDF.Node(blank=o_parts[1])
+                if len(o_parts) == 2:
+                    if o_parts[0] == "_":
+                        o = RDF.Node(blank=o_parts[1])
+                    else:
+                        o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
                 else:
-                    o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
+                    o = RDF.Node(o)
             else:
-                o = RDF.Node(o)
+                o = RDF.Node(literal=o)
 
         # Add the statement
         statement = RDF.Statement(s, p, o)
