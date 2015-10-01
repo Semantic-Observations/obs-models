@@ -160,7 +160,8 @@ class Annotation:
             header = row[0]
 
             # Test if it's a heading for a group
-            if re.match("[A-Z]+", header):
+
+            if re.match("META|NAMESPACES|TRIPLES|OBSERVATIONS|MAPPING", header):
                 if header == "META":
                     state = "META"
                 elif header == "NAMESPACES":
