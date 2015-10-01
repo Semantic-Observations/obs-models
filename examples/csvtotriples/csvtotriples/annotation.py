@@ -498,7 +498,6 @@ class Annotation:
         if self.nrows is not None:
             matched_data = matched_data[0:self.nrows]
 
-        print "addValues(%s, %d, ...)" % (mapping, index)
         self.addValues(mapping, index, matched_data)
 
 
