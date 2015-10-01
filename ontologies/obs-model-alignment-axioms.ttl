@@ -17,14 +17,14 @@
 @prefix nerc-p01: <http://vocab.nerc.ac.uk/collection/P01/current/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core> .
 
-<_:memberOfSubProp>
-    rdfs:subPropertyOf oml:memberOf .
-
 oml:Observation
     rdfs:subClassOf prov:Activity .
 
 oml:hasCharacteristic
     align:similarProperty envo:RO_0000053 .
+
+oml:observation_result
+    owl:equivalentProperty oboe:hasValue .
 
 oboe:Characteristic
     owl:equivalentClass gf:PropertyType, ssn:Property .
@@ -49,12 +49,20 @@ oboe:Protocol
     owl:equivalentClass envo:OBI_0000272 .
 
 oboe:hasMeasurement
-    owl:inverseOf <_:memberOfSubProp> ;
+    owl:inverseOf [
+        rdfs:subPropertyOf oml:memberOf
+    ] ;
     align:similarProperty envo:OBI_0000299 .
+
+oboe:ofCharacteristic
+    owl:equivalentProperty oml:propertyType .
 
 oboe:ofEntity
     rdfs:subPropertyOf oml:featureOfInterest ;
     owl:equivalentProperty envo:OBI_0000293 .
+
+oboe:usesProtocol
+    rdfs:subPropertyOf oml:procedure .
 
 envo:IAO_0000104
     owl:equivalentClass prov:Plan .
