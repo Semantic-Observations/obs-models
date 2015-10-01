@@ -66,7 +66,6 @@ class Annotation:
             node.
         """
 
-        # Subject
         # Check types of s, p, and o before continuing
         if type(s) not in [RDF.Node, RDF.Uri, str]:
             raise Exception("Subject of triple not Node, Uri, or string.")
@@ -78,6 +77,7 @@ class Annotation:
             raise Exception("Object of triple not Node, Uri, or string.")
 
 
+        # Process subject
         if type(s) is str:
             s_parts = s.split(":")
 
@@ -89,7 +89,7 @@ class Annotation:
             else:
                 s = RDF.Uri(s)
 
-        # Predicate
+        # Process predidcate
         if type(p) is str:
             p_parts = p.split(":")
 
@@ -98,7 +98,7 @@ class Annotation:
             else:
                 p = RDF.Uri(p)
 
-        # Object
+        # Process object
         if type(o) is str:
             if not literal:
                 o_parts = o.split(":")
@@ -120,7 +120,6 @@ class Annotation:
             raise Exception("Creating of new RDF.Statement failed.")
 
         self.model.add_statement(statement)
-
 
 
     def parse(self):
