@@ -4,36 +4,38 @@
 # imports: http://www.w3.org/ns/prov
 
 @prefix OMlite-PROV: <http://example.org/OMlite-PROV#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://def.seegrid.csiro.au/ontology/om/om-lite#Observation>
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Activity> ;
+oml:Observation
+  rdfs:subClassOf prov:Activity ;
 .
-<http://def.seegrid.csiro.au/ontology/om/om-lite#Process>
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Agent> ;
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> ;
+oml:Process
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf prov:Entity ;
 .
-<http://def.seegrid.csiro.au/ontology/om/om-lite#procedure>
-  rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasAssociatedWith> ;
+oml:procedure
+  rdfs:subPropertyOf prov:wasAssociatedWith ;
 .
-<http://def.seegrid.csiro.au/ontology/om/om-lite#result>
-  rdfs:range <http://www.w3.org/ns/prov#Entity> ;
-  rdfs:subPropertyOf <http://www.w3.org/ns/prov#generated> ;
+oml:result
+  rdfs:range prov:Entity ;
+  rdfs:subPropertyOf prov:generated ;
 .
-<http://def.seegrid.csiro.au/ontology/om/om-lite#resultTime>
-  rdfs:subPropertyOf <http://www.w3.org/ns/prov#endedAtTime> ;
+oml:resultTime
+  rdfs:subPropertyOf prov:endedAtTime ;
 .
 <http://def.seegrid.csiro.au/ontology/om/sam-lite#ObservationProcess>
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Agent> ;
+  rdfs:subClassOf prov:Agent ;
 .
 <http://def.seegrid.csiro.au/ontology/om/sam-lite#Process>
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Agent> ;
+  rdfs:subClassOf prov:Agent ;
 .
 <http://def.seegrid.csiro.au/ontology/om/sam-lite#SamplingFeature>
-  rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> ;
+  rdfs:subClassOf prov:Entity ;
 .
 <http://example.org/OMlite-PROV>
   rdf:type owl:Ontology ;

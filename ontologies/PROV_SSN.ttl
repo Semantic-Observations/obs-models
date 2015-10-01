@@ -1,6 +1,4 @@
 # baseURI: file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl
-# imports: http://purl.oclc.org/NET/ssnx/ssn
-# imports: http://www.w3.org/ns/prov
 
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dul: <http://www.loa-cnr.it/ontologies/DUL.owl#> .
@@ -13,8 +11,14 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<file:/C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl>
+<file:///C:/Users/cox075/dev/ontologies/trunk/O&M-OWL/PROV_SSN.ttl>
   rdf:type owl:Ontology ;
+  rdfs:comment """Converted from http://purl.oclc.org/NET/ssnprov/ssnprov (which redirects to https://raw.githubusercontent.com/dcorsar/ssnprov/master/PROV_SSN.rdf )
+
+A number of errors fixed:
+1. no namespace binding for prefix dc:
+2. incorrect URI for PROV-O
+3. add an explicit namespace prefix for prov_ssn:"""^^xsd:string ;
 .
 <http://purl.oclc.org/NET/ssnprov/ssnprov>
   rdf:type owl:Ontology ;
