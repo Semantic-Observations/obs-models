@@ -105,6 +105,7 @@ class Annotation:
         self.model.add_statement(statement)
 
 
+
     def parse(self):
         """ Parse the annotation template file. Triples that don't need to look
         at the data are created here but triples that do need to look at the
@@ -173,17 +174,13 @@ class Annotation:
                 elif header == "MAPPINGS":
                     state = "MAPPINGS"
             else:
-                # We aren't at a a header so we need to do actual work
-
+                # Do the work in between headers
                 if state == "META":
                     self.addMeta(row)
-
                 elif state == "NAMESPACES":
                     self.addNamespace(row)
-
                 elif state == "TRIPLES":
                     self.addTriple(row)
-
                 elif state == "OBSERVATIONS":
                     # Manage the stack
                     for i in range(len(row)):
@@ -256,10 +253,8 @@ class Annotation:
         # Add triples that have been parsed
         # TODO
 
-        # Download the data file, if necessary
+        # Download (if necessary) and load data
         if 'data_identifier' in self.meta:
-            print "Processing data_identifier"
-
             url = self.meta['data_identifier']
             parsed_url = urlparse(url)
             parsed_paths = parsed_url.path.split('/')
@@ -289,8 +284,9 @@ class Annotation:
                 else:
                     self.dataset = pandas.read_fwf(filename) #FWF
 
-        if self.dataset is None:
-            raise Exception("No dataset loaded. Somethingn went wrong.")
+        # Process triples
+        self.processTriples()
+
 
         # Process the mappings present
         index = 1
@@ -359,7 +355,6 @@ class Annotation:
         container_nodes = []
 
         for class_uri_string in union_class_uri_strings:
-            print "Creating wrapper node for %s." % class_uri_string
 
             container_node = RDF.Node()
             container_nodes.append(container_node)
@@ -503,6 +498,7 @@ class Annotation:
         if self.nrows is not None:
             matched_data = matched_data[0:self.nrows]
 
+        print "addValues(%s, %d, ...)" % (mapping, index)
         self.addValues(mapping, index, matched_data)
 
 
