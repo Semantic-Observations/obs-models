@@ -94,7 +94,7 @@ class Annotation:
                 else:
                     o = RDF.Uri(self.ns[o_parts[0]] + o_parts[1])
             else:
-                o = RDF.Node(s)
+                o = RDF.Node(o)
 
         # Add the statement
         statement = RDF.Statement(s, p, o)
