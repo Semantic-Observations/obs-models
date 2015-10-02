@@ -122,6 +122,94 @@ class Annotation:
         self.model.add_statement(statement)
 
 
+    def createUnionOfNode(self, node):
+        """ Create a unionOf class node.
+
+            Takes as input `node`, which is the unprocessed text from the CSV.
+
+                e.g., 'owl:unionOf(foo:Entity bar:Entity)'
+
+            With this text, we create and add nodes and stateemtns to the graph
+            and return a reference to the RDF Container node so the triple
+            containing the owl:unionOf subject or object can be completed.
+
+            To parse the following subject or object:
+
+                'owl:unionOf(foo:Entity bar:Entity)',
+
+            we do the following:
+
+            - Parse the `node` string to get the list of URI strings
+              `[foo:Entity', 'bar:Entity']`
+            - For each URI string
+                - Create container RDF.Node()
+                - Save a reference to it for later
+                - Add an rdf:first statement pointing to the URI string
+            - For all but the last container node
+                - Add an rdf:rest statement which points to the next URI string
+                  container node. (i.e., 1->2, 2->3, etc)
+            - For the last container node
+                - Add an rdf:rest statement of rdf:nil
+            - Create another container node that will wrap the containers
+                - Type it as an owl:Class
+                - Add an owl:unionOf statement to the first container node
+            - Return the outside container node as a reference
+
+            The above steps produce the blank node (in TTL format):
+
+                [
+                    a owl:Class ;
+                    owl:unionOf (foo:Entity
+                        bar:Entity
+                    )
+                ]
+        """
+
+        match_result = re.search("owl:unionOf\(([\w\s:]+)\)", node)
+
+        if match_result is None:
+            print "Error while parsing row with unionOf statement."
+            print "Row was %s." % row
+            print "No triples added for statement."
+
+            return node
+
+        # Parse out the list of URI strings
+        union_class_uri_strings = match_result.group(1).split(" ")
+
+        # Keep track of URI string container nodes
+        container_nodes = []
+
+        for class_uri_string in union_class_uri_strings:
+            container_node = RDF.Node()
+            container_nodes.append(container_node)
+
+            self.addStatement(container_node, 'rdf:first', class_uri_string)
+
+        # Check to make sure we have two URI strings in our statement
+        if len(container_nodes) < 2:
+            print "Something went wrong when creating nodes for a unionOf statement. Result may be incorrect."
+            return node
+
+        # Add rdf:rest Statements
+
+        # rdf:rest statements for 1:(n-1)
+        for i in range(len(container_nodes)-1):
+            self.addStatement(container_nodes[i], 'rdf:rest', container_nodes[i+1])
+
+        # rdf:rest statement for n
+        last_container_node = container_nodes[len(container_nodes) - 1]
+        self.addStatement(last_container_node, 'rdf:rest', 'rdf:nil')
+
+
+        # Create wrapper node for the union
+        union_node = RDF.Node()
+        self.addStatement(union_node, 'rdf:type', 'owl:Class')
+        self.addStatement(union_node, 'owl:unionOf', container_nodes[0])
+
+        return union_node
+
+
     def parse(self):
         """ Parse the annotation template file. Triples that don't need to look
         at the data are created here but triples that do need to look at the
@@ -243,6 +331,7 @@ class Annotation:
                             self.addMeasurement(row, parent)
                         elif node_type == "context":
                             self.addContext(row, parent)
+                    # Characteristic/Standard/Conversion/etc are at indent 3
                     elif len(stack) == 3:
                         parent = stack[1][1]
                         node_type = row[2]
@@ -255,8 +344,6 @@ class Annotation:
                             self.addConversion(row, parent)
                         elif node_type == "datatype":
                             self.addDatatype(row, parent)
-
-
                 elif state == "MAPPINGS":
                     self.addMapping(row)
 
@@ -264,10 +351,14 @@ class Annotation:
 
 
     def process(self):
-        """ Processes what has been read in from the parse() method."""
+        """ Processes what has been read in from the parse() method.
 
-        # Add triples that have been parsed
-        # TODO
+            There are 3 major steps in this method.
+
+            1. Download+load dataset (optional)
+            2. Add parsed triples from TRIPLES section into Model
+            3. Process all data mappings
+        """
 
         # Download (if necessary) and load data
         if 'data_identifier' in self.meta:
@@ -287,14 +378,14 @@ class Annotation:
                 with open(filename, "wb") as f:
                     f.write(r.text)
 
-                print "Retreiving data from url: %s" % url
+                print "Retreiving data from URL: %s" % url
 
             # Load the data file with pandas (autodetect format)
             with open(filename, "rb") as f:
                 header_line = f.readline()
 
                 if len(header_line.split(",")) > 1:          #CSV
-                    self.dataset = pandas.read_fwf(filename)
+                    self.dataset = pandas.read_csv(filename)
                 elif len(header_line.split("\t")) > 1:       # TSV
                     self.dataset = pandas.read_table(filename)
                 else:
@@ -302,7 +393,6 @@ class Annotation:
 
         # Process triples
         self.processTriples()
-
 
         # Process the mappings present
         index = 1
@@ -312,150 +402,208 @@ class Annotation:
             index += 1
 
 
-    def addMeta(self, row):
+    def parseMeta(self, row):
+        """ Validate and parse a row from the META section.
+
+            e.g., row = ['metadata_identifier', 'some_url']
+        """
+
+
+        if len(row) < 2 or len(row[0]) < 1 or len(row[1]) < 1:
+            print "Warning: Failed to parse row from META section: `%s`." % row
+
+            return
+
+
         self.meta[row[0]] = row[1]
 
 
-    def addNamespace(self, row):
-        if len(row[0]) < 1 or len(row[1]) < 1:
+    def parseNamespace(self, row):
+        """ Validate and parse a row from the NAMESPACE section.
+
+            e.g., row = ['foo', 'http://myfoo.com/foo#']
+        """
+
+
+        if len(row) < 2 or len(row[0]) < 1 or len(row[1]) < 1:
+            print "Warning: Failed to parse row from NAMESPACE section: `%s`." % row
+
             return
+
 
         self.ns[row[0]] = row[1]
 
 
-    def addTriple(self, row):
-        """ Adds the triple in a row.
-            Triples can be (URI, URI, URI) or (URI, URI, owl:unionOf(URI URI))
-            Note that a space separates the two URIs and not a comma.
-            TODO: Totally re-do addStatement stuff and this method in particular.
+    def parseTriple(self, row):
+        """ Validate and parse a row from the TRIPLES section.
+
+            e.g., row = ['foo:Entity', 'owl:equivalentClass', 'bar:Entity']
         """
 
 
-        if len(row[0]) < 1 or len(row[1]) < 1 or len(row[2]) < 1:
+        if len(row) < 3 or len(row[0]) < 1 or len(row[1]) < 1 or len(row[2]) < 1:
+            print "Warning: Failed to parse row from TRIPLES section: `%s`." % row
+
             return
 
         self.triples.append([row[0], row[1], row[2]])
 
 
-    def createUnionOfNode(self, node):
-        """ Create a unionOf class node.
+    def parseObservation(self, row):
+        """ Validate and parse a row from the OBSERVATIONS section.
 
-            Takes as input `node`, which is the unprocessed text from the CSV.
-            With this text, we create and add nodes to the graph and return
-                a reference to the first element in the unionOf set.
-
-            owl:unionOf is handled in the following fashion:
-
-            - Create blank nodes for each union class (A, B, C, etc...)
-                - For each union class bnode, create another bnode CA
-                    - To this bnode (CA), add two properties:
-                        - rdf:first <A>
-                        - rdf:rest #rdfnil
-            - Return the first union class' bnode (A)
-
+            e.g., row = ['observation', 'o1', '', '']
         """
 
-        match_result = re.search("owl:unionOf\(([\w\s:]+)\)", node)
+        if len(row) < 3 or len(row[0]) < 1 or len(row[1]) < 1:
+            print "Warning: Failed to parse row from TRIPLES section: `%s`." % row
 
-        if match_result is None:
-            print "Error while parsing row with unionOf statement."
-            print "Row was %s." % row
-            print "No triples added for statement."
-
-            return node
-
-        # Split the string 'foo:Thing1 foo:Thing2' into [foo:Thing1, foo:Thing2, etc...]
-        union_class_uri_strings = match_result.group(1).split(" ")
-
-        # Stores union member blank nodes
-        container_nodes = []
-
-        for class_uri_string in union_class_uri_strings:
-
-            container_node = RDF.Node()
-            container_nodes.append(container_node)
-
-            # Add just the first statements now
-            self.addStatement(container_node, 'rdf:first', class_uri_string)
-
-        if len(container_nodes) < 1:
-            print "Something went wrong when creating nodes for a unionOf statement. Result may be incorrect."
-            return node
-
-        # rdf:rest Statements
-
-        # rdf:rest statements for 1:(n-1)
-        for i in range(len(container_nodes)-1):
-            self.addStatement(container_nodes[i], 'rdf:rest', container_nodes[i+1])
-
-        # rdf:rest statement for n
-        last_container_node = container_nodes[len(container_nodes) - 1]
-        self.addStatement(last_container_node, 'rdf:rest', 'rdf:nil')
-
-        # Create wrapper for the union
-        union_node = RDF.Node()
-        self.addStatement(union_node, 'rdf:type', 'owl:Class')
-        self.addStatement(union_node, 'owl:unionOf', container_nodes[0])
-
-        return union_node
+            return
 
 
-    def addObservation(self, row):
-        """This method doesn't do anything currently."""
+    def parseEntity(self, row, parent):
+        """ Validate and parse a row containing an Entity statement from within
+            the OBSERVATIONS section.
 
+            e.g., row = ['', 'entity', 'foo:SomeEntity', '']
+        """
 
-    def addEntity(self, row, parent):
-        if len(row[2]) < 1:
+        if len(row) < 3 or len(row[1]) < 1 or len(row[2]) < 1:
+            print "Warning: Failed to parse Entity row: `%s`." % row
+
             return
 
         self.entities[parent] = row[2]
 
 
-    def addMeasurement(self, row, parent):
-        """ Add a mapping between a measurement template and an observation
-            template
+    def parseMeasurement(self, row, parent):
+        """ Validate and parse a row containing a Measurement statement from
+            within the OBSERVATIONS section.
 
-            row[2] is a key like m2
-            parent is a key like o2
+            e.g., row = ['', 'measurement', 'm1', '']
         """
+
+        if len(row) < 3 or len(row[1]) < 1 or len(row[2]) < 1:
+            print "Warning: Failed to parse Measurement row: `%s`." % row
+
+            return
 
         self.measurements[row[2]] = parent # TODO: Do I need this anymore?
         self.observations[row[2]] = parent
 
 
-    def addCharacteristic(self, row, parent):
-        if len(parent) < 1 or len(row[3]) < 1:
+    def parseCharacteristic(self, row, parent):
+        """ Validate and parse a row containing a Characteristic statement from
+            within the OBSERVATIONS section.
+
+            e.g., row = ['', '', 'characteristic', 'foo:SomeCharacteristic']
+        """
+
+        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+            print "Warning: Failed to parse Characteristic row: `%s`." % row
+
             return
+
 
         self.characteristics[parent] = row[3]
 
 
-    def addStandard(self, row, parent):
-        if len(parent) < 1 or len(row[3]) < 1:
+    def parseStandard(self, row, parent):
+        """ Validate and parse a row containing a Standard statement from
+            within the OBSERVATIONS section.
+
+            e.g., row = ['', '', 'standard', 'foo:SomeStandard']
+        """
+
+        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+            print "Warning: Failed to parse Standard row: `%s`." % row
+
             return
+
 
         self.standards[parent] = row[3]
 
 
-    def addConversion(self, row, parent):
-        if len(parent) < 1 or len(row[3]) < 1:
+    def parseConversion(self, row, parent):
+        """ Validate and parse a row containing a Conversion statement from
+            within the OBSERVATIONS section.
+
+            e.g., row = ['', '', 'conversion', 'foo:SomeConversion']
+        """
+
+        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+            print "Warning: Failed to parse Conversion row: `%s`." % row
+
             return
+
 
         self.conversions[parent] = row[3]
 
 
-    def addContext(self, row, parent):
-        if len(parent) < 1 or len(row[2]) < 1:
+    def parseDatatype(self, row, parent):
+        """ Validate and parse a row containing a Datatype statement from
+            within the OBSERVATIONS section.
+
+            e.g., row = ['', '', 'datatype', 'xsd:decimal']
+        """
+
+        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+            print "Warning: Failed to parse Datatype row: `%s`." % row
+
             return
+
+
+        self.datatypes[parent] = row[3]
+
+
+    def parseContext(self, row, parent):
+        """ Validate and parse a row containing a Context statement from
+            within the OBSERVATIONS section.
+
+            e.g., row = ['', 'context', 'o2', '']
+        """
+
+        if len(row) < 3 or len(row[1]) < 1 or len(row[2]) < 1:
+            print "Warning: Failed to parse Context row: `%s`." % row
+
+            return
+
 
         self.contexts[parent] = row[2]
 
 
-    def addDatatype(self, row, parent):
-        if len(parent) < 1 or len(row[3]) < 1:
+    def parseMapping(self, row):
+        """ Validate and parse a row from the MAPPINGS section.
+
+            e.g., row = ['site', 'm1', '', '']
+                  row = ['spp', 'm2', 'spp eq shad', 'Alosa sapidissima']
+        """
+
+        if len(row) < 2 or len(row[0]) < 1 or len(row[1]) < 1:
+            print "Warning: Failed to parse Mapping row: `%s`." % row
+
             return
 
-        self.datatypes[parent] = row[3]
+
+        # Each mapping is at least an attribute/key pair.
+        attrib = row[0]
+        key = row[1]
+
+        mapping = {}
+
+        if len(row[0]) > 0:
+            mapping['attribute'] = row[0]
+
+        if len(row[1]) > 0:
+            mapping['key'] = row[1]
+
+        if len(row[2]) > 0:
+            mapping['condition'] = row[2]
+
+        if len(row[3]) > 0:
+            mapping['value'] = row[3]
+
+        self.mappings.append(mapping)
 
 
     def processTriples(self):
@@ -476,6 +624,23 @@ class Annotation:
 
 
     def processMapping(self, mapping, index):
+        """ Process a attribute-measurement mapping.
+
+            `mapping` is a Dict containing keys:
+
+                Required:
+                    - attribute: Column in the data, e.g. spp
+                    - key: Measurement template key, e.g. m2
+
+                Optional:
+                    - condition: String for the condition, e.g., 'spp eq shad'
+                    - value: String for the replacement value, e.g., 'Alosa sapidissima'
+
+            This method checks if the attribute is in the dataset (as a column)
+            and then perform either an unconditional or conditional mapping.
+        """
+
+
         dataset = self.dataset
         attrib = mapping['attribute']
 
@@ -510,7 +675,7 @@ class Annotation:
         else:
             matched_data = dataset[mapping['attribute']]
 
-        # TODO: remove this out of development
+        # Select as many rows as the user specified (Default: all)
         if self.nrows is not None:
             matched_data = matched_data[0:self.nrows]
 
@@ -518,16 +683,28 @@ class Annotation:
 
 
     def addValues(self, mapping, mapping_index, data):
-        """ Add values, and all related nodes and properties.
+        """ Adds values from the dataset to the Model.
 
-            For a given value, we add information that...
-                It is a Measurement
-                    of a Characteristic
-                    according to a Standard
-                    using an (optional) converstion Standard
-                It is part of an Observation
-                    of an Entity
-                    which may have some Context
+            Blank nodes are used throughout this method to link statements. A
+            common format for the blank node identifier is followed:
+
+                Observations start with '_:o...'
+                Measurements start with '_:m...'
+                etc.
+
+                '_:o1...' is used for values from the Observation keyed as 'o1', and
+                so on.
+
+            Because each row contains one or more Observations and blank node
+            identifiers need to be unique, we append the row number to the
+            identifier, e.g., '_:o1_row0' for the first row.
+
+            Blank node identifiers for Measurements, Entities, and
+            Characteristics have a string appended to their identifier, e.g.,
+
+                '_:m1_row0_characteristic'
+
+            A similar pattern is followed for other concepts.
         """
 
         mapping_value = None
@@ -541,7 +718,7 @@ class Annotation:
         data_index = data.index
 
         for i in range(len(data)):
-            measurement = "_:m%d_%d" % (mapping_index, data_index[i])
+            measurement = "_:m%d_row%d" % (mapping_index, data_index[i])
 
             # Value Mapping: Replace with mapping value if needed
             if mapping_value is None:
@@ -607,46 +784,10 @@ class Annotation:
 
 
 
-    def addMapping(self, row):
-        # Each mapping is at least an attribute/key pair.
-        attrib = row[0]
-        key = row[1]
-
-        mapping = {}
-
-        if len(row[0]) > 0:
-            mapping['attribute'] = row[0]
-
-        if len(row[1]) > 0:
-            mapping['key'] = row[1]
-
-        if len(row[2]) > 0:
-            mapping['value'] = row[2]
-
-        if len(row[3]) > 0:
-            mapping['condition'] = row[3]
-
-        self.mappings.append(mapping)
-
-
-    def addDataType(self, row):
-        if len(row[0]) < 1 or len(row[1]) < 1:
-            return
-
-        match = re.search("(.+):(.+)", row[1])
-        if match is not None and len(match.groups()) == 2:
-            namespace = match.group(1)
-            datatype = match.group(2)
-
-            full_uri = self.ns[namespace] + datatype
-
-        else:
-            print "Invalid datatype mapping."
-
-        self.datatypes[row[0]] = full_uri
-
-
     def serialize(self, filename, format=None):
+        """ Serialize the Model to file. """
+
+        
         if format == None:
             format = "turtle"
 

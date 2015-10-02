@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="duplicate:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify-non-hierarchical/test-equivclass-cardinality.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="duplicate:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify-non-hierarchical/test-equivclass.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="duplicate:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify-non-hierarchical/test-noequivclass-cardinality.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="duplicate:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify-non-hierarchical/test-noequivclass.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="shadowed:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify_equivalantClasses/logical_test1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="shadowed:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify_equivalantClasses/logical_test2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="shadowed:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify_equivalantClasses/logical_test3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1443812180129" name="shadowed:http://www.semanticweb.org/rwalls/ontologies/2015/7/untitled-ontology-369" uri="classify_equivalantClasses/logical_test4.owl"/>
+    </group>
+</catalog>
