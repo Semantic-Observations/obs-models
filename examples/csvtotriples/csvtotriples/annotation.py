@@ -775,12 +775,9 @@ class Annotation:
                 self.addStatement(standard, 'rdf:type', self.standards[key])
                 self.addStatement(measurement, 'oboe:usesStandard', standard)
 
-            # Measurement-xxxx-Standard
-            if key in self.conversions:
-                conversion = measurement + "_conversion"
+            # TODO: Conversions
+            # if key in self.conversions:
 
-                self.addStatement(conversion, 'rdf:type', self.conversions[key])
-                self.addStatement(measurement, 'foo:usesConversion', conversion)
 
 
 
