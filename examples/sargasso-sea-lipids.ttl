@@ -1,14 +1,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix oboe-characteristic: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-characteristics.owl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix domain: <http://example.com/domain/#> .
-@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix oboe-temporal: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-temporal.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix oboe: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix qudt-unit: <http://data.nasa.gov/qudt/owl/unit#> .
 @prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
-@prefix obo: <http://purl.obolibrary.org/obo/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix foo: <http://foo.org/foo/foo#> .
+@prefix envo: <http://purl.obolibrary.org/obo/> .
+@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 
 oboe-standard:Celsius
     owl:equivalentClass qudt-unit:DegreeCelsius .
@@ -17,12 +19,12 @@ oboe-standard:Length
     owl:equivalentClass qudt-unit:Meter .
 
 domain:Depth
-    rdf:subClassOf obo:PATO_0001595 .
+    rdf:subClassOf envo:PATO_0001595 .
 
-obo:ENVO_0002149
+envo:ENVO_0002149
     rdf:subClassOf oboe:Entity .
 
-obo:PATO_0000146
+envo:PATO_0000146
     rdf:subClassOf oboe:Characteristic .
 
 _:o1row0
@@ -48,26 +50,26 @@ _:o1row0
     oboe:hasMeasurement [
         oboe:hasValue "20110315" ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:DateCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a domain:DateStandard
         ] ;
         rdf:label "date" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "1639" ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:TimeCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a domain:DateStandard
         ] ;
         rdf:label "time" ;
         a oboe:Measurement
     ] ;
     oboe:ofEntity [
-        a foo:DateTimeEntity
+        a oboe-temporal:TimeInstant
     ] ;
     rdf:label "_:o2row0" ;
     a oboe:Observation .
@@ -96,7 +98,7 @@ _:o1row0
         a oboe:Measurement
     ] ;
     oboe:ofEntity [
-        a foo:LatLonEntity
+        a domain:LatLonEntity
     ] ;
     rdf:label "_:o3row0" ;
     a oboe:Observation .
@@ -106,19 +108,16 @@ _:o1row0
     oboe:hasMeasurement [
         oboe:hasValue "305"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <oboe:Pressure>
+            a <oboe-characteristic:Pressure>
         ] ;
         oboe:usesStandard [
             a oboe-standard:Bar
-        ] ;
-        foo:usesConversion [
-            a oboe-standard:DecibarToBar
         ] ;
         rdf:label "prmax" ;
         a oboe:Measurement
     ] ;
     oboe:ofEntity [
-        a foo:WaterColumnEntity
+        a domain:WaterColumnEntity
     ] ;
     rdf:label "_:o4row0" ;
     a oboe:Observation .
@@ -129,7 +128,7 @@ _:o1row0
         oboe:hasMeasurement [
             oboe:hasValue "4.0"^^<xsd:decimal> ;
             oboe:ofCharacteristic [
-                a <foo:Depth>
+                a <pato:PATO_0001595>
             ] ;
             oboe:usesStandard [
                 a oboe-standard:Length
@@ -138,7 +137,7 @@ _:o1row0
             a oboe:Measurement
         ] ;
         oboe:ofEntity [
-            a foo:WaterColumnEntity
+            a domain:WaterColumnEntity
         ] ;
         rdf:label "_:o5row0" ;
         a oboe:Observation
@@ -146,7 +145,7 @@ _:o1row0
     oboe:hasMeasurement [
         oboe:hasValue "36.641"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:Salinity>
+            a <oboe-characteristic:MassPerMass>
         ] ;
         oboe:usesStandard [
             a oboe-standard:PracticalSalinityUnit
@@ -156,10 +155,10 @@ _:o1row0
     ], [
         oboe:hasValue "18.739"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:PotentialTemperatureCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a oboe-standard:Celsius
         ] ;
         rdf:label "potemp" ;
         a oboe:Measurement
@@ -179,54 +178,54 @@ _:o1row0
             a <oboe-characteristic:VolumePerVolume>
         ] ;
         oboe:usesStandard [
-            a oboe-standard:MilliliterPerLIter
+            a oboe-standard:MilliliterPerLiter
         ] ;
         rdf:label "O2_ml_L" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "0.1521"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <pato:PATO_0000018>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a domain:FluorescenceStandard
         ] ;
         rdf:label "fluor" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "400.41"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:PARCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a domain:PARStandard
         ] ;
         rdf:label "PAR" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "0.5947"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:BeamAttenuationCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a oboe-standard:NumberPerMeterSquared
         ] ;
         rdf:label "beam_cp" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "86.1837"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <foo:NotImplemented>
+            a <domain:TransCharacteristic>
         ] ;
         oboe:usesStandard [
-            a foo:NotImplemented
+            a oboe-standard:Percent
         ] ;
         rdf:label "trans" ;
         a oboe:Measurement
     ], [
         oboe:hasValue "4.0"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <oboe:Pressure>
+            a <oboe-characteristic:Pressure>
         ] ;
         oboe:usesStandard [
             a oboe-standard:Bar
@@ -236,7 +235,7 @@ _:o1row0
     ], [
         oboe:hasValue "18.74"^^<xsd:decimal> ;
         oboe:ofCharacteristic [
-            a <obo:PATO_0000146>
+            a <pato:PATO_0000146>
         ] ;
         oboe:usesStandard [
             a oboe-standard:Celsius
@@ -245,7 +244,7 @@ _:o1row0
         a oboe:Measurement
     ] ;
     oboe:ofEntity [
-        a obo:ENVO_0002149
+        a envo:ENVO_0002149
     ] ;
     rdf:label "_:o6row0" ;
     a oboe:Observation .
