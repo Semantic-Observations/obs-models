@@ -499,7 +499,7 @@ class Annotation:
             e.g., row = ['', '', 'characteristic', 'foo:SomeCharacteristic']
         """
 
-        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+        if len(row) < 4 or len(row[2]) < 1 or len(row[3]) < 1:
             print "Warning: Failed to parse Characteristic row: `%s`." % row
 
             return
@@ -515,7 +515,7 @@ class Annotation:
             e.g., row = ['', '', 'standard', 'foo:SomeStandard']
         """
 
-        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+        if len(row) < 4 or len(row[2]) < 1 or len(row[3]) < 1:
             print "Warning: Failed to parse Standard row: `%s`." % row
 
             return
@@ -531,7 +531,7 @@ class Annotation:
             e.g., row = ['', '', 'conversion', 'foo:SomeConversion']
         """
 
-        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+        if len(row) < 4 or len(row[2]) < 1 or len(row[3]) < 1:
             print "Warning: Failed to parse Conversion row: `%s`." % row
 
             return
@@ -547,7 +547,7 @@ class Annotation:
             e.g., row = ['', '', 'datatype', 'xsd:decimal']
         """
 
-        if len(row) < 4 or len(row[1]) < 1 or len(row[2]) < 1 or len(row[3]) < 1:
+        if len(row) < 4 or len(row[2]) < 1 or len(row[3]) < 1:
             print "Warning: Failed to parse Datatype row: `%s`." % row
 
             return
@@ -787,7 +787,7 @@ class Annotation:
     def serialize(self, filename, format=None):
         """ Serialize the Model to file. """
 
-        
+
         if format == None:
             format = "turtle"
 
