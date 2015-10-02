@@ -280,11 +280,11 @@ class Annotation:
             else:
                 # Do the work in between headers
                 if state == "META":
-                    self.addMeta(row)
+                    self.parseMeta(row)
                 elif state == "NAMESPACES":
-                    self.addNamespace(row)
+                    self.parseNamespace(row)
                 elif state == "TRIPLES":
-                    self.addTriple(row)
+                    self.parseTriple(row)
                 elif state == "OBSERVATIONS":
                     # Manage the stack
                     for i in range(len(row)):
@@ -319,33 +319,33 @@ class Annotation:
 
                     # Observations are at indent 1
                     if len(stack) == 1:
-                        self.addObservation(row)
+                        self.parseObservation(row)
                     # Measurements/Entities/etc are at indent 2
                     elif len(stack) == 2:
                         parent = stack[0][1]
                         node_type = row[1]
 
                         if node_type == "entity":
-                            self.addEntity(row, parent)
+                            self.parseEntity(row, parent)
                         elif node_type == "measurement":
-                            self.addMeasurement(row, parent)
+                            self.parseMeasurement(row, parent)
                         elif node_type == "context":
-                            self.addContext(row, parent)
+                            self.parseContext(row, parent)
                     # Characteristic/Standard/Conversion/etc are at indent 3
                     elif len(stack) == 3:
                         parent = stack[1][1]
                         node_type = row[2]
 
                         if node_type == "characteristic":
-                            self.addCharacteristic(row, parent)
+                            self.parseCharacteristic(row, parent)
                         elif node_type == "standard":
-                            self.addStandard(row, parent)
+                            self.parseStandard(row, parent)
                         elif node_type == "conversion":
-                            self.addConversion(row, parent)
+                            self.parseConversion(row, parent)
                         elif node_type == "datatype":
-                            self.addDatatype(row, parent)
+                            self.parseDatatype(row, parent)
                 elif state == "MAPPINGS":
-                    self.addMapping(row)
+                    self.parseMapping(row)
 
         f.close()
 
