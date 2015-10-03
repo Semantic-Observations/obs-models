@@ -429,6 +429,35 @@ class Annotation:
             index += 1
 
 
+        self.validate()
+
+
+    def validate(self):
+        """ Perform validations on the annotation.
+
+        """
+
+
+        self.validateValueUse()
+
+
+    def validateValueUse(self):
+        """ Check if we added all the values we were supposed to.
+            Each attribute should have exactly 'self.nrows' values in it
+        """
+
+
+        if self.dataset is not None:
+            for attribute in self.values:
+                expected_number = self.nrows
+                actual_number = len(self.values[attribute])
+
+                if actual_number > expected_number:
+                    raise Exception("Too many values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected_number, actual_number))
+                elif actual_number < expected_number:
+                    raise Exception("Too few values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected_number, actual_number))
+
+
     def parseMeta(self, row):
         """ Validate and parse a row from the META section.
 
@@ -741,6 +770,10 @@ class Annotation:
         data_index = data.index
 
         for i in range(len(data)):
+            # Keep track of adding this value to the graph
+            self.trackUseOfValue(attrib, i)
+
+            # Create measurement blank node identifier
             measurement = "_:m%d_row%d" % (mapping_index, data_index[i])
 
             # Value Mapping: Replace with mapping value if needed
@@ -802,6 +835,22 @@ class Annotation:
             # if key in self.conversions:
 
 
+    def trackUseOfValue(self, attribute, row_num):
+        """ Track the use of `row_num` in column `attribute` in the dataset.
+
+            This is done to tell the user whether they added:
+                - All the data they meant to
+                - Each value only once
+        """
+
+        if attribute not in self.values:
+            raise Exception("Invalid attribute to track the use of values for. (%s)" % attribute)
+
+        if row_num in self.values[attribute]:
+            raise Exception("Attempted to use a value we've already added. (attribute: %s, row num: %s)" % (attribute, row_num))
+
+        if row_num not in self.values[attribute]:
+            self.values[attribute].add(row_num)
 
 
     def serialize(self, filename, format=None):
