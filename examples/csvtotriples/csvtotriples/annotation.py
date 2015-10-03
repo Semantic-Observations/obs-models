@@ -705,28 +705,28 @@ class Annotation:
             return
 
         # Do straight mapping for straight mappings
-        if 'value' in mapping and 'condition' in mapping:
+        if 'condition' in mapping and 'value' in mapping:
             # Find the mapping condition (lt, gt, etc)
-            condition = row[2].split(" ")
+            condition = mapping['condition'].split(" ")
 
-            if len(condition) != 2:
-                print "Condition format error. Expected three tokens, separated by a space. Moving to next row."
+            if len(condition) != 3:
+                print "Condition format error. Expected three tokens, separated by a space. Moving to next row. Found %s." % mapping
                 return
 
             if condition[1] == "eq":
-                matched_data = dataset[attrib][dataset[attrib] == int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] == condition[2]]
             elif condition[1] == "neq":
-                matched_data = dataset[attrib][dataset[attrib] != int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] != condition[2]]
             elif condition[1] == "lt":
-                matched_data = dataset[attrib][dataset[attrib] < int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] < condition[2]]
             elif condition[1] == "gt":
-                matched_data = dataset[attrib][dataset[attrib] > int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] > condition[2]]
             elif condition[1] == "lte":
-                matched_data = dataset[attrib][dataset[attrib] >= int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] >= condition[2]]
             elif condition[1] == "gte":
-                matched_data = dataset[attrib][dataset[attrib] <= int(condition[3])]
+                matched_data = dataset[attrib][dataset[attrib] <= condition[2]]
             else:
-                print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row."
+                print "Unrecognized comparison operator. Try one of eq|neq|lt|gt|lte|gte. Moving to next row. Found %s." % condition[1]
                 return
         else:
             matched_data = dataset[mapping['attribute']]
