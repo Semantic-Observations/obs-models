@@ -405,6 +405,19 @@ class Annotation:
                 else:
                     self.dataset = pandas.read_fwf(filename) #FWF
 
+            # Trim the dataset to only the number of rows the user specified
+            if self.nrows is not None:
+                self.dataset = self.dataset[0:self.nrows]
+            else:
+                self.nrows = self.dataset.shape[0]
+
+            # Set up value tracking dict
+            self.values = {}
+
+            for attribute in self.dataset.columns:
+                self.values[attribute] = set([])
+
+
         # Process triples
         self.processTriples()
 
@@ -688,10 +701,6 @@ class Annotation:
                 return
         else:
             matched_data = dataset[mapping['attribute']]
-
-        # Select as many rows as the user specified (Default: all)
-        if self.nrows is not None:
-            matched_data = matched_data[0:self.nrows]
 
         self.addValues(mapping, index, matched_data)
 
