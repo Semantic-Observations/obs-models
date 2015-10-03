@@ -1,0 +1,10 @@
+#Tests the unionOf facility,,
+META
+data_identifier,tests/test_data/test_valueadding.csv
+NAMESPACES,,
+oboe,oboe,http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#,,
+owl,http://www.w3.org/2002/07/owl#,,
+rdf,http://www.w3.org/1999/02/22-rdf-syntax-ns#,,
+MAPPINGS
+spp,m1,spp eq King,Oncorhynchus tshawytscha
+spp,m1,spp eq Coho,Oncorhynchus kisutch
