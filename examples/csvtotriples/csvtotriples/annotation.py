@@ -364,21 +364,35 @@ class Annotation:
         if 'data_identifier' in self.meta:
             url = self.meta['data_identifier']
             parsed_url = urlparse(url)
-            parsed_paths = parsed_url.path.split('/')
-            filename = parsed_paths[len(parsed_paths)-1]
 
-            # Check if file exists in the current directory
-            # If not, download and save
-            if not os.path.isfile(filename):
-                r = requests.get(url)
+            """ Check whether file is local or remote.
+                The check used here is whether urlparse() extracts a scheme."""
 
-                if r.status_code != 200:
-                    raise Exception("Status code was not 200. Download must have failed.")
+            if len(parsed_url[0]) > 0:
+                # Remote file
+                parsed_paths = parsed_url.path.split('/')
+                filename = parsed_paths[len(parsed_paths)-1]
 
-                with open(filename, "wb") as f:
-                    f.write(r.text)
+                # Check if file exists in the current directory
+                # If not, download and save
+                if not os.path.isfile(filename):
+                    r = requests.get(url)
 
-                print "Retreiving data from URL: %s" % url
+                    if r.status_code != 200:
+                        raise Exception("Status code was not 200. Download must have failed.")
+
+                    with open(filename, "wb") as f:
+                        f.write(r.text)
+
+                    print "Retreiving data from URL: %s" % url
+            else:
+                # Local file
+
+                # Raise exception if the data_identifier doesn't exist
+                if not os.path.isfile(url):
+                    raise Exception("data_identifier found but couldn't download or locate on disk: %s" % url)
+
+                filename = url
 
             # Load the data file with pandas (autodetect format)
             with open(filename, "rb") as f:
