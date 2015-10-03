@@ -424,11 +424,14 @@ class Annotation:
             else:
                 self.nrows = self.dataset.shape[0]
 
-            # Set up value tracking dict
+            """ Set up value tracking dict
+                We only track and validate the usage of mapped attribtues.
+            """
+
             self.values = {}
 
-            for attribute in self.dataset.columns:
-                self.values[attribute] = set([])
+            for mapping in self.mappings:
+                self.values[mapping['attribute']] = set([])
 
 
         # Process triples
