@@ -787,7 +787,7 @@ class Annotation:
 
         for i in range(len(data)):
             # Keep track of adding this value to the graph
-            self.trackUseOfValue(attrib, i)
+            self.trackUseOfValue(attrib, data_index[i])
 
             # Create measurement blank node identifier
             measurement = "_:m%d_row%d" % (mapping_index, data_index[i])
