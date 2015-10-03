@@ -791,31 +791,33 @@ class Annotation:
             # Use language, if present
             # TODO
 
-            # Create Observation
-            observation = "_:" + self.observations[key] + "row" + str(data_index[i])
-            self.addStatement(observation, 'rdf:type', 'oboe:Observation')
-            self.addStatement(observation, 'rdf:label', RDF.Node(literal=observation))
 
             # Create Measurement
             self.addStatement(measurement, 'rdf:type', 'oboe:Measurement')
             self.addStatement(measurement, 'oboe:hasValue', value_node)
             self.addStatement(measurement, 'rdf:label', RDF.Node(literal=attrib))
 
-            # Observation-hasMeasurement-Measurement
-            self.addStatement(observation, 'oboe:hasMeasurement', measurement)
+            # Create Observation
+            if key in self.observations:
+                observation = "_:" + self.observations[key] + "row" + str(data_index[i])
+                self.addStatement(observation, 'rdf:type', 'oboe:Observation')
+                self.addStatement(observation, 'rdf:label', RDF.Node(literal=observation))
 
-            # Observation-hasContext-Observation
-            if self.measurements[key] in self.contexts:
-                other_observation = "_:" + self.contexts[self.measurements[key]] + "row" + str(data_index[i])
+                # Observation-hasMeasurement-Measurement
+                self.addStatement(observation, 'oboe:hasMeasurement', measurement)
 
-                self.addStatement(observation, 'oboe:hasContext', other_observation)
+                # Observation-hasContext-Observation
+                if self.measurements[key] in self.contexts:
+                    other_observation = "_:" + self.contexts[self.measurements[key]] + "row" + str(data_index[i])
 
-            # Observation-ofEntity-Entity
-            if self.observations[key] in self.entities:
-                entity = "_:" + self.observations[key] + "_entity"
+                    self.addStatement(observation, 'oboe:hasContext', other_observation)
 
-                self.addStatement(entity, 'rdf:type', self.entities[self.measurements[key]])
-                self.addStatement(observation, 'oboe:ofEntity', entity)
+                # Observation-ofEntity-Entity
+                if self.observations[key] in self.entities:
+                    entity = "_:" + self.observations[key] + "_entity"
+
+                    self.addStatement(entity, 'rdf:type', self.entities[self.measurements[key]])
+                    self.addStatement(observation, 'oboe:ofEntity', entity)
 
             # Measurement-ofCharacteristic-Characteristic
             if key in self.characteristics:
