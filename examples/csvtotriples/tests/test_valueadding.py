@@ -7,4 +7,4 @@ def test_unionof():
     anno.parse()
     anno.process()
 
-    assert(anno.size() == 7)
+    assert(anno.nvalues() == 5)
