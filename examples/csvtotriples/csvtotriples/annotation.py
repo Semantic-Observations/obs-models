@@ -462,13 +462,13 @@ class Annotation:
 
         if self.dataset is not None:
             for attribute in self.values:
-                expected_number = self.nrows
-                actual_number = len(self.values[attribute])
+                expected = self.nrows
+                actual = len(self.values[attribute])
 
-                if actual_number > expected_number:
-                    raise Exception("Too many values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected_number, actual_number))
-                elif actual_number < expected_number:
-                    raise Exception("Too few values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected_number, actual_number))
+                if actual > expected:
+                    raise Exception("Too many values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected, actual))
+                elif actual < expected:
+                    raise Exception("Too few values used from attribute %s. (Expected %d, Actual %s)" % (attribute, expected, actual))
 
 
     def parseMeta(self, row):
