@@ -52,6 +52,19 @@ class Annotation:
         return self.model.size()
 
 
+    def nvalues(self):
+        """ Returns the number of attribute:rownum pairs of values from
+            mappings that should be present in the final graph.
+        """
+
+        count = 0
+
+        for attribute in self.values:
+            count += len(self.values[attribute])
+
+        return count
+
+
     def addStatement(self, s, p, o, literal=False):
         """ Custom addStatement override to make RDF statements as easy as
             possible to add to the graph.
