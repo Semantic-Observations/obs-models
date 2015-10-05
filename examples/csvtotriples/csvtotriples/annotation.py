@@ -454,6 +454,16 @@ class Annotation:
         """
 
 
+        # Validate observations
+        for measurement in self.observations:
+            # Should have an entity
+            if self.observations[measurement] not in self.entities:
+                print "Warning: Observation %s doesn't have an entity." % measurement
+
+            # Should have a measurement
+            if self.observations[measurement] not in self.measurements:
+                print "Warning: Observation %s doesn't have a measurement." % self.observations[measurement]
+
         self.validateValueUse()
 
 
@@ -545,6 +555,7 @@ class Annotation:
 
             return
 
+
         self.entities[parent] = row[2]
 
 
@@ -560,8 +571,12 @@ class Annotation:
 
             return
 
-        self.measurements[row[2]] = parent # TODO: Do I need this anymore?
+
+        # Measurement -> Observtion mapping
         self.observations[row[2]] = parent
+
+        # Observation -> Measurement mapping
+        self.measurements[parent] = row[2]
 
 
     def parseCharacteristic(self, row, parent):
@@ -814,8 +829,10 @@ class Annotation:
             self.addStatement(measurement, 'rdf:label', RDF.Node(literal=attrib))
 
             # Create Observation
+
             if key in self.observations:
                 observation = "_:" + self.observations[key] + "row" + str(data_index[i])
+
                 self.addStatement(observation, 'rdf:type', 'oboe:Observation')
                 self.addStatement(observation, 'rdf:label', RDF.Node(literal=observation))
 
@@ -823,8 +840,8 @@ class Annotation:
                 self.addStatement(observation, 'oboe:hasMeasurement', measurement)
 
                 # Observation-hasContext-Observation
-                if self.measurements[key] in self.contexts:
-                    other_observation = "_:" + self.contexts[self.measurements[key]] + "row" + str(data_index[i])
+                if self.observations[key] in self.contexts:
+                    other_observation = "_:" + self.contexts[self.observations[key]] + "row" + str(data_index[i])
 
                     self.addStatement(observation, 'oboe:hasContext', other_observation)
 
@@ -832,7 +849,7 @@ class Annotation:
                 if self.observations[key] in self.entities:
                     entity = "_:" + self.observations[key] + "_entity"
 
-                    self.addStatement(entity, 'rdf:type', self.entities[self.measurements[key]])
+                    self.addStatement(entity, 'rdf:type', self.entities[self.observations[key]])
                     self.addStatement(observation, 'oboe:ofEntity', entity)
 
             # Measurement-ofCharacteristic-Characteristic
