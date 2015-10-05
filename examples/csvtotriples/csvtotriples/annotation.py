@@ -458,11 +458,11 @@ class Annotation:
         for measurement in self.observations:
             # Should have an entity
             if self.observations[measurement] not in self.entities:
-                print "Warning: Observation %s doesn't have an entity." % measurement
+                print "Warning: Observation %s doesn't have an Entity." % measurement
 
             # Should have a measurement
             if self.observations[measurement] not in self.measurements:
-                print "Warning: Observation %s doesn't have a measurement." % self.observations[measurement]
+                print "Warning: Observation %s doesn't have a Measurement." % self.observations[measurement]
 
         self.validateValueUse()
 
