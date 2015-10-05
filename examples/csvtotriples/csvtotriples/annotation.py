@@ -464,6 +464,15 @@ class Annotation:
             if self.observations[measurement] not in self.measurements:
                 print "Warning: Observation %s doesn't have a Measurement." % self.observations[measurement]
 
+        # Validate measurements
+        for measurement in self.observations:
+            if measurement not in self.characteristics:
+                print "Warning: Measurement %s doesn't have a Characteristic." % measurement
+
+            if measurement not in self.standards:
+                print "Warning: Measurement %s doesn't have a Standard." % measurement
+
+        # Validate all values that are mapped are used once and only once
         self.validateValueUse()
 
 
