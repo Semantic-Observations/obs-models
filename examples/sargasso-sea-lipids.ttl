@@ -9,7 +9,7 @@
 @prefix qudt-unit: <http://data.nasa.gov/qudt/owl/unit#> .
 @prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
 @prefix envo: <http://purl.obolibrary.org/obo/> .
-@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standard.owl#> .
+@prefix oboe-standards: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standards.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 
 oboe-standard:Celsius
