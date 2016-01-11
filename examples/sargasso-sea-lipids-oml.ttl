@@ -67,24 +67,48 @@ my:OC-20110316-maxpr
 .
 my:SSOC
   rdf:type oml:ObservationCollection ;
-  oml:member my:SSOC-20110315 ;
-  oml:member my:SSOC-20110316 ;
+  oml:member my:SSOC-1 ;
+  oml:member my:SSOC-10 ;
+  oml:member my:SSOC-11 ;
+  oml:member my:SSOC-12 ;
+  oml:member my:SSOC-13 ;
+  oml:member my:SSOC-14 ;
+  oml:member my:SSOC-15 ;
+  oml:member my:SSOC-16 ;
+  oml:member my:SSOC-17 ;
+  oml:member my:SSOC-18 ;
+  oml:member my:SSOC-19 ;
+  oml:member my:SSOC-2 ;
+  oml:member my:SSOC-20 ;
+  oml:member my:SSOC-21 ;
+  oml:member my:SSOC-22 ;
+  oml:member my:SSOC-23 ;
+  oml:member my:SSOC-24 ;
+  oml:member my:SSOC-25 ;
+  oml:member my:SSOC-3 ;
+  oml:member my:SSOC-4 ;
+  oml:member my:SSOC-5 ;
+  oml:member my:SSOC-6 ;
+  oml:member my:SSOC-7 ;
+  oml:member my:SSOC-8 ;
+  oml:member my:SSOC-9 ;
 .
-my:SSOC-20110315
+my:SSOC-1
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:OC-20110315-maxpr ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
-  oml:member my:SSOC-20110315-1 ;
-  oml:member my:SSOC-20110315-2 ;
+  oml:member my:SSOC-1-1 ;
+  oml:member my:SSOC-1-2 ;
+  oml:member my:SSOC-1-rest ;
   oml:phenomenonTime my:t20110315 ;
   oml:resultTime "2011-03-15T16:39:00"^^xsd:dateTime ;
   oml:samplingStrategy my:cast1 ;
-  rdfs:comment "Set of collections of observations on 2011-03-15"^^xsd:string ;
+  rdfs:comment "Set of collections of observations on cast 1"^^xsd:string ;
 .
-my:SSOC-20110315-1
+my:SSOC-1-1
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
@@ -192,7 +216,7 @@ my:SSOC-20110315-1
     ] ;
   rdfs:comment "Set of measurements at first depth"^^xsd:string ;
 .
-my:SSOC-20110315-2
+my:SSOC-1-2
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
@@ -300,19 +324,20 @@ my:SSOC-20110315-2
     ] ;
   rdfs:comment "Set of measurements at second depth"^^xsd:string ;
 .
-my:SSOC-20110316
+my:SSOC-2
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:OC-20110316-maxpr ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
-  oml:member my:SSOC-20110316-1 ;
-  oml:member my:SSOC-20110316-2 ;
+  oml:member my:SSOC-2-1 ;
+  oml:member my:SSOC-2-2 ;
+  oml:member my:SSOC-2-rest ;
   oml:phenomenonTime my:t20110316 ;
   oml:resultTime "2011-03-16T22:07:00"^^xsd:dateTime ;
   oml:samplingStrategy my:cast2 ;
-  rdfs:comment "Set of collections of observations on 2011-03-16"^^xsd:string ;
+  rdfs:comment "Set of collections of observations on cast 2"^^xsd:string ;
 .
 my:cast1
   rdf:type samfl:SamplingPoint ;
