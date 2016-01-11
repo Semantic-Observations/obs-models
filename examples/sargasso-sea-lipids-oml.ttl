@@ -58,6 +58,7 @@ my:SSOC-1
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:SSOC-1-maxpr ;
+      oml:role domain:Max-Pressure ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
   oml:member my:SSOC-1-1 ;
@@ -73,6 +74,7 @@ my:SSOC-1-1
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:SSOC-1-1-depth ;
+      oml:role obo:PATO_0001595 ;
     ] ;
   oml:member [
       rdf:type oml:Observation ;
@@ -191,6 +193,7 @@ my:SSOC-1-2
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:SSOC-1-2-depth ;
+      oml:role obo:PATO_0001595 ;
     ] ;
   oml:member [
       rdf:type oml:Observation ;
@@ -319,6 +322,7 @@ my:SSOC-2
   oml:context [
       rdf:type oml:ObservationContext ;
       oml:relatedObservation my:SSOC-2-maxpr ;
+      oml:role domain:Max-Pressure ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
   oml:member my:SSOC-2-1 ;
