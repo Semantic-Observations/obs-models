@@ -25,46 +25,6 @@
   owl:imports <http://www.w3.org/2003/01/geo/wgs84_pos> ;
   owl:imports <http://www.w3.org/2006/time> ;
 .
-my:OC-20110315-1-depth
-  rdf:type oml:Observation ;
-  oml:observedProperty obo:PATO_0001595 ;
-  oml:result [
-      rdf:type oml:SimpleMeasure ;
-      oml:amount "4.0"^^xsd:double ;
-      oml:uom q-unit:m ;
-    ] ;
-  rdfs:comment "Depth for first set of observations"^^xsd:string ;
-.
-my:OC-20110315-2-depth
-  rdf:type oml:Observation ;
-  oml:observedProperty obo:PATO_0001595 ;
-  oml:result [
-      rdf:type oml:SimpleMeasure ;
-      oml:amount "5.0"^^xsd:double ;
-      oml:uom q-unit:m ;
-    ] ;
-  rdfs:comment "Depth for second set of observations"^^xsd:string ;
-.
-my:OC-20110315-maxpr
-  rdf:type oml:Observation ;
-  oml:observedProperty oboe-characteristic:Pressure ;
-  oml:result [
-      rdf:type oml:SimpleMeasure ;
-      oml:amount "305"^^xsd:double ;
-      oml:uom q-unit:Bar ;
-    ] ;
-  rdfs:comment "Max pressure in first collection of collections"^^xsd:string ;
-.
-my:OC-20110316-maxpr
-  rdf:type oml:Observation ;
-  oml:observedProperty oboe-characteristic:Pressure ;
-  oml:result [
-      rdf:type oml:SimpleMeasure ;
-      oml:amount "1011"^^xsd:double ;
-      oml:uom q-unit:Bar ;
-    ] ;
-  rdfs:comment "Max pressure in second collection of collections"^^xsd:string ;
-.
 my:SSOC
   rdf:type oml:ObservationCollection ;
   oml:member my:SSOC-1 ;
@@ -97,7 +57,7 @@ my:SSOC-1
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
-      oml:relatedObservation my:OC-20110315-maxpr ;
+      oml:relatedObservation my:SSOC-1-maxpr ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
   oml:member my:SSOC-1-1 ;
@@ -112,7 +72,7 @@ my:SSOC-1-1
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
-      oml:relatedObservation my:OC-20110315-1-depth ;
+      oml:relatedObservation my:SSOC-1-1-depth ;
     ] ;
   oml:member [
       rdf:type oml:Observation ;
@@ -216,11 +176,21 @@ my:SSOC-1-1
     ] ;
   rdfs:comment "Set of measurements at first depth"^^xsd:string ;
 .
+my:SSOC-1-1-depth
+  rdf:type oml:Observation ;
+  oml:observedProperty obo:PATO_0001595 ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "4.0"^^xsd:double ;
+      oml:uom q-unit:m ;
+    ] ;
+  rdfs:comment "Depth for first set of observations"^^xsd:string ;
+.
 my:SSOC-1-2
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
-      oml:relatedObservation my:OC-20110315-2-depth ;
+      oml:relatedObservation my:SSOC-1-2-depth ;
     ] ;
   oml:member [
       rdf:type oml:Observation ;
@@ -324,11 +294,31 @@ my:SSOC-1-2
     ] ;
   rdfs:comment "Set of measurements at second depth"^^xsd:string ;
 .
+my:SSOC-1-2-depth
+  rdf:type oml:Observation ;
+  oml:observedProperty obo:PATO_0001595 ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "5.0"^^xsd:double ;
+      oml:uom q-unit:m ;
+    ] ;
+  rdfs:comment "Depth for second set of observations"^^xsd:string ;
+.
+my:SSOC-1-maxpr
+  rdf:type oml:Observation ;
+  oml:observedProperty oboe-characteristic:Pressure ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "305"^^xsd:double ;
+      oml:uom q-unit:Bar ;
+    ] ;
+  rdfs:comment "Max pressure in first collection of collections"^^xsd:string ;
+.
 my:SSOC-2
   rdf:type oml:ObservationCollection ;
   oml:context [
       rdf:type oml:ObservationContext ;
-      oml:relatedObservation my:OC-20110316-maxpr ;
+      oml:relatedObservation my:SSOC-2-maxpr ;
     ] ;
   oml:featureOfInterest my:WaterColumnEntity ;
   oml:member my:SSOC-2-1 ;
@@ -338,6 +328,16 @@ my:SSOC-2
   oml:resultTime "2011-03-16T22:07:00"^^xsd:dateTime ;
   oml:samplingStrategy my:cast2 ;
   rdfs:comment "Set of collections of observations on cast 2"^^xsd:string ;
+.
+my:SSOC-2-maxpr
+  rdf:type oml:Observation ;
+  oml:observedProperty oboe-characteristic:Pressure ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "1011"^^xsd:double ;
+      oml:uom q-unit:Bar ;
+    ] ;
+  rdfs:comment "Max pressure in second collection of collections"^^xsd:string ;
 .
 my:cast1
   rdf:type samfl:SamplingPoint ;
