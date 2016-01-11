@@ -1,0 +1,342 @@
+# baseURI: file:/C:/Users/cox075/dev/obs-models/examples/sargasso-sea-lipids-oml
+
+@prefix domain: <http://example.org/domain/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix my: <http://example.org/my/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix oboe-characteristic: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-characteristics.owl#> .
+@prefix oboe-standard: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-standards.owl#> .
+@prefix oboe-temporal: <http://ecoinformatics.org/oboe/oboe.1.0/oboe-temporal.owl#> .
+@prefix oml: <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix q-unit: <http://qudt.org/1.1/vocab/unit#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix samfl: <http://def.seegrid.csiro.au/ontology/om/sam-lite#> .
+@prefix sargasso-sea-lipids-oml: <file:/C:/Users/cox075/dev/obs-models/examples/sargasso-sea-lipids-oml#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///C:/Users/cox075/dev/obs-models/examples/sargasso-sea-lipids-oml>
+  rdf:type owl:Ontology ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/om-lite> ;
+  owl:imports <http://def.seegrid.csiro.au/ontology/om/sam-lite> ;
+  owl:imports <http://www.w3.org/2003/01/geo/wgs84_pos> ;
+  owl:imports <http://www.w3.org/2006/time> ;
+.
+my:OC-20110315-1-depth
+  rdf:type oml:Observation ;
+  oml:observedProperty obo:PATO_0001595 ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "4.0"^^xsd:double ;
+      oml:uom q-unit:m ;
+    ] ;
+  rdfs:comment "Depth for first set of observations"^^xsd:string ;
+.
+my:OC-20110315-2-depth
+  rdf:type oml:Observation ;
+  oml:observedProperty obo:PATO_0001595 ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "5.0"^^xsd:double ;
+      oml:uom q-unit:m ;
+    ] ;
+  rdfs:comment "Depth for second set of observations"^^xsd:string ;
+.
+my:OC-20110315-maxpr
+  rdf:type oml:Observation ;
+  oml:observedProperty oboe-characteristic:Pressure ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "305"^^xsd:double ;
+      oml:uom q-unit:Bar ;
+    ] ;
+  rdfs:comment "Max pressure in first collection of collections"^^xsd:string ;
+.
+my:OC-20110316-maxpr
+  rdf:type oml:Observation ;
+  oml:observedProperty oboe-characteristic:Pressure ;
+  oml:result [
+      rdf:type oml:SimpleMeasure ;
+      oml:amount "1011"^^xsd:double ;
+      oml:uom q-unit:Bar ;
+    ] ;
+  rdfs:comment "Max pressure in second collection of collections"^^xsd:string ;
+.
+my:SSOC
+  rdf:type oml:ObservationCollection ;
+.
+my:SSOC-20110315
+  rdf:type oml:ObservationCollection ;
+  oml:context [
+      rdf:type oml:ObservationContext ;
+      oml:relatedObservation my:OC-20110315-maxpr ;
+    ] ;
+  oml:featureOfInterest my:WaterColumnEntity ;
+  oml:member my:SSOC-20110315-1 ;
+  oml:member my:SSOC-20110315-2 ;
+  oml:phenomenonTime my:t20110315 ;
+  oml:resultTime "2011-03-15T16:39:00"^^xsd:dateTime ;
+  oml:samplingStrategy my:cast1 ;
+  rdfs:comment "Set of collections of observations on 2011-03-15"^^xsd:string ;
+.
+my:SSOC-20110315-1
+  rdf:type oml:ObservationCollection ;
+  oml:context [
+      rdf:type oml:ObservationContext ;
+      oml:relatedObservation my:OC-20110315-1-depth ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Pressure ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "4.0"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/Bar> ;
+        ] ;
+      rdfs:label "press" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Salinity ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "36.641"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/PerMil> ;
+        ] ;
+      rdfs:label "sal" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Temperature ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "18.74"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/DegreeCelsius> ;
+        ] ;
+      rdfs:label "temp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:VolumetricDensity ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "26.343"^^xsd:double ;
+          oml:uom <http://www.opengis.net/def/nil/0/unknown> ;
+        ] ;
+      rdfs:label "sigma_0" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:BeamAttenuationCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "0.5947"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/Reciprocal_Meter_Squared> ;
+        ] ;
+      rdfs:label "beam_cp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:PARCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "400.41"^^xsd:double ;
+          oml:uom domain:PARStandard ;
+        ] ;
+      rdfs:label "PAR" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:PotentialTemperatureCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "18.739"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/DegreeCelsius> ;
+        ] ;
+      rdfs:label "potemp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:TransCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "86.1837"^^xsd:double ;
+          oml:uom <http://www.opengis.net/def/nil/0/unknown> ;
+        ] ;
+      rdfs:label "trans" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty obo:PATO_0000018 ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "0.1521"^^xsd:double ;
+          oml:uom domain:FluorescenceStandard ;
+        ] ;
+      rdfs:label "fluor" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty <http://registry.it.csiro.au/def/environment/property/oxygen-dissolved> ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "5.390"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/PerMil> ;
+        ] ;
+      rdfs:label "O2_ml_L" ;
+    ] ;
+  rdfs:comment "Set of measurements at first depth"^^xsd:string ;
+.
+my:SSOC-20110315-2
+  rdf:type oml:ObservationCollection ;
+  oml:context [
+      rdf:type oml:ObservationContext ;
+      oml:relatedObservation my:OC-20110315-2-depth ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Pressure ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "5.0"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/Bar> ;
+        ] ;
+      rdfs:label "press" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Salinity ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "36.641"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/PerMil> ;
+        ] ;
+      rdfs:label "sal" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:Temperature ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "18.744"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/DegreeCelsius> ;
+        ] ;
+      rdfs:label "temp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty oboe-characteristic:VolumetricDensity ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "26.342"^^xsd:double ;
+          oml:uom <http://www.opengis.net/def/nil/0/unknown> ;
+        ] ;
+      rdfs:label "sigma_0" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:BeamAttenuationCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "0.5991"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/Reciprocal_Meter_Squared> ;
+        ] ;
+      rdfs:label "beam_cp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:PARCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "370.83"^^xsd:double ;
+          oml:uom domain:PARStandard ;
+        ] ;
+      rdfs:label "PAR" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:PotentialTemperatureCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "18.743"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/qudt/1.1/qudt-unit/DegreeCelsius> ;
+        ] ;
+      rdfs:label "potemp" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty domain:TransCharacteristic ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "86.0895"^^xsd:double ;
+          oml:uom <http://www.opengis.net/def/nil/0/unknown> ;
+        ] ;
+      rdfs:label "trans" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty obo:PATO_0000018 ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "0.1491"^^xsd:double ;
+          oml:uom domain:FluorescenceStandard ;
+        ] ;
+      rdfs:label "fluor" ;
+    ] ;
+  oml:member [
+      rdf:type oml:Observation ;
+      oml:observedProperty <http://registry.it.csiro.au/def/environment/property/oxygen-dissolved> ;
+      oml:result [
+          rdf:type oml:SimpleMeasure ;
+          oml:amount "5.389"^^xsd:double ;
+          oml:uom <http://registry.it.csiro.au/def/environment/unit/PerMil> ;
+        ] ;
+      rdfs:label "O2_ml_L" ;
+    ] ;
+  rdfs:comment "Set of measurements at second depth"^^xsd:string ;
+.
+my:SSOC-20110316
+  rdf:type oml:ObservationCollection ;
+  oml:context [
+      rdf:type oml:ObservationContext ;
+      oml:relatedObservation my:OC-20110316-maxpr ;
+    ] ;
+  oml:featureOfInterest my:WaterColumnEntity ;
+  oml:member my:SSOC-20110316-1 ;
+  oml:member my:SSOC-20110316-2 ;
+  oml:phenomenonTime my:t20110316 ;
+  oml:resultTime "2011-03-16T22:07:00"^^xsd:dateTime ;
+  oml:samplingStrategy my:cast2 ;
+  rdfs:comment "Set of collections of observations on 2011-03-16"^^xsd:string ;
+.
+my:cast1
+  rdf:type samfl:SamplingPoint ;
+  samfl:shape [
+      rdf:type geo:Point ;
+      geo:lat 33.002 ;
+      geo:long -64.005 ;
+    ] ;
+  rdfs:comment "Sargasso sea - observations station"^^xsd:string ;
+  rdfs:label "Cast 1"^^xsd:string ;
+.
+my:cast2
+  rdf:type samfl:SamplingPoint ;
+  samfl:shape [
+      rdf:type geo:Point ;
+      geo:lat 33.007 ;
+      geo:long -64.081 ;
+    ] ;
+  rdfs:comment "Sargasso sea - observations station"^^xsd:string ;
+  rdfs:label "Cast 2"^^xsd:string ;
+.
+my:t20110315
+  rdf:type time:Instant ;
+  time:inXSDDateTime "2011-03-16T22:07:00"^^xsd:dateTime ;
+.
+my:t20110316
+  rdf:type time:Instant ;
+  time:inXSDDateTime "2011-03-15T16:39:00"^^xsd:dateTime ;
+.
