@@ -67,6 +67,8 @@ my:OC-20110316-maxpr
 .
 my:SSOC
   rdf:type oml:ObservationCollection ;
+  oml:member my:SSOC-20110315 ;
+  oml:member my:SSOC-20110316 ;
 .
 my:SSOC-20110315
   rdf:type oml:ObservationCollection ;
