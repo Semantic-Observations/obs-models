@@ -365,9 +365,9 @@ my:cast2
 .
 my:t20110315
   rdf:type time:Instant ;
-  time:inXSDDateTime "2011-03-16T22:07:00"^^xsd:dateTime ;
+  time:inXSDDateTime "2011-03-15T16:39:00"^^xsd:dateTime ;
 .
 my:t20110316
   rdf:type time:Instant ;
-  time:inXSDDateTime "2011-03-15T16:39:00"^^xsd:dateTime ;
+  time:inXSDDateTime "2011-03-16T22:07:00"^^xsd:dateTime ;
 .
