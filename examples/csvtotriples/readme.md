@@ -110,8 +110,9 @@ owl:unionOf(foo:A foo:B),owl:equivalentClass,foo:C,
 
 ### OBSERVATIONS
 
-This section contains a hierarchical description of OBOE Observations, Entities, Measurements, Characteristics, Standards, Conversions, and Contexts.
-Blank/indented cells are used to encode the hierarchy.
+In the Sargasso Sea example, this section contains a hierarchical description of OBOE Observations, Entities, Measurements, Characteristics, Standards, Conversions, and Contexts. 
+Blank/indented cells are used to encode the hierarchy. Each row contains a pair of names (i.e. IDs), where the first name is an ontology class name and the second is an instance name.
+This example assumes use of the OBOE ontology, and thus does not specify a namespace for classes or instance in OBOE. For use with other ontologies, specify a namespace for every class or instance in the table.
 
 ```
 observation , o1          ,                ,
@@ -125,7 +126,7 @@ observation , o1          ,                ,
 
 ```
 
-In the above code block, an Observation with key `o1` is of an Entity `e1`, has a Measurement `m1`, and a Context of Observation `o2`. The keys uniquely specify linkages between instances of concepts within the template.
+In the above code block, an Observation with key `o1` is of an Entity `foo:myentity`, has a Measurement `m1`, and a Context of Observation `o2`. The keys uniquely specify linkages between instances of concepts within the template.
 In the above example, a lower case letter matching the first letter of the corresponding to a semantic concept (i.e. o for Observation)  is followed by a number but this is just used for clarity and the only requirement is that keys must be non-zero-length strings.
 Moving one level of indentation (column) over to the right, the above code block specifies that Measurement `m1` is of a Characteristic `foo:mycharacteristic`, was measured according to Standard `foo:mystandard`, and has a Conversion `foo:myconversion` and all values should have the RDF datatype of `xsd:decimal`.
 
